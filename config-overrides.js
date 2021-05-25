@@ -147,7 +147,7 @@ module.exports = {
             }
             // localIdentName: '[local]--[hash:base64:5]', // 自定义 CSS Modules 的 localIdentName
         }),
-        addPostcssPlugins([require("postcss-px2rem")({ remUnit: 37.5 })]), //rem适配
+        addPostcssPlugins([require("postcss-px2rem")({ remUnit: 14 })]), //rem适配
         // addPostcssPlugins([require("postcss-px-to-viewport")({ viewportWidth: 375 })]), //vw适配
         // setWebpackPublicPath('/jjg'), // 修改 publicPath 
         addWebpackExternals({
