@@ -24,17 +24,17 @@ typescript...
 
 ## 目录结构
 
-> > > > --| public ---- 存放一些公用文件<br />
+> > > > --| public ---- 存放一些无需打包的公共文件<br />
 > > > > --| src<br />
-> > > >
-> > > > > > --| components ---- 组件存放位置<br />
-> > > > > > --| config ---- 配置文件夹,包括路由配置,全局变量配置,请求 api 配置<br />
-> > > > > > --| models ---- rematch<br />
-> > > > > > --| layouts ---- 布局文件夹<br />
-> > > > > > --| mocker ---- Mock api<br />
-> > > > > > --| pages ---- 页面资源<br />
-> > > > > > --| request ---- fecth 请求<br />
-> > > > > > --| routers ---- 路由自定义渲染,无需过多的更改<br />
+> > > > > --| components ---- 全局通用组件存放位置<br />
+> > > > > --| config ---- 通用配置文件存放位置<br />
+> > > > > --| models ---- rematch<br />
+> > > > > --| layouts ---- 布局文件夹<br />
+> > > > > --| hooks ---- 公共hooks存放位置<br />
+> > > > > --| mocker ---- Mock api<br />
+> > > > > --| pages ---- 具体每一个页面<br />
+> > > > > --| request ---- fecth 请求<br />
+> > > > > --| routers ---- 路由自定义渲染,无需过多的更改<br />
 
 ### `yarn`
 

@@ -1,7 +1,10 @@
 {
-  "name": "jjg_project",
+  "name": "react-hmp-templete",
   "version": "1.0.0",
   "private": true,
+  "author": "",
+  "description": "",
+  "keywords": [],
   "scripts": {
     "start": "react-app-rewired start",
     "mocker": "react-app-rewired start mocker=true",
