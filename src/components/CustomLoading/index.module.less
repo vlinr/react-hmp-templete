@@ -1,0 +1,72 @@
+.loading{
+    text-align: center;
+    .l_icon{
+        width: 300px;
+        height: 30px;
+        margin: 0 auto;
+        span{
+            display: inline-block;
+            width: 30px;
+            height: 100%;
+            margin-right: 20px;
+            background: #fff;
+            -webkit-transform-origin: right bottom;
+            transform-origin:  right bottom;
+            -webkit-animation: loading 1s ease infinite;
+            animation: loading 1s ease infinite;
+            transition: all .3s ease;
+            opacity: 0;
+            &:last-of-type{
+                margin-right: 0px; 
+            }
+            @-webkit-keyframes loading{
+                0%{
+                    opacity: 1;
+                    -webkit-transform: scale(1);
+                }
+                100%{
+                    opacity: 0;
+                    -webkit-transform: rotate(90deg) scale(.3);
+                }
+            }
+            @keyframes loading{
+                0%{
+                    opacity: 1;
+                    -webkit-transform: scale(1);
+                    transform:scale(1)
+                }
+                100%{
+                    opacity: 0;
+                    transform: rotate(90deg) scale(.3);
+                    -webkit-transform: rotate(90deg) scale(.3);
+                }
+            }
+            &:nth-child(1){
+                animation-delay:0.13s;
+                -webkit-animation-delay:0.13s;
+            }
+            &:nth-child(2){
+                animation-delay:0.26s;
+                -webkit-animation-delay:0.26s;
+            }
+            &:nth-child(3){
+                animation-delay:0.39s;
+                -webkit-animation-delay:0.39s;
+            }
+            &:nth-child(4){
+                animation-delay:0.52s;
+                -webkit-animation-delay:0.52s;
+            }
+            &:nth-child(5){
+                animation-delay:0.65s;
+                -webkit-animation-delay:0.65s;
+            }
+        }
+        
+    }
+    .l_txt{
+        margin-top: 40px;
+        font-size: 40px;
+        color: #fff;
+    }
+}

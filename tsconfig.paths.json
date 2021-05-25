@@ -1,0 +1,11 @@
+{
+    "compilerOptions": {
+        "noImplicitThis":false,
+        "baseUrl": "src",
+        "paths": {
+            "@/*": [
+                "*"
+            ]
+        }
+    }
+}
