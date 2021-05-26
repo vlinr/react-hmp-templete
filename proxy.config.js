@@ -18,7 +18,7 @@
 
 const PROXY_CONFIG = {
     '/api': {
-        target: 'http://miniapi.xijing985.com/raffle/h5/', // prod
+        target: 'http://test.xxx.com/xxx/', // prod
         changeOrigin: true,
         secure: false,
         xfwd: false,

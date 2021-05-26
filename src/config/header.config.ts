@@ -5,10 +5,10 @@
  * ****/
 const HEADER = {
     'Authorization':null, 
-    'APP-NAME':'qingyun_pc',
-    'APP-ID':'jjgbd2g3cz5k6pcfkx',  //jjgbd2g3cz5k6pcfkx 线上 jjgbd2g3cz5k6pcfky 测试
-    'APP-VERSION':'1.0.0',
-    'APP-VERSION-NUM':'100',
+    'APP-NAME':'',
+    'APP-ID':'',  //jjgbd2g3cz5k6pcfkx 线上 jjgbd2g3cz5k6pcfky 测试
+    'APP-VERSION':'',
+    'APP-VERSION-NUM':'',
     'APP-LEVEL':1,                                
     'SOURCE-APP-NAME':'',                       //源APP-NAME,主要是配合Authorization代理验证
     'APP-DEVICE-UUID':'',                         //应用设备唯一ID,应用安装在当前设备下的唯一标识，若个别设备无法获取设备唯一ID，可以自己用户和设备进行唯一生成储存【string小写】,示例：8e2e78d2-9139-4f10-a7e5-d6626af8fa6d

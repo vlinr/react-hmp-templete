@@ -201,24 +201,30 @@ class TxIM{
       self?.tim.setLogLevel(0);
         // this.tim.registerPlugin({ 'cos-wx-sdk': COS });
         // 监听事件，例如：
-      self?.tim.on(self?.TXTIM.EVENT.SDK_READY, self?.imSdkReady);
-      self?.tim.on(self?.TXTIM.EVENT.MESSAGE_RECEIVED, self?.receivedMessage);
-      self?.tim.on(self?.TXTIM.EVENT.MESSAGE_REVOKED, self?.messageRevoked);
-      self?.tim.on(self?.TXTIM.EVENT.CONVERSATION_LIST_UPDATED, self?.conversationListUpdate);
-      self?.tim.on(self?.TXTIM.EVENT.GROUP_LIST_UPDATED, self?.groupListUpdate);
-      self?.tim.on(self?.TXTIM.EVENT.GROUP_SYSTEM_NOTICE_RECEIVED, self?.groupSystemNoticeReceived);
-      self?.tim.on(self?.TXTIM.EVENT.PROFILE_UPDATED, self?.profileUpdate);
-      self?.tim.on(self?.TXTIM.EVENT.BLACKLIST_UPDATED, self?.backlistUpdate);
-      self?.tim.on(self?.TXTIM.EVENT.ERROR, self?.sdkError);
-      self?.tim.on(self?.TXTIM.EVENT.SDK_NOT_READY, self?.sdkNotReady);
-      self?.tim.on(self?.TXTIM.EVENT.KICKED_OUT, self?.kickedOut);
+      self?.onOrOffEvent(true);
     }
 
-    /***
-     * @method 退出im
+    /*****
      * 
-     * ***/
-    public logoutIm(){
+     * @method 开启或关闭事件监听
+     * @param on:是否开启
+     * 
+     * *****/
+    private onOrOffEvent(on:boolean){
+      if(on){
+        self?.tim.on(self?.TXTIM.EVENT.SDK_READY, self?.imSdkReady);
+        self?.tim.on(self?.TXTIM.EVENT.MESSAGE_RECEIVED, self?.receivedMessage);
+        self?.tim.on(self?.TXTIM.EVENT.MESSAGE_REVOKED, self?.messageRevoked);
+        self?.tim.on(self?.TXTIM.EVENT.CONVERSATION_LIST_UPDATED, self?.conversationListUpdate);
+        self?.tim.on(self?.TXTIM.EVENT.GROUP_LIST_UPDATED, self?.groupListUpdate);
+        self?.tim.on(self?.TXTIM.EVENT.GROUP_SYSTEM_NOTICE_RECEIVED, self?.groupSystemNoticeReceived);
+        self?.tim.on(self?.TXTIM.EVENT.PROFILE_UPDATED, self?.profileUpdate);
+        self?.tim.on(self?.TXTIM.EVENT.BLACKLIST_UPDATED, self?.backlistUpdate);
+        self?.tim.on(self?.TXTIM.EVENT.ERROR, self?.sdkError);
+        self?.tim.on(self?.TXTIM.EVENT.SDK_NOT_READY, self?.sdkNotReady);
+        self?.tim.on(self?.TXTIM.EVENT.KICKED_OUT, self?.kickedOut);
+        return;
+      }
       self?.tim.off(self?.TXTIM.EVENT.SDK_READY, self?.imSdkReady);
       self?.tim.off(self?.TXTIM.EVENT.MESSAGE_RECEIVED, self?.receivedMessage);
       self?.tim.off(self?.TXTIM.EVENT.MESSAGE_REVOKED, self?.messageRevoked);
@@ -230,6 +236,14 @@ class TxIM{
       self?.tim.off(self?.TXTIM.EVENT.ERROR, self?.sdkError);
       self?.tim.off(self?.TXTIM.EVENT.SDK_NOT_READY, self?.sdkNotReady);
       self?.tim.off(self?.TXTIM.EVENT.KICKED_OUT, self?.kickedOut);
+    }
+
+    /***
+     * @method 退出im
+     * 
+     * ***/
+    public logoutIm(){
+      self?.onOrOffEvent(false);
       self?.logoutGroup(()=>{
         const promise:Promise<any> = this.tim.logout();
         promise?.then(function(imResponse:any) {
