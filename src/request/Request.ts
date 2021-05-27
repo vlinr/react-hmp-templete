@@ -11,8 +11,9 @@ export interface RequestParams {
     headers?: any,  //设置请求头，一个对象
     data?: any, //请求数据，一个对象
     dataType?: string //数据类型
-    useCustomHeader?:boolean
-    requestType?:string
+    useCustomHeader?:boolean //使用自定义header
+    requestType?:string, //请求类型,文件
+    timeout?:number  //超时时间
 }
 
 export interface Headers {
@@ -33,6 +34,7 @@ const DEFAULT_PARAMS: RequestParams = {
         ...HEADER
     },
     cors: true,
+    timeout:5000,
     useCustomHeader:true
 }
 
@@ -55,11 +57,13 @@ const DEFAULT_PARAMS: RequestParams = {
 // JJG-USER-ID                              #节节高用户ID【string】,未登录用户为0，示例：1922924
 // TIMESTAMP                                #【string毫秒】,请求时间戳，示例：1597819754574
 
+
 class Request {
     //请求参数
     private requestParams: RequestParams = DEFAULT_PARAMS;
     private userInfo:any = null;
-    constructor(params: RequestParams) {
+    private controller:AbortController = new AbortController();
+    constructor(params: RequestParams,callback?:Function) {
         this.requestParams = {...this.requestParams,...params};
         this.requestParams.headers['TIMESTAMP'] = new Date().getTime();// 时间戳
         this.requestParams.headers['JJG-TRACEID'] = createUUID();  //生成一个UUID
@@ -69,8 +73,14 @@ class Request {
         }
         this.requestParams.headers['Authorization'] = 'Bearer '+this.userInfo?.token || null;  //token信息
         this.requestParams.headers['JJG-USER-ID'] = this.userInfo?.userId || 0;  //token信息
+        if(callback){
+            this.fetch().then(res=>{
+                callback(res);
+            }).catch(err=>{
+                callback(err);
+            })
+        }
     }
-
 
     /****
      * 
@@ -78,138 +88,127 @@ class Request {
      * 
      * ***/
     public fetch(): Promise<any> {
-        const {onLine} = checkHaveNetwork(); //检查网络是否正常
-        if(!onLine){  //无网
-            return new Promise((resolve)=>{
-                resolve({
-                    code:'-99999999',
-                    data:[],
-                    tipmsg:'网络不可用~'
-                })
-            });
+        if(!checkHaveNetwork())return this.checkHaveNetwork();
+        if(this.requestParams.method?.toLocaleLowerCase() === 'get'){
+            return this.fetchData(this.requestParams.requestType !== ''?`${this.requestParams.api}?${qs.stringify(this.requestParams.data)}`:`${this.requestParams.url}${this.requestParams.api}?${qs.stringify(this.requestParams.data)}`,this.getFetchParmas());
         }
-        //需要去校验token是否已经过期或者可以刷新
-        return new Promise((resolve, reject) => {
+        return this.fetchData(this.requestParams.requestType !== ''?`${this.requestParams.api}`:`${this.requestParams.url}${this.requestParams.api}`,this.getFetchParmas(true));
+    }
+
+    /****
+     * @method 检查是否有网络
+     * 
+     * ******/
+    private checkHaveNetwork():Promise<any>{
+        return new Promise((resolve)=>{
+            resolve({
+                code:'-99999999',
+                data:[],
+                tipmsg:'网络不可用~'
+            })
+        });
+    }
+
+    /*****
+     * 
+     * @method 获取请求参数
+     * @param haveBody:{boolean} 是否又body体，对于get是url传参
+     * 
+     * ****/
+    private getFetchParmas(haveBody:boolean = false):RequestParams{
+        let obj:any = {};
+        obj.headers = this.requestParams.useCustomHeader?new Headers(this.requestParams.headers):undefined;
+        obj.method = this.requestParams.method;
+        obj.mode = this.requestParams.cors ? 'cors' : 'no-cors';
+        if(haveBody){
+            obj.body = this.requestParams.dataType === 'json' ? JSON.stringify(this.requestParams.data) : this.requestParams.data;
+        }
+        return obj;
+    }
+
+    /*****
+     * @method 获取数据
+     * @param api:{string}：请求api
+     * @param params:{RequestParams} 请求的参数信息
+     * ***/
+    private fetchData(api:string,params:RequestParams): Promise<any>{
+        return new Promise((resolve:Function, reject:Function) => {
             try {
-                this.requestParams.method?.toLocaleLowerCase() === 'get' ?
-                    fetch(this.requestParams.requestType !== ''?`${this.requestParams.api}?${qs.stringify(this.requestParams.data)}`:`${this.requestParams.url}${this.requestParams.api}?${qs.stringify(this.requestParams.data)}`, {
-                        headers: this.requestParams.useCustomHeader?new Headers(this.requestParams.headers):undefined,
-                        method: this.requestParams.method,
-                        mode: this.requestParams.cors ? 'cors' : 'no-cors'
-                    }).then(res => {
-                        // if(res?.status?.toString() === UPLOAD_SUCCESS_CODE && this.requestParams.requestType !== ''){
-                        //     return {
-                        //         code:UPLOAD_SUCCESS_CODE,
-                        //         data:[],
-                        //         tipmsg:''
-                        //     }
-                        // }
-                        if(res.ok){
-                            return res?.json?.();
-                        }
+                let timeout = this.requestTimeout(resolve);
+                fetch(api, {...params,signal:this.controller.signal}).then(res => {
+                    clearTimeout(timeout);
+                    if(this.requestParams.requestType !== ''){
                         return {
-                            statusCode:res.status,
-                            message:res.statusText
-                        };
-                    })
-                    .then(async response => {
-                        // if(response?.code === REFRESH_TOKEN_CODE){
-                        //     this.refreshToken().then((refresh:any)=>{
-                        //     if(refresh){ //刷新成功
-                        //         this.fetch(); //从新调用
-                        //     }else{ //刷新失败
-                        //         this.tokenOverdue();
-                        //     }
-                        //     }); //刷新token
-                        // }else if(response?.code === TOKEN_MORE_THEN_TIME){ //过期
-                        //     this.tokenOverdue();
-                        // }else{
-                        //     resolve(response);
-                        // }
-                        resolve(response);
-                    }).catch(error => {
-                        reject(error)
-                    })
-                    :
-                    fetch(this.requestParams.requestType !== ''?`${this.requestParams.api}`:`${this.requestParams.url}${this.requestParams.api}`, {
-                        headers: this.requestParams.useCustomHeader?new Headers(this.requestParams.headers):undefined,
-                        method: this.requestParams.method,
-                        body: this.requestParams.dataType === 'json' ? JSON.stringify(this.requestParams.data) : this.requestParams.data, // data can be `string` or {object}!
-                        mode: this.requestParams.cors ? 'cors' : 'no-cors'
-                    }).then(res => {
-                        // if(res?.status?.toString() === UPLOAD_SUCCESS_CODE && this.requestParams.requestType !== ''){
-                        //     return {
-                        //         code:UPLOAD_SUCCESS_CODE,
-                        //         data:[],
-                        //         tipmsg:''
-                        //     }
-                        // }
-                        if(res.ok){
-                            return res?.json?.();
-                        }
-                        return {
-                            code:res.status,
+                            code:res?.status?.toString(),
                             data:[],
-                            tipmsg:res.statusText
-                        };
-                    })
-                    .then(async response => {
-                        resolve(response);
-                        // if(response?.code === REFRESH_TOKEN_CODE){
-                        //     this.refreshToken().then((refresh:any)=>{
-                        //     if(refresh){ //刷新成功
-                        //         this.fetch(); //从新调用
-                        //     }else{ //刷新失败
-                        //         this.tokenOverdue();
-                        //     }
-                        //     }); //刷新token
-                        // }else if(response?.code === TOKEN_MORE_THEN_TIME){ //过期
-                        //     this.tokenOverdue();
-                        // }else{
-                        //     resolve(response);
-                        // }
-                    }).catch(error =>{
-                        reject(error)
-                    });
+                            tipmsg:''
+                        }
+                    }
+                    if(res.ok){
+                        return res?.json?.();
+                    }
+                    return {
+                        statusCode:res.status,
+                        message:res.statusText
+                    };
+                })
+                .then(async response => {
+                    resolve(response);
+                }).catch(error => {
+                    clearTimeout(timeout);
+                    reject(error)
+                })
             } catch (error) {
                 reject(error);
             }
         })
+        
     }
+    
+    /******
+     * 
+     * @method 取消请求
+     * 
+     * ******/
+    public cancelRquest(){
+        if(this.controller.signal.aborted)throw new DOMException('Aborted', 'AbortError')
+        this.controller.abort();
+    }
+
+    /**
+     * @method 请求超时
+     * @param callback:{Function} 请求超时回调
+     * ***/
+    private requestTimeout(callback:Function){
+        let timeout:any = setTimeout(() => {  //超时
+            callback({
+                code:'504',
+                data:'',
+                tipmsg:'fetch timeout'
+            });
+            this.cancelRquest();
+        }, this.requestParams.timeout);
+        return timeout;
+    }
+
     /******
      * 
      * @method 登录失效，需要从新登录
      * 
      * ****/
     public tokenOverdue(){
-        //登录失效二次开发
+        
     }
+
     /****
      * 
      * @method 刷新token
      * 
      * *****/
     public refreshToken(){
-        // return new Promise((resolve,reject)=>{
-        //     new Request({
-        //         api: REFRENSH_TOKEN,
-        //         method: 'POST',
-        //         data: {
-        //             json:this.userInfo?.token
-        //         }
-        //     }).fetch().then((res:any)=>{
-        //         if(res?.code === REQUEST_SUCCESS){
-        //             this.userInfo.token = res?.data?.token;
-        //             localStorage.setItem('USER_INFO',JSON.stringify(this.userInfo));
-        //             resolve(true);
-        //         }else{
-        //             resolve(false);
-        //         }
-        //     }).catch((res:any)=>{
-        //         resolve(false);
-        //     });
-        // })
+        
     }
+
     /****
      * 
      * @method 参数序列化

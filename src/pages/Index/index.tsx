@@ -8,6 +8,7 @@ import { StateType } from "@/models";
 import { RootState } from "@/models/store";
 import useCustomTimer from "@/hooks/useCustomTimer";
 import formatTimeToHHMMSS from "@/utils/formatTimeToHHMMSS";
+// import toast from "@/utils/toast";
 const { memo, useEffect, useState } = React;
 
 let token: string | null = getUrlParams("token"); //获取url中的token
@@ -26,10 +27,7 @@ const indexReducer = createSelector(
 function Index(): React.ReactElement<any> {
   const dispatch = useDispatch();
   const data = useSelector(indexReducer); //数据仓库
-  const [pauseTimer, resumeTimer, startTimer, cancelTimer] = useCustomTimer(
-    false,
-    99999
-  );
+  const { startTimer, cancelTimer } = useCustomTimer(false, 99999);
   // const history = useHistory();
   // console.log(history);
   const [time, setTime] = useState(0);
@@ -40,6 +38,10 @@ function Index(): React.ReactElement<any> {
       token,
       callback(res: any) {},
     });
+    // toast("通用提示", {
+    //   position: "top",
+    //   keepTime: 3000,
+    // });
     startTimer?.(time, (num: number) => {
       setTime(num);
       // if (num % 5 === 0) {

@@ -86,7 +86,9 @@ function useCustomTimer(down:boolean = true,endNum:number = 0){
         }
     }, [])
 
-    return [pauseTimer,resumeTimer,startTimer,cancelTimer] as const;
+    return {
+        pauseTimer,resumeTimer,startTimer,cancelTimer
+    };
 
 }
 

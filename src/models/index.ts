@@ -31,19 +31,20 @@ export const index = createModel<any>()({
         //获取奖品列表
         async getInfo(payload: IAction) {
             this.setInfo('这里的精彩，由你来实现===>你已停留：');
-            const response = await new Request({
+            new Request({
                 api: SERVER_TYPE_API + API,
                 method: 'GET',
                 data: {
                     token:payload.token
                 }
-            }).fetch();
-            if (response.code === REQUEST_SUCCESS) {
-                this.setInfo(response.data);
-            }else{
-                message.error(response.message)
-            }
-            payload?.callback?.(response);
+            },(response:any)=>{
+                if (response.code === REQUEST_SUCCESS) {
+                    this.setInfo(response.data);
+                }else{
+                    message.error(response.tipmsg)
+                }
+                payload?.callback?.(response);
+            });
         }
     })
 });

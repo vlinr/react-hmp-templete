@@ -10,7 +10,6 @@ import "moment/locale/zh-cn";
 import setHtmlFontSize from "@/utils/setHtmlFontSize";
 import { VIEW_TO_REM_INFO } from "./config/config";
 setHtmlFontSize(VIEW_TO_REM_INFO); //初始化得时候设置一下字体大小
-
 ReactDOM.render(
   <ConfigProvider locale={zhCN}>
     <Provider store={store}>
