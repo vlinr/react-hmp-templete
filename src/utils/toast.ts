@@ -26,7 +26,7 @@ interface OtherParams {
  * @param text:{string}提示内容
  * @param other:{OtherParams} 多余的参数
  * *****/
-let toast:(text:string,other:OtherParams)=>any = ()=>{};
+let toast:(text:string,other?:OtherParams)=>any = ()=>{};
 (()=>{
     let fontSize:number = getFontSize(); //根元素字体大小
     createStyle(fontSize);
@@ -43,7 +43,7 @@ let toast:(text:string,other:OtherParams)=>any = ()=>{};
         document.head.appendChild(style);
     }
 
-    function showToast(text:string,other:OtherParams) {
+    function showToast(text:string,other?:OtherParams) {
         const otherParams:OtherParams = {position:'bottom',keepTime:1500,...other};
         otherParams.fontSizeType && createStyle(getFontSize(otherParams.fontSizeType)); //从新创建样式
         let toast:any = document.querySelector('#toast');
