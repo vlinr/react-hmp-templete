@@ -16,6 +16,7 @@ export interface RouteType {
     exact?: boolean,
     isNotLogin?:boolean
 }
+
 export interface RouteItemType extends RouteType {
     children?: Array<RouteItemType>,
     newWindow?: boolean,
@@ -24,6 +25,7 @@ export interface RouteItemType extends RouteType {
     icon?: React.ReactNode | any
     [moreName: string]: any  //更多参数
 }
+
 //配置路由
 const ROUTER_CONFIG: Array<RouteItemType> = [
     {

@@ -166,6 +166,7 @@ module.exports = {
             ['config']: resolveAlias('src/pages'),
             ['pages']: resolveAlias('src/pages'),
             ['store']: resolveAlias('src/store'),
+            ['hooks']: resolveAlias('src/hooks'),
             ['router']: resolveAlias('src/router'),
             ['locale']: resolveAlias('src/locale'),
             ['layouts']: resolveAlias('src/layouts'),

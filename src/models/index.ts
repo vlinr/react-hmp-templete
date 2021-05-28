@@ -20,7 +20,7 @@ export interface SelectResultAction extends IAction{
 const initState:StateType = {
     info:null
 }
-export const index = createModel<any>()({
+const index = createModel<any>()({
     state: initState, //初始的state
     reducers: {
         setInfo(state:StateType, payload: string):StateType {
@@ -48,3 +48,5 @@ export const index = createModel<any>()({
         }
     })
 });
+
+export default index;
