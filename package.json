@@ -34,6 +34,7 @@
     ],
     "**/*.{js,jsx}":"npm run lint-staged:js"
   },
+  "homepage": ".",
   "eslintConfig": {
     "extends": "react-app"
   },

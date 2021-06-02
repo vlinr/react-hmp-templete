@@ -8,7 +8,7 @@ const {
     useBabelRc,
     disableChunk,
     adjustWorkbox,
-    // setWebpackPublicPath,
+    setWebpackPublicPath,
     addBundleVisualizer,
     // disableEsLint,
     addWebpackExternals,
@@ -149,7 +149,7 @@ module.exports = {
         }),
         addPostcssPlugins([require("postcss-px2rem")({ remUnit: 14 })]), //rem适配
         // addPostcssPlugins([require("postcss-px-to-viewport")({ viewportWidth: 375 })]), //vw适配
-        // setWebpackPublicPath('/jjg'), // 修改 publicPath 
+        setWebpackPublicPath(require('./package.json').homepage || ''), // 修改 publicPath 
         addWebpackExternals({
             React: 'React',
             lodash: 'Lodash'
@@ -163,7 +163,7 @@ module.exports = {
             ['images']: resolveAlias('src/assets/images'),
             ['styles']: resolveAlias('src/assets/styles'),
             ['utils']: resolveAlias('src/utils'),
-            ['config']: resolveAlias('src/pages'),
+            ['config']: resolveAlias('src/config'),
             ['pages']: resolveAlias('src/pages'),
             ['store']: resolveAlias('src/store'),
             ['hooks']: resolveAlias('src/hooks'),
