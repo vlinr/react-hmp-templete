@@ -1,7 +1,7 @@
 /******
  * 
  * @method 参数序列化
- * 
+ * @param params:{any}：参数对象
  * ****/
 function serializeParams(params:any):string {
     let result:string = '';

@@ -1,5 +1,5 @@
 import qs from 'qs';
-import HEADER from '@/config/header.config';
+import HEADERS from '@/config/header.config';
 import {DOMAIN} from '@/config/api.config';
 import checkHaveNetwork from '@/utils/checkHaveNetwork';
 export interface RequestParams {
@@ -29,7 +29,7 @@ const DEFAULT_PARAMS: RequestParams = {
     requestType:'',
     headers: {
         'content-type': 'application/json;charset=UTF-8',
-        ...HEADER()
+        ...HEADERS()
     },
     cors: true,
     timeout:5000,
@@ -44,7 +44,7 @@ class Request {
     constructor(params: RequestParams,callback?:Function) {
         this.requestParams.headers = {
             ...DEFAULT_PARAMS.headers,
-            ...HEADER()
+            ...HEADERS()
         }
         this.requestParams = {...this.requestParams,...params};
         if(callback){

@@ -1,7 +1,7 @@
 import { createModel } from '@rematch/core';
 import Request from '@/request/Request';
 import {
-    API,SERVER_TYPE_API
+    API
 } from '@/config/api.config';
 import {message} from 'antd';
 import { REQUEST_SUCCESS } from '@/config/config';
@@ -30,9 +30,9 @@ const index = createModel<any>()({
     effects: dispatch => ({
         //获取奖品列表
         async getInfo(payload: IAction) {
-            this.setInfo('这里的精彩，由你来实现===>你已停留：');
+            this.setInfo('这里的精彩，由你来实现<===>你已停留：');
             new Request({
-                api: SERVER_TYPE_API + API,
+                api: API,
                 method: 'GET',
                 data: {
                     token:payload.token

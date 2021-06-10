@@ -1,3 +1,10 @@
+/*****
+ * 
+ * @method 创建uuid
+ * 
+ * @returns string
+ * 
+ * *******/
 function createUUID():string {
 	let s:Array<string> = [];
 	let hexDigits:string = "0123456789abcdef";

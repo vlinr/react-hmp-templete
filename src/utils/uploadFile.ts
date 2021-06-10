@@ -8,6 +8,12 @@ interface UploadFileType{
     key:string,
     url:string
 }
+/****
+ * 
+ * @method 上传文件到阿里云
+ * @param params:{UploadFileType}:上传文件的参数配置
+ * 
+ * ********/
 async function uploadFile(params:UploadFileType): Promise<any> {
     let formData: FormData = new FormData();
     formData.append('OSSAccessKeyId', params?.OSSAccessKeyId);

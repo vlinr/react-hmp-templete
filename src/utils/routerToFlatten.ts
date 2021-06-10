@@ -34,8 +34,6 @@ const routerFlattenAndChangeInfo = (routeList: Array<RouteItemType>) => {
     return result;
 }
 
-
-
 //根据传入的path，找到正确的path数组
 const findPathListByPath = (routeList: Array<RouteItemType>, path: string) => {
     let result: Array<RouteItemType> = [];

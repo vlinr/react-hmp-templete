@@ -15,8 +15,6 @@ import { USER_AUTHORITY } from "@/config/config";
 import { routerFlattenAndChangeInfo } from "@/utils/routerToFlatten";
 const FLATTEN_ROUTER: Array<RouteItemType> =
   routerFlattenAndChangeInfo(ROUTER_CONFIG);
-
-//均要找到第一级
 let redirectRouter: Array<RouteItemType> = [],
   transitionArr: Array<RouteItemType> = [];
 for (let i: number = 0, len: number = FLATTEN_ROUTER.length; i < len; ++i) {

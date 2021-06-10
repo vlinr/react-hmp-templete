@@ -1,4 +1,8 @@
-//去掉最后一个/
+/****
+ * 
+ * @method 去掉最后一个/
+ * 
+ * ****/
 const formatPath = (path: string): string => {
     if (path === '/') return path;
     let reg:RegExp = new RegExp("/$");
