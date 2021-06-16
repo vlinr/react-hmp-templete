@@ -36,6 +36,16 @@ const DEFAULT_PARAMS: RequestParams = {
     useCustomHeader:true
 }
 
+/*****
+ * 
+ * *功能缺陷
+ * 1.请求拦截器，请求header等内容读取外部内容，比较繁琐
+ * 2.响应拦截器，返回结果无法根据用户想要的数据进行返回或者请求错误的时候，做统一的提示处理
+ * 3.响应缓存器，避免重复发送请求，导致多次和服务端进行交互，也避免用户不需要去服务器拉取新数据再次和服务端进行交互
+ * 4.请求适配器，现在采用fetch，部分设备是无法兼容的，需要编写adapter进行兼容处理
+ * 
+ * *****/
+
 
 class Request {
     //请求参数
@@ -78,7 +88,7 @@ class Request {
             resolve({
                 code:'-99999999',
                 data:[],
-                tipmsg:'网络不可用~'
+                tipmsg:'network error！'
             })
         });
     }

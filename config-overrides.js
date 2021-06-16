@@ -210,6 +210,7 @@ module.exports = {
             // new DashboardPlugin(dashboard.setData),
             // 进度条
             new ProgressBarPlugin(),
+            new CompressionWebpackPlugin(),
             delConflictingOrder(),
             addMiniCssExtractPlugin()
         ),

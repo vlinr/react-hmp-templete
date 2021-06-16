@@ -1,6 +1,6 @@
 import * as React from "react";
 import styles from "./index.module.less";
-import CustomLoading from "components/CustomLoading";
+import CustomLoading from "@/components/RotateLoading";
 import { useDispatch, useSelector } from "react-redux";
 import { createSelector } from "reselect";
 import getUrlParams from "utils/getUrlParems";
