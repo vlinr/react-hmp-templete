@@ -33,14 +33,13 @@ const LodashWebpackPlugin = require('lodash-webpack-plugin')
 const WebpackBuildNotifierPlugin = require('webpack-build-notifier')
 const theme = require('./theme.js');
 const PROXY = require('./proxy.config.js');
+const BuildReplaceRequestConfig = require('./plugins/BuildReplaceRequestConfig');
 // SKIP_PREFLIGHT_CHECK = true
-
 const rewiredMap = () => config => {
     config.devtool = config.mode === 'development' ? 'cheap-module-source-map' : false
     return config
 }
-process.env.PORT = 8888
-// console.log(process.env)
+process.env.PORT = 3000
 process.env.GENERATE_SOURCEMAP !== 'false'
 
 // path
@@ -57,8 +56,21 @@ const appBuildPathFile = () => config => {
         // 关闭sourceMap
         config.devtool = false
         //  // 配置打包后的文件位置修改path目录
-        paths.appBuild = path.join(path.dirname(paths.appBuild), 'dist')
-        config.output.path = path.join(path.dirname(config.output.path), 'dist')
+        paths.appBuild = path.join(path.dirname(paths.appBuild), 'dist');
+        config.output.path = path.join(path.dirname(config.output.path), 'dist');
+        // if (config.entry && config.entry instanceof Array) {
+        //     config.entry = {
+        //         main: config.entry,
+        //         vendor: ["react", "react-dom", "react-router-dom", "react-redux", "redux", 'react-router-config',
+        //             "lodash", "moment", "react-router",
+        //         ]
+        //     }
+        // } else if (config.entry && typeof config.entry === 'object') {
+        //     config.entry.vendor = ["react", "react-dom", "react-router-dom", "react-redux", "redux", 'react-router-config',
+        //         "lodash", "moment", "react-router",
+        //     ];
+        // }
+
         // 添加js打包gzip配置
         // config.plugins.push(
         //   new CompressionWebpackPlugin({
@@ -66,6 +78,11 @@ const appBuildPathFile = () => config => {
         //     threshold: 1024
         //   })
         // )
+
+        //添加打包需要执行的插件
+        config.plugins.push(
+            new BuildReplaceRequestConfig(require('./request.config'))
+        );
         // 更改生产模式输出的文件名
         // config.output.filename = 'static/js/[name].js?_v=[chunkhash:8]'
         // config.output.chunkFilename = 'static/js/[name].chunk.js?_v=[chunkhash:8]'
@@ -120,6 +137,20 @@ const addMiniCssExtractPlugin = () => {
     }
 }
 
+/***
+ * 
+ * 使用一些自定义配置
+ * 
+ * *****/
+// const addCustomWebpackConfig = () => {
+//     return config => {
+//         config.plugins = (config.plugins || []).concat([
+//             new BuildReplaceRequestConfig()
+//         ]);
+//         return config;
+//     }
+// }
+
 module.exports = {
     webpack: override(
         fixBabelImports('import', {
@@ -154,6 +185,7 @@ module.exports = {
             React: 'React',
             lodash: 'Lodash'
         }),
+        // addCustomWebpackConfig(),
         // addWebpackModules(),
         //相当于lib引入直接 @lib即可
         addWebpackAlias({

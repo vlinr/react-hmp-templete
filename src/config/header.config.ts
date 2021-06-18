@@ -4,7 +4,7 @@
  * 
  * ****/
 import createUUID from "@/utils/createUUID";
-import { USER_TOKEN_NAME } from "./config";
+import { USER_INFO_NAME, USER_TOKEN_NAME } from "./config";
 const HEADERS = ()=>{
     return {
         'Authorization':'Bearer '+(localStorage.getItem(USER_TOKEN_NAME) || null), 
@@ -23,7 +23,7 @@ const HEADERS = ()=>{
         'APP-UA':'',          
         'JJG-TRACEID':createUUID(),       
         'JJG-NETWORK':'wifi',             
-        'JJG-USER-ID':JSON?.parse?.(localStorage.getItem(USER_TOKEN_NAME) || '{}')?.id || '',              
+        'JJG-USER-ID':JSON?.parse?.(localStorage.getItem(USER_INFO_NAME) || '{}')?.id || '',              
         'TIMESTAMP':new Date().getTime()     
     }
 }

@@ -4,7 +4,7 @@ import {DOMAIN} from '@/config/api.config';
 import checkHaveNetwork from '@/utils/checkHaveNetwork';
 export interface RequestParams {
     url?: string  //请求的前缀，也就是域名，如果使用通用域名则可以不传
-    api: string,  //请求的api
+    api?: string,  //请求的api
     method?: string, //请求的方式
     cors?: boolean, //是否跨域共享资源
     headers?: any,  //设置请求头，一个对象
@@ -18,6 +18,13 @@ export interface RequestParams {
 export interface Headers {
     'user-agent'?: string,
     'content-type'?: string
+}
+
+type RequestConfigType = {
+    target:string,
+    headers:any,
+    cors?:boolean,
+    timeout?:number
 }
 
 const DEFAULT_PARAMS: RequestParams = {
@@ -36,16 +43,6 @@ const DEFAULT_PARAMS: RequestParams = {
     useCustomHeader:true
 }
 
-/*****
- * 
- * *功能缺陷
- * 1.请求拦截器，请求header等内容读取外部内容，比较繁琐
- * 2.响应拦截器，返回结果无法根据用户想要的数据进行返回或者请求错误的时候，做统一的提示处理
- * 3.响应缓存器，避免重复发送请求，导致多次和服务端进行交互，也避免用户不需要去服务器拉取新数据再次和服务端进行交互
- * 4.请求适配器，现在采用fetch，部分设备是无法兼容的，需要编写adapter进行兼容处理
- * 
- * *****/
-
 
 class Request {
     //请求参数
@@ -56,7 +53,8 @@ class Request {
             ...DEFAULT_PARAMS.headers,
             ...HEADERS()
         }
-        this.requestParams = {...this.requestParams,...params};
+    
+        this.requestParams = {...this.requestParams,...this.mergeRequestConfig(params)};
         if(callback){
             this.fetch().then(res=>{
                 callback(res);
@@ -64,6 +62,40 @@ class Request {
                 callback(err);
             })
         }
+    }
+
+    /*****
+     * 
+     * @method 合并请求头
+     * 
+     * 
+     * *****/
+    private mergeRequestConfig(params:RequestParams):RequestParams{
+        let RequestConfig:any = (window as any)?.RequestConfig;
+        if(RequestConfig){ 
+            let findKey:string = ''; 
+            for(let key in RequestConfig){
+                if(key === `/${params.api?.split('/')?.[1]}`){
+                    findKey = key;
+                    break;
+                }
+            }
+            if(findKey){
+                let findObj:RequestConfigType = RequestConfig[findKey]; 
+                let rex:RegExp = new RegExp(`${findKey}`);
+                if(findObj?.target?.slice(-1) === '/'){
+                    findObj.target = findObj.target.substring(0,findObj.target.length-1);
+                }
+                params.api = params.api?.replace(rex,findObj?.target);
+                params.cors = findObj?.cors || params.cors || DEFAULT_PARAMS.cors;
+                params.headers = findObj?.headers || params.headers || DEFAULT_PARAMS.headers;
+                params.timeout = findObj?.timeout || params.timeout || DEFAULT_PARAMS.timeout;
+                if(params?.headers){
+                    params.useCustomHeader = true;
+                }
+            }
+        }
+        return params;
     }
 
     /****

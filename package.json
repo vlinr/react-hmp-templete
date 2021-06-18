@@ -9,30 +9,31 @@
     "start": "react-app-rewired start",
     "mocker": "react-app-rewired start mocker=true",
     "build": "react-app-rewired build",
+    "build:test": "react-app-rewired build env=test",
     "test": "react-app-rewired test --env=jsdom",
     "eject": "react-scripts eject",
-    "lint":"npm run lint:js && npm run lint:style && npm run lint:prettier",
-    "lint-staged":"lint-staged",
-    "lint-staged:js":"eslint --ext .js,.jsx,.ts,.tsx",
-    "lint:fix":"eslint --fix --cache --ext .js,.jsx,.ts,.tsx --format=pretty ./src && npm run lint:style",
-    "lint:js":"eslint --cache --ext .js,.jsx,.ts,.tsx --format=pretty ./src",
-    "lint:prettier":"check-prettier lint",
-    "lint:style":"stylelint --fix \"src/**/*.less\" --syntax less",
-    "prettier":"prettier -c --write \"**/*\"",
-    "analyze":"source-map-explorer 'dist/static/js/*.js'"
+    "lint": "npm run lint:js && npm run lint:style && npm run lint:prettier",
+    "lint-staged": "lint-staged",
+    "lint-staged:js": "eslint --ext .js,.jsx,.ts,.tsx",
+    "lint:fix": "eslint --fix --cache --ext .js,.jsx,.ts,.tsx --format=pretty ./src && npm run lint:style",
+    "lint:js": "eslint --cache --ext .js,.jsx,.ts,.tsx --format=pretty ./src",
+    "lint:prettier": "check-prettier lint",
+    "lint:style": "stylelint --fix \"src/**/*.less\" --syntax less",
+    "prettier": "prettier -c --write \"**/*\"",
+    "analyze": "source-map-explorer 'dist/static/js/*.js'"
   },
-  "husky":{
-    "hooks":{
-      "pre-commit":"npm run lint-staged"
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run lint-staged"
     }
   },
-  "lint-staged":{
-    "**/*.less":"stylelint --syntax less",
-    "**/*.{js,jsx,tsx,ts,less,md,json}":[
+  "lint-staged": {
+    "**/*.less": "stylelint --syntax less",
+    "**/*.{js,jsx,tsx,ts,less,md,json}": [
       "prettier --write",
       "git add"
     ],
-    "**/*.{js,jsx}":"npm run lint-staged:js"
+    "**/*.{js,jsx}": "npm run lint-staged:js"
   },
   "homepage": ".",
   "eslintConfig": {
