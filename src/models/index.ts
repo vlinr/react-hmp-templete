@@ -1,10 +1,7 @@
 import { createModel } from '@rematch/core';
-import Request from '@/request/Request';
-import {
-    API
-} from '@/config/api.config';
 import {message} from 'antd';
 import { REQUEST_SUCCESS } from '@/config/config';
+import { testServer } from '@/service';
 export interface StateType {
     info: string | null,
 }
@@ -31,20 +28,13 @@ const index = createModel<any>()({
         //获取奖品列表
         async getInfo(payload: IAction) {
             this.setInfo('这里的精彩，由你来实现<===>你已停留：');
-            new Request({
-                api: API,
-                method: 'GET',
-                data: {
-                    token:payload.token
-                }
-            },(response:any)=>{
-                if (response.code === REQUEST_SUCCESS) {
-                    this.setInfo(response.data);
-                }else{
-                    message.error(response.tipmsg)
-                }
-                payload?.callback?.(response);
-            });
+            let response = await testServer();
+            if (response.code === REQUEST_SUCCESS) {
+                this.setInfo(response.data);
+            }else{
+                message.error(response.tipmsg)
+            }
+            payload?.callback?.(response);
         }
     })
 });

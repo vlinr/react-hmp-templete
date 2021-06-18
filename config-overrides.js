@@ -39,7 +39,7 @@ const rewiredMap = () => config => {
     config.devtool = config.mode === 'development' ? 'cheap-module-source-map' : false
     return config
 }
-process.env.PORT = 3000
+process.env.PORT = 8888
 process.env.GENERATE_SOURCEMAP !== 'false'
 
 // path
@@ -58,6 +58,7 @@ const appBuildPathFile = () => config => {
         //  // 配置打包后的文件位置修改path目录
         paths.appBuild = path.join(path.dirname(paths.appBuild), 'dist');
         config.output.path = path.join(path.dirname(config.output.path), 'dist');
+
         // if (config.entry && config.entry instanceof Array) {
         //     config.entry = {
         //         main: config.entry,

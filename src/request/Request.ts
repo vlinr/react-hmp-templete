@@ -53,7 +53,6 @@ class Request {
             ...DEFAULT_PARAMS.headers,
             ...HEADERS()
         }
-    
         this.requestParams = {...this.requestParams,...this.mergeRequestConfig(params)};
         if(callback){
             this.fetch().then(res=>{
