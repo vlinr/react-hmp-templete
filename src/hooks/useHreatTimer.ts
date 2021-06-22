@@ -23,14 +23,13 @@ function useHreatTimer(deeps:number = 1000,jumpHeartDeeps:number = 1000,executeN
             return;
         }
         createCurrent();
-        let timeNum:number = 0;
         executeNow && callback?.(); //就看是否需要立即执行一次
         timeRef.current.timer = setInterval(e=>{
             if(timeRef?.current?.pause)return; //是否是暂停
-            timeNum += deeps; //每次加上步长
-            if(timeNum >= timeRef?.current?.jumpHeartDeeps){ //步长超过了心跳的值，进行回调，重置计时
+            timeRef.current.timeNum += deeps; //每次加上步长
+            if(timeRef.current.timeNum >= timeRef?.current?.jumpHeartDeeps){ //步长超过了心跳的值，进行回调，重置计时
                 callback?.();
-                timeNum = timeNum - timeRef?.current?.jumpHeartDeeps;  //超过的内容，作为下一次的时间
+                timeRef.current.timeNum = timeRef.current.timeNum - timeRef?.current?.jumpHeartDeeps;  //超过的内容，作为下一次的时间
             }
         },deeps);
     }
@@ -59,15 +58,16 @@ function useHreatTimer(deeps:number = 1000,jumpHeartDeeps:number = 1000,executeN
     
     //设置心跳时间
     const setJumpHeartDeeps = (deeps:number)=>{
-        if(!timeRef?.current) return;
+        createCurrent();
         timeRef.current.jumpHeartDeeps = deeps;
     }
 
     //创建current
     const createCurrent = ()=>{
-        if(!timeRef.current){
+        if(!timeRef?.current){
             timeRef.current = {};
             timeRef.current.deeps = deeps;
+            timeRef.current.timeNum = 0;
             timeRef.current.jumpHeartDeeps = jumpHeartDeeps;
         }
     }
