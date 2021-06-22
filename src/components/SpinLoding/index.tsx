@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Spin } from "antd";
+import RotateLoading from "@/components/RotateLoading";
 import styles from "./index.module.less";
 const { memo } = React;
 interface LoadingType {
@@ -24,7 +24,7 @@ const SpinLoding = ({
           mask && styles.mask
         }`}
       >
-        <Spin />
+        <RotateLoading loading />
       </div>
     );
   return null;

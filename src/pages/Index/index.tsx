@@ -10,6 +10,7 @@ import useCustomTimer from "hooks/useCustomTimer";
 import formatTimeToHHMMSS from "utils/formatTimeToHHMMSS";
 import useErrorBoundary from "use-error-boundary";
 import toast from "@/utils/toast";
+import { Radio } from "antd-mobile";
 const { memo, useEffect, useState } = React;
 
 let token: string | null = getUrlParams("token"); //获取url中的token
@@ -58,11 +59,14 @@ function Index(): React.ReactElement<any> {
     <div className={styles.box}>
       <ErrorBoundary
         render={() => (
-          <CustomLoading
-            loading={true}
-            showText={true}
-            text={data?.toString() + `${formatTimeToHHMMSS(time, "", true)}`}
-          />
+          <>
+            <Radio style={{ marginRight: 20, color: "#fff" }}>点我</Radio>
+            <CustomLoading
+              loading={true}
+              showText={true}
+              text={data?.toString() + `${formatTimeToHHMMSS(time, "", true)}`}
+            />
+          </>
         )}
         renderError={() => toast("CustomLoading组件渲染出了问题.")}
       />

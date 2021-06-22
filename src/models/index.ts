@@ -1,7 +1,7 @@
 import { createModel } from '@rematch/core';
-import {message} from 'antd';
 import { REQUEST_SUCCESS } from '@/config/config';
 import { testServer } from '@/service';
+import toast from '@/utils/toast';
 export interface StateType {
     info: string | null,
 }
@@ -31,9 +31,8 @@ const index = createModel<any>()({
             let response = await testServer();
             if (response.code === REQUEST_SUCCESS) {
                 this.setInfo(response.data);
-                response.tOJSON()
             }else{
-                message.error(response.tipmsg)
+                toast(response.tipmsg);
             }
             payload?.callback?.(response);
         }

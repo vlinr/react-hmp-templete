@@ -155,7 +155,7 @@ const addMiniCssExtractPlugin = () => {
 module.exports = {
     webpack: override(
         fixBabelImports('import', {
-            libraryName: 'antd',
+            libraryName: 'antd-mobile',
             libraryDirectory: 'es',
             style: true
         }),
