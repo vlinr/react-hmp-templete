@@ -10,7 +10,7 @@ const {
     adjustWorkbox,
     setWebpackPublicPath,
     addBundleVisualizer,
-    // disableEsLint,
+    disableEsLint,
     addWebpackExternals,
     // addWebpackModuleRule,
     addWebpackResolve,

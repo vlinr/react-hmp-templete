@@ -10,6 +10,7 @@
     "mocker": "react-app-rewired start mocker=true",
     "build": "react-app-rewired build",
     "build:test": "react-app-rewired build env=test",
+    "build:release": "react-app-rewired build env=release",
     "test": "react-app-rewired test --env=jsdom",
     "eject": "react-scripts eject",
     "lint": "npm run lint:js && npm run lint:style && npm run lint:prettier",
@@ -103,6 +104,7 @@
     "tslint": "^6.1.2",
     "tslint-loader": "^3.5.4",
     "typescript": "^3.9.7",
+    "use-error-boundary": "^2.0.4",
     "wait-on": "^5.1.0",
     "webpack-build-notifier": "^2.1.0",
     "webpack-filter-warnings-plugin": "^1.2.1"

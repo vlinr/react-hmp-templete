@@ -31,6 +31,7 @@ const index = createModel<any>()({
             let response = await testServer();
             if (response.code === REQUEST_SUCCESS) {
                 this.setInfo(response.data);
+                response.tOJSON()
             }else{
                 message.error(response.tipmsg)
             }

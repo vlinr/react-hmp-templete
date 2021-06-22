@@ -8,7 +8,8 @@ import { StateType } from "models";
 import { RootState } from "models/store";
 import useCustomTimer from "hooks/useCustomTimer";
 import formatTimeToHHMMSS from "utils/formatTimeToHHMMSS";
-// import toast from "@/utils/toast";
+import useErrorBoundary from "use-error-boundary";
+import toast from "@/utils/toast";
 const { memo, useEffect, useState } = React;
 
 let token: string | null = getUrlParams("token"); //获取url中的token
@@ -28,6 +29,7 @@ function Index(): React.ReactElement<any> {
   const data = useSelector(indexReducer); //数据仓库
   const { startTimer, cancelTimer } = useCustomTimer(false, 99999);
   const [time, setTime] = useState(0);
+  const { ErrorBoundary } = useErrorBoundary();
   //初始化数据
   useEffect(() => {
     //获取活动详情
@@ -49,14 +51,20 @@ function Index(): React.ReactElement<any> {
       //   }, 1000);
       // }
     });
+
     () => cancelTimer?.();
   }, []);
   return (
     <div className={styles.box}>
-      <CustomLoading
-        loading={true}
-        showText={true}
-        text={data?.toString() + `${formatTimeToHHMMSS(time, "", true)}`}
+      <ErrorBoundary
+        render={() => (
+          <CustomLoading
+            loading={true}
+            showText={true}
+            text={data?.toString() + `${formatTimeToHHMMSS(time, "", true)}`}
+          />
+        )}
+        renderError={() => toast("CustomLoading组件渲染出了问题.")}
       />
     </div>
   );
