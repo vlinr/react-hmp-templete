@@ -37,10 +37,21 @@ function Index(): React.ReactElement<any> {
       token,
       callback(res: any) {},
     });
-    // toast("通用提示", {
+    // toast("通用提示，中部", {
+    //   position: "center",
+    //   keepTime: 3000,
+    // });
+    // setTimeout(() => {
+    //   toast("通用提示，中部更改内容", {
+    //     position: "center",
+    //     keepTime: 3000,
+    //   });
+    // }, 1000);
+    // toast("通用提示,顶部", {
     //   position: "top",
     //   keepTime: 3000,
     // });
+    // toast("通用提示,默认底部");
     startTimer?.(time, (num: number) => {
       setTime(num);
       // if (num % 5 === 0) {

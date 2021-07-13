@@ -17,6 +17,7 @@ interface FontType{
 interface OtherParams {
     position?:typeof PositionType[number],  //显示位置
     fontSizeType?:FontType, //字体配置
+    bgColor?:string,
     keepTime?:number, //保持时间，单位毫秒
 }
 
@@ -29,35 +30,35 @@ interface OtherParams {
 let toast:(text:string,other?:OtherParams)=>any = ()=>{};
 (()=>{
     let fontSize:number = getFontSize(); //根元素字体大小
+    let timerInfo:any = {};
     createStyle(fontSize);
-    let timer:any = null,
-    subTimer:any = null;
 
-    function createStyle(fontSize:number){
+    function createStyle(fontSize:number,bgColor:string = 'rgba(231, 235, 246, .95)'){
         let toast:any = document.querySelector('#toast_style');
         if(toast)toast.remove();
         let style:any = document.createElement('style');
         style.type = 'text/css';
         style.id = 'toast_style';
-        style.innerHTML = '\n        #toast {position: fixed;background-color: rgba(231, 235, 246, .95);border-radius:' + 4 * fontSize + 'px;z-index:99999;white-space:nowrap;\n            padding: ' + fontSize*.7 + 'px ' + 2 * fontSize + 'px;font-size: ' + fontSize + 'px;color: #09153C;opacity: 0;visibility: hidden;\n            transition: all .2s ease;-webkit-transition: all .2s ease;-moz-transition: all .2s ease;-ms-transition: all .2s ease;\n            -o-transition: all .2s ease;-webkit-border-radius: ' + 4 * fontSize + 'px;-moz-border-radius: ' + 4 * fontSize + 'px;-ms-border-radius: ' + 4 * fontSize + 'px;-o-border-radius: ' + 4 * fontSize + 'px;\n        }\n\n        #toast.bottom_default{\n            bottom: -30vh;\n            left: 50%;\n            transform: translateX(-50%);\n            -webkit-transform: translateX(-50%);\n            -moz-transform: translateX(-50%);\n            -ms-transform: translateX(-50%);\n            -o-transform: translateX(-50%);\n        }\n\n        #toast.center_default{\n            top: 50%;\n            left: 50%;\n            transform: translate(-50%,-50%);\n            -webkit-transform: translate(-50%,-50%);\n            -moz-transform: translate(-50%,-50%);\n            -ms-transform: translate(-50%,-50%);\n            -o-transform: translate(-50%,-50%);\n        }\n\n        #toast.top_default{\n            top: -30vh;\n            left: 50%;\n            transform: translateX(-50%);\n            -webkit-transform: translateX(-50%);\n            -moz-transform: translateX(-50%);\n            -ms-transform: translateX(-50%);\n            -o-transform: translateX(-50%);\n        }\n\n        #toast.bottom_active {opacity: 1;visibility: visible;bottom: 5%;}\n        #toast.center_active {opacity: 1;visibility: visible;top: 50%;}\n        #toast.top_active {opacity: 1;visibility: visible;top: 5%;}\n\n        #toast.bottom_out{\n            bottom: -30vh;\n        }\n        #toast.center_out{\n            top: 50%;\n        }\n        #toast.top_out{\n            top: -30vh;\n        }\n    ';
+        style.innerHTML = '\n        .global_toast {position: fixed;background-color: '+bgColor+';border-radius:' + 4 * fontSize + 'px;z-index:99999;white-space:nowrap;\n            padding: ' + fontSize*.7 + 'px ' + 2 * fontSize + 'px;font-size: ' + fontSize + 'px;color: #09153C;opacity: 0;visibility: hidden;\n            transition: all .2s ease;-webkit-transition: all .2s ease;-moz-transition: all .2s ease;-ms-transition: all .2s ease;\n            -o-transition: all .2s ease;-webkit-border-radius: ' + 4 * fontSize + 'px;-moz-border-radius: ' + 4 * fontSize + 'px;-ms-border-radius: ' + 4 * fontSize + 'px;-o-border-radius: ' + 4 * fontSize + 'px;\n        }\n\n        .global_toast.bottom_default{\n            bottom: -30vh;top:auto;\n            left: 50%;\n            transform: translateX(-50%);\n            -webkit-transform: translateX(-50%);\n            -moz-transform: translateX(-50%);\n            -ms-transform: translateX(-50%);\n            -o-transform: translateX(-50%);\n        }\n\n        .global_toast.center_default{\n            top: 50%;bottom:auto;\n            left: 50%;\n            transform: translate(-50%,-50%);\n            -webkit-transform: translate(-50%,-50%);\n            -moz-transform: translate(-50%,-50%);\n            -ms-transform: translate(-50%,-50%);\n            -o-transform: translate(-50%,-50%);\n        }\n\n        .global_toast.top_default{\n            top: -30vh;bottom:auto;\n            left: 50%;\n            transform: translateX(-50%);\n            -webkit-transform: translateX(-50%);\n            -moz-transform: translateX(-50%);\n            -ms-transform: translateX(-50%);\n            -o-transform: translateX(-50%);\n        }\n\n        .global_toast.bottom_active {opacity: 1;visibility: visible;bottom: 5%;top:auto;}\n        .global_toast.center_active {opacity: 1;visibility: visible;top: 50%;bottom:auto;}\n        .global_toast.top_active {opacity: 1;visibility: visible;top: 5%;bottom:auto;}\n\n        .global_toast.bottom_out{\n            bottom: -30vh;top:auto;\n        }\n        .global_toast.center_out{\n            top: 50%;bottom:auto;\n        }\n        .global_toast.top_out{\n            top: -30vh;bottom:auto;\n        }\n    ';
         document.head.appendChild(style);
     }
 
     function showToast(text:string,other?:OtherParams) {
         const otherParams:OtherParams = {position:'bottom',keepTime:1500,...other};
-        otherParams.fontSizeType && createStyle(getFontSize(otherParams.fontSizeType)); //从新创建样式
-        let toast:any = document.querySelector('#toast');
+        otherParams.fontSizeType && createStyle(getFontSize(otherParams.fontSizeType),otherParams.bgColor); //从新创建样式
+        let toast:any = document.querySelector('#'+otherParams.position + '_toast');
         if (!toast) {
             toast = document.createElement('section');
-            toast.id = 'toast';
+            toast.id = otherParams.position + '_toast';
+            toast.setAttribute('class','global_toast')
         }
-        if (timer) {
-            clearTimeout(timer);
-            timer = null;
+        if (timerInfo[otherParams.position+'_parent']) {
+            clearTimeout(timerInfo[otherParams.position+'_parent']);
+            timerInfo[otherParams.position+'_parent'] = null;
         }
-        if (subTimer) {
-            clearTimeout(subTimer);
-            subTimer = null;
+        if (timerInfo[otherParams.position+'_child']) {
+            clearTimeout(timerInfo[otherParams.position+'_child']);
+            timerInfo[otherParams.position+'_child'] = null;
         }
         if (toast.innerHTML !== text) toast.innerHTML = text;
         updateItemClass(toast, otherParams.position + '_default');
@@ -67,9 +68,9 @@ let toast:(text:string,other?:OtherParams)=>any = ()=>{};
             updateItemClass(toast, otherParams.position + '_active');
         }, 0);
         if(otherParams.keepTime && otherParams.keepTime< 0)return;
-        timer = setTimeout(function () {
+        timerInfo[otherParams.position+'_parent'] = setTimeout(function () {
             updateItemClass(toast, otherParams.position + '_out');
-            subTimer = setTimeout(function () {
+            timerInfo[otherParams.position+'_child'] = setTimeout(function () {
                 toast.remove();
             }, 100);
         }, otherParams.keepTime);
