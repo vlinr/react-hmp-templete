@@ -43,6 +43,11 @@ const DEFAULT_PARAMS: RequestParams = {
     useCustomHeader:true
 }
 
+type ResultType = {
+    code:string,
+    data:Array<any> | null,
+    tipmsg:string
+}
 
 class Request {
     //请求参数
@@ -114,13 +119,13 @@ class Request {
      * @method 检查是否有网络
      * 
      * ******/
-    private checkHaveNetwork():Promise<any>{
-        return new Promise((resolve)=>{
+    private checkHaveNetwork<ResultType>():Promise<ResultType>{
+        return new Promise<ResultType>((resolve)=>{
             resolve({
                 code:'-99999999',
                 data:[],
                 tipmsg:'network error！'
-            })
+            } as any)
         });
     }
 
@@ -146,7 +151,7 @@ class Request {
      * @param api:{string}：请求api
      * @param params:{RequestParams} 请求的参数信息
      * ***/
-    private fetchData(api:string,params:RequestParams): Promise<any>{
+    private fetchData<T>(api:string,params:RequestParams): Promise<T>{
         return new Promise((resolve:Function, reject:Function) => {
             try {
                 let timeout = this.requestTimeout(resolve);

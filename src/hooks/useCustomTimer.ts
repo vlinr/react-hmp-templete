@@ -1,6 +1,6 @@
 
 import * as React from 'react';
-const {useEffect,useRef,useCallback} = React;
+const {useEffect,useRef,useCallback,useState} = React;
 /*****
  * 
  * @method 倒计时
@@ -10,6 +10,7 @@ const {useEffect,useRef,useCallback} = React;
  * ***/
 function useCustomTimer(down:boolean = true,endNum:number = 0){
     const timeRef = useRef<any>(null);
+    const [time,setTime] = useState<number>();
     /****
      * 
      * @method 开始计时器
@@ -26,6 +27,7 @@ function useCustomTimer(down:boolean = true,endNum:number = 0){
         timeRef.current.timeNum = time;
         timeRef.current.deeps = deeps;
         timeRef.current.callback = callback;
+        setTime(time);
         !resume && callback?.(time);
         timeRef.current.timer = setInterval(e=>{
             if(down){
@@ -37,6 +39,7 @@ function useCustomTimer(down:boolean = true,endNum:number = 0){
             }
             callback?.(time);
             timeRef.current.timeNum = time;
+            setTime(time);
             if(end){
                 cancelTimer();
             }
@@ -87,7 +90,7 @@ function useCustomTimer(down:boolean = true,endNum:number = 0){
     }, [])
 
     return {
-        pauseTimer,resumeTimer,startTimer,cancelTimer
+        pauseTimer,resumeTimer,startTimer,cancelTimer,time
     };
 
 }
