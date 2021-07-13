@@ -40,6 +40,10 @@ function Index(): React.ReactElement<any> {
     // toast("通用提示，中部", {
     //   position: "center",
     //   keepTime: 3000,
+    //   style: {
+    //     backgroundColor: "rgba(0,0,0,.6)",
+    //     color: "#fff",
+    //   },
     // });
     // setTimeout(() => {
     //   toast("通用提示，中部更改内容", {
