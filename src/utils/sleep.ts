@@ -4,11 +4,11 @@
   * @param time:{number}:睡眠时间，毫秒
   * 
   * ****/
- const sleepTimer = function(time:number = 2000):Promise<any>{
-    return new Promise((resolve,reject)=>{
+ const sleep = (time:number = 2000):Promise<string>=>{
+    return new Promise((resolve:(value:string)=>void)=>{
         setTimeout(() => {
-            resolve(1);
+            resolve('');
         }, time);
     })
 }
-export default sleepTimer;
+export default sleep;

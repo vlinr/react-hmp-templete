@@ -7,9 +7,9 @@ import getUrlParams from "utils/getUrlParems";
 import { StateType } from "models";
 import { RootState } from "models/store";
 import useCustomTimer from "hooks/useCustomTimer";
-import formatTimeToHHMMSS from "utils/formatTimeToHHMMSS";
 import useErrorBoundary from "use-error-boundary";
 import toast from "@/utils/toast";
+import formatDate from "@/utils/formatDate";
 const { memo, useEffect, useState } = React;
 
 let token: string | null = getUrlParams("token"); //获取url中的token
@@ -76,7 +76,7 @@ function Index(): React.ReactElement<any> {
           <CustomLoading
             loading={true}
             showText={true}
-            text={data?.toString() + `${formatTimeToHHMMSS(time, "", true)}`}
+            text={data?.toString() + `${formatDate(time, "HH:mm:ss", true)}`}
           />
         )}
         renderError={() => toast("CustomLoading组件渲染出了问题.")}

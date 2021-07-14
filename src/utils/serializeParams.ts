@@ -1,9 +1,14 @@
 /******
  * 
  * @method 参数序列化
- * @param params:{any}：参数对象
+ * @param params:{SerializeParamsType}：参数对象
  * ****/
-function serializeParams(params:any):string {
+
+type SerializeParamsType = {
+    [paramsName:string]:any
+}
+
+function serializeParams(params:SerializeParamsType):string {
     let result:string = '';
     if(typeof params === 'object' && params != null){
         for(let key in params){

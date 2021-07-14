@@ -1,3 +1,4 @@
+
 function checkObjectHaveKey(obj:any,findKey:string = ''):boolean{
     if(typeof obj !== 'object')return  false; //不是对象
     if(!findKey){
