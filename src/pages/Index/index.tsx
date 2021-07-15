@@ -30,6 +30,7 @@ function Index(): React.ReactElement<any> {
   const { startTimer, cancelTimer } = useCustomTimer(false, 99999);
   const [time, setTime] = useState(0);
   const { ErrorBoundary } = useErrorBoundary();
+
   //初始化数据
   useEffect(() => {
     //获取活动详情
@@ -69,8 +70,9 @@ function Index(): React.ReactElement<any> {
 
     () => cancelTimer?.();
   }, []);
+
   return (
-    <div className={styles.box}>
+    <div className={`${styles.box}`}>
       <ErrorBoundary
         render={() => (
           <CustomLoading
