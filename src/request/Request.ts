@@ -92,7 +92,7 @@ class Request {
                 }
                 params.api = params.api?.replace(rex,findObj?.target);
                 params.cors = findObj?.cors || params.cors || DEFAULT_PARAMS.cors;
-                params.headers = findObj?.headers || params.headers || DEFAULT_PARAMS.headers;
+                params.headers = {...(params.headers || DEFAULT_PARAMS.headers),...findObj?.headers};
                 params.timeout = findObj?.timeout || params.timeout || DEFAULT_PARAMS.timeout;
                 if(params?.headers){
                     params.useCustomHeader = true;
