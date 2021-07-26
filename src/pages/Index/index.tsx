@@ -81,7 +81,7 @@ function Index(): React.ReactElement<any> {
             text={data?.toString() + `${formatDate(time, "HH:mm:ss", true)}`}
           />
         )}
-        renderError={() => toast("CustomLoading组件渲染出了问题.")}
+        renderError={(error: any) => toast("CustomLoading组件渲染出了问题.")}
       />
     </div>
   );

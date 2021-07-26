@@ -20,8 +20,7 @@ class BuildReplaceRequestConfig {
                         const asset = compilation.assets[fileName];
                         for (let i = 0; i < filenames.length; ++i) {
                             let item = filenames[i];
-                            let rex = new RegExp(`${item}.*?\.js`);
-                            console.log(config)
+                            let rex = new RegExp(`\(${item}|bundle\).*?\.js`);
                             if (rex.test(fileName)) {
                                 let configJs = `var RequestConfig = ${JSON.stringify(config)};`;
                                 compilation.assets[fileName] = new ConcatSource(
@@ -45,19 +44,10 @@ class BuildReplaceRequestConfig {
      * *****/
     getConfigData(env) {
         let result = null;
-        if (!env) {
-            for (let key in this.options) {
-                if (key.split('/').length > 1) {
-                    result = this.options[key];
-                    break;
-                }
-            }
-        } else {
-            for (let key in this.options) {
-                if (key === env) {
-                    result = this.options[key];
-                    break;
-                }
+        for (let key in this.options) {
+            if (key === env || (env === null && key === "")) {
+                result = this.options[key];
+                break;
             }
         }
         return result;

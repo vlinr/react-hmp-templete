@@ -143,14 +143,14 @@ const addMiniCssExtractPlugin = () => {
  * 使用一些自定义配置
  * 
  * *****/
-// const addCustomWebpackConfig = () => {
-//     return config => {
-//         config.plugins = (config.plugins || []).concat([
-//             new BuildReplaceRequestConfig()
-//         ]);
-//         return config;
-//     }
-// }
+const addCustomWebpackConfig = () => {
+    return config => {
+        config.plugins = (config.plugins || []).concat([
+            new BuildReplaceRequestConfig(require('./request.config'))
+        ]);
+        return config;
+    }
+}
 
 module.exports = {
     webpack: override(
@@ -168,6 +168,7 @@ module.exports = {
         //     // configFile:true
         // }),
         // addWebpackModuleRule({}),
+        // addCustomWebpackConfig(), //使用本地代理
         addLessLoader({
             // strictMath: true,
             // modifyVars: { ...theme },
@@ -267,6 +268,7 @@ module.exports = {
         proxy = process.env.NODE_ENV === 'development' && process.env.npm_lifecycle_event !== 'mocker' ? PROXY : {};
         // allowedHost： 添加额外的地址
         const config = configFunction(proxy, allowedHost);
+
         //配置mocker 
         if (process.env.npm_lifecycle_event === 'mocker') {
             config.before = app => {

@@ -38,6 +38,7 @@ declare module 'react-loadable' {
     const Loadable: any;
     export default Loadable;
 }
+
 declare module 'braft-finder';
 declare module 'braft-utils';
 declare module 'braft-extensions/dist/table';
