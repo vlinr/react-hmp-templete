@@ -43,6 +43,21 @@ const DEFAULT_PARAMS: RequestParams = {
     useCustomHeader:true
 }
 
+type ResultType = {
+    code:string,
+    data:Array<any> | null,
+    tipmsg:string
+}
+
+type ConfigType = {
+    context:[] | string,
+    headers:{
+        [key:string]:string | null | undefined | number | boolean
+    },
+    target:string,
+    cors?:boolean,
+    timeout?:number
+}
 
 class Request {
     //请求参数
@@ -53,6 +68,7 @@ class Request {
             ...DEFAULT_PARAMS.headers,
             ...HEADERS()
         }
+        params = {...params,...this.splitRequestMethod(params)};
         this.requestParams = {...this.requestParams,...this.mergeRequestConfig(params)};
         if(callback){
             this.fetch().then(res=>{
@@ -65,36 +81,96 @@ class Request {
 
     /*****
      * 
+     * @method 获取是否有请求方式
+     * 
+     * ****/
+    private splitRequestMethod(params:RequestParams):{api?:string,method?:string}{
+        let v:Array<string> | undefined = params?.api?.split('|');
+        return {
+            api:v?.[0] || params.method,
+            method:v?.[1] || params.method
+        }
+    }
+
+    /*****
+     * 
      * @method 合并请求头
      * 
      * 
      * *****/
     private mergeRequestConfig(params:RequestParams):RequestParams{
-        let RequestConfig:any = (window as any)?.RequestConfig;
+        let RequestConfig:[] = (window as any)?.RequestConfig;  //取得参数
         if(RequestConfig){ 
-            let findKey:string = ''; 
-            for(let key in RequestConfig){
-                if(key === `/${params.api?.split('/')?.[1]}`){
-                    findKey = key;
+            let findItem:ConfigType | null = null,key:string = ''; 
+            for(let i:number=0;i<RequestConfig?.length;++i){
+                let item:ConfigType = RequestConfig[i];  
+                key = this.getMatchPermissions(item?.context,params.api || '');
+                if(key){
+                    findItem = item;
                     break;
                 }
             }
-            if(findKey){
-                let findObj:RequestConfigType = RequestConfig[findKey]; 
-                let rex:RegExp = new RegExp(`${findKey}`);
-                if(findObj?.target?.slice(-1) === '/'){
-                    findObj.target = findObj.target.substring(0,findObj.target.length-1);
-                }
-                params.api = params.api?.replace(rex,findObj?.target);
-                params.cors = findObj?.cors || params.cors || DEFAULT_PARAMS.cors;
-                params.headers = findObj?.headers || params.headers || DEFAULT_PARAMS.headers;
-                params.timeout = findObj?.timeout || params.timeout || DEFAULT_PARAMS.timeout;
+            if(findItem){
+                if(findItem?.target?.slice(-1) === '/')findItem.target = findItem.target.substring(0,findItem.target.length-1);
+                if(key?.slice(0,1) !== '/')key = `/${key}`;
+                if(params?.api?.slice(0,1) !== '/')params.api = `/${params.api}`;
+                let rex:RegExp = new RegExp(`${key}`);
+                params.api = params.api?.replace(rex,findItem?.target);
+                params.cors = findItem?.cors || params.cors || DEFAULT_PARAMS.cors;
+                params.headers = {...(params.headers || DEFAULT_PARAMS.headers),...findItem?.headers};
+                params.timeout = findItem?.timeout || params.timeout || DEFAULT_PARAMS.timeout;
                 if(params?.headers){
                     params.useCustomHeader = true;
                 }
             }
         }
         return params;
+    }
+
+    /*****
+     * 
+     * @method 获取代理路径匹配度
+     *          
+     * 说明:如果路径前缀一样，优先匹配最先匹配到的
+     * @param context:{Array<string> | string}：需要匹配的路径集合
+     * @param matchKey:{string}:需要匹配的key
+     * *****/
+    private getMatchPermissions(context:Array<string> | string,matchKey:string):string{
+        let result:string= '';
+        if(Array.isArray(context)){ //需要把第一个是 / 和第一个不是 / 的情况给统一
+            for(let i:number=0;i<context.length;++i){
+                if(this.match(context[i],matchKey)){
+                    result = context[i];
+                    break;
+                }
+            }
+        }else{
+            result = this.match(context,matchKey) && context || '';
+        }
+        return result;
+    }
+
+    /****
+     * 
+     * @method 匹配
+     * 
+     * @param context:{string}:代理key
+     * @param key:{string}:需要替换的key
+     * 
+     * *****/
+    private match(context:string,key:string):boolean{
+        let arr1:Array<string> = context.split('/'); 
+        let arr2:Array<string> = key.split('/');
+        arr1 = arr1?.[0]==="" && arr1.slice(1) || arr1;
+        arr2 = arr2?.[0]==="" && arr2.slice(1) || arr2;
+        let result:boolean = true;
+        for(let i:number=0;i<arr1.length;++i){
+            if(i < arr2.length && arr2[i] !== arr1[i]){
+                result = false;
+                break;
+            }
+        }
+        return result;
     }
 
     /****
@@ -114,13 +190,13 @@ class Request {
      * @method 检查是否有网络
      * 
      * ******/
-    private checkHaveNetwork():Promise<any>{
-        return new Promise((resolve)=>{
+    private checkHaveNetwork<ResultType>():Promise<ResultType>{
+        return new Promise<ResultType>((resolve)=>{
             resolve({
                 code:'-99999999',
                 data:[],
                 tipmsg:'network error！'
-            })
+            } as any)
         });
     }
 
@@ -146,10 +222,10 @@ class Request {
      * @param api:{string}：请求api
      * @param params:{RequestParams} 请求的参数信息
      * ***/
-    private fetchData(api:string,params:RequestParams): Promise<any>{
+    private fetchData<T>(api:string,params:RequestParams): Promise<T>{
         return new Promise((resolve:Function, reject:Function) => {
             try {
-                let timeout = this.requestTimeout(resolve);
+                let timeout:number = this.requestTimeout(resolve);
                 fetch(api, {...params,signal:this.controller.signal}).then(res => {
                     clearTimeout(timeout);
                     if(this.requestParams.requestType !== ''){

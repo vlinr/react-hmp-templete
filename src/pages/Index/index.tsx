@@ -10,7 +10,8 @@ import useCustomTimer from "hooks/useCustomTimer";
 import formatTimeToHHMMSS from "utils/formatTimeToHHMMSS";
 import useErrorBoundary from "use-error-boundary";
 import toast from "@/utils/toast";
-import { Radio } from "antd-mobile";
+import { Button } from "vant-react";
+import "vant-react/dist/index.css";
 const { memo, useEffect, useState } = React;
 
 let token: string | null = getUrlParams("token"); //获取url中的token
@@ -60,7 +61,7 @@ function Index(): React.ReactElement<any> {
       <ErrorBoundary
         render={() => (
           <>
-            <Radio style={{ marginRight: 20, color: "#fff" }}>点我</Radio>
+            <Button type="primary" size="mini" loading />
             <CustomLoading
               loading={true}
               showText={true}
