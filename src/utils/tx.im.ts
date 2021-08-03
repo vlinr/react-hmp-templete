@@ -27,7 +27,7 @@ export interface RESULT_TYPE{
     data:DATA_TYPE
 }
 
-interface DATA_TYPE{
+type DATA_TYPE = {
     type:string,
     msg:any
 }
@@ -166,7 +166,7 @@ class TxIM{
           }
       })
     }
-    //错误
+    //SDK加载错误
     private sdkError(event:any){
       self?.callback?.({
           code:MESSAGE_RESULT_CODE.SUCCESS,
@@ -176,7 +176,7 @@ class TxIM{
           }
       })
     }
-    //错误
+    //SDK未初始化
     private sdkNotReady(event:any){
       self?.callback?.({
           code:MESSAGE_RESULT_CODE.SUCCESS,
@@ -196,7 +196,7 @@ class TxIM{
           }
       })
     }
-    //时间集合
+    //事件集合
     private eventListener(){
       self?.tim.setLogLevel(0);
         // this.tim.registerPlugin({ 'cos-wx-sdk': COS });
@@ -256,13 +256,9 @@ class TxIM{
       })
     }
 
-    private logoutGroup(callback?:Function){
-      let promise = self?.tim.quitGroup(self?.groupId);
-      promise.then(function() {
-        callback?.();
-      }).catch(function(){
-        callback?.();
-      });
+    private async logoutGroup(callback?:Function){
+      await self?.tim.quitGroup(self?.groupId);
+      callback?.();
     }
 
     /***

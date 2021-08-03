@@ -17,11 +17,6 @@ declare module "@rematch/updated" {
     export default updatedPlugin;
 }
 
-//引入不存在的这个模块
-declare module 'braft-extensions/dist/color-picker' {
-    const ColorPicker: any;
-    export default ColorPicker;
-}
 
 declare module '@/*';
 
@@ -39,9 +34,14 @@ declare module 'react-loadable' {
     export default Loadable;
 }
 
-declare module 'braft-finder';
-declare module 'braft-utils';
-declare module 'braft-extensions/dist/table';
-declare module 'braft-extensions/dist/header-id';
-declare module 'braft-extensions/dist/code-highlighter';
-declare module 'braft-extensions/dist/markdown';
+//引入不存在的这个模块
+// declare module 'braft-extensions/dist/color-picker' {
+//     const ColorPicker: any;
+//     export default ColorPicker;
+// }
+// declare module 'braft-finder';
+// declare module 'braft-utils';
+// declare module 'braft-extensions/dist/table';
+// declare module 'braft-extensions/dist/header-id';
+// declare module 'braft-extensions/dist/code-highlighter';
+// declare module 'braft-extensions/dist/markdown';

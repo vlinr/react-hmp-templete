@@ -21,7 +21,7 @@ const indexReducer = createSelector(
 
 /******
  *
- * method:首页
+ * @function:首页
  *
  * *******/
 function Index(): React.ReactElement<any> {

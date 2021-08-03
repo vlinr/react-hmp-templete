@@ -1,7 +1,7 @@
 import * as React from "react";
 /******
  *
- * method:404
+ * @function:404
  *
  * *******/
 function NotFound(): React.ReactElement<any> {
