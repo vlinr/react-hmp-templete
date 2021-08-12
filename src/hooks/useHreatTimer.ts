@@ -47,13 +47,15 @@ function useHreatTimer(deeps:number = 1000,jumpHeartDeeps:number = 1000,executeN
     //暂停心跳
     const pauseHeart = 
     () => {
-        timeRef.current.pause = true;
+        if(timeRef.current)
+            timeRef.current.pause = true;
     }
 
     //恢复心跳
     const resumeHeart = 
     () => {
-        timeRef.current.pause = false;
+        if(timeRef.current)
+            timeRef.current.pause = false;
     }
     
     //设置心跳时间

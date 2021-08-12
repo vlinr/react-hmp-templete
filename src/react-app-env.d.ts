@@ -34,6 +34,15 @@ declare module 'react-loadable' {
     export default Loadable;
 }
 
+declare module '@/assets/js/intersection-observer' {
+    const IntersectionObserver:any;
+    const IntersectionObserverEntry:any;
+    export {
+        IntersectionObserver,
+        IntersectionObserverEntry
+    }
+}
+
 //引入不存在的这个模块
 // declare module 'braft-extensions/dist/color-picker' {
 //     const ColorPicker: any;

@@ -9,8 +9,10 @@ const {useEffect,useRef,useCallback,useState} = React;
  * 
  * ***/
 function useCustomTimer(down:boolean = true,endNum:number = 0){
+
     const timeRef = useRef<any>(null);
     const [time,setTime] = useState<number>();
+
     /****
      * 
      * @method 开始计时器
@@ -45,6 +47,7 @@ function useCustomTimer(down:boolean = true,endNum:number = 0){
             }
         },deeps)
     }
+
     /****
      * 
      * @method 恢复
@@ -57,6 +60,7 @@ function useCustomTimer(down:boolean = true,endNum:number = 0){
         }
         startTimer?.(timeRef?.current?.timeNum,timeRef?.current?.callback,timeRef?.current?.deeps,true);
     }
+    
     /****
      * 
      * @method 暂停
