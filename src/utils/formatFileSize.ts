@@ -2,7 +2,7 @@
  * 
  * @method 格式化文件大小
  * @param size:{number}:文件大小
- * @param fixed:{number}{defauly:2}:保留小数位数
+ * @param fixed:{number}{default:2}:保留小数位数
  * 
  * ****/
 function formatFileSize(size:number,fixed:number = 2){

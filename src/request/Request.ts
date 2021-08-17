@@ -181,9 +181,9 @@ class Request {
     public fetch(): Promise<any> {
         if(!checkHaveNetwork())return this.checkHaveNetwork();
         if(this.requestParams.method?.toLocaleLowerCase() === 'get'){
-            return this.fetchData(this.requestParams.requestType !== ''?`${this.requestParams.api}?${qs.stringify(this.requestParams.data)}`:`${this.requestParams.url}${this.requestParams.api}?${qs.stringify(this.requestParams.data)}`,this.getFetchParmas());
+            return this.fetchData(this.requestParams.requestType !== ''?`${this.requestParams.api}?${qs.stringify(this.requestParams.data)}`:`${this.requestParams.url}${this.requestParams.api}?${qs.stringify(this.requestParams.data)}`,this.getFetchParams());
         }
-        return this.fetchData(this.requestParams.requestType !== ''?`${this.requestParams.api}`:`${this.requestParams.url}${this.requestParams.api}`,this.getFetchParmas(true));
+        return this.fetchData(this.requestParams.requestType !== ''?`${this.requestParams.api}`:`${this.requestParams.url}${this.requestParams.api}`,this.getFetchParams(true));
     }
 
     /****
@@ -206,7 +206,7 @@ class Request {
      * @param haveBody:{boolean} 是否又body体，对于get是url传参
      * 
      * ****/
-    private getFetchParmas(haveBody:boolean = false):RequestParams{
+    private getFetchParams(haveBody:boolean = false):RequestParams{
         let obj:any = {};
         obj.headers = this.requestParams.useCustomHeader?new Headers(this.requestParams.headers):undefined;
         obj.method = this.requestParams.method;
@@ -261,7 +261,7 @@ class Request {
      * @method 取消请求
      * 
      * ******/
-    public cancelRquest(){
+    public cancelRequest(){
         if(this.controller.signal.aborted)throw new DOMException('Aborted', 'AbortError')
         this.controller.abort();
     }
@@ -277,7 +277,7 @@ class Request {
                 data:'',
                 tipmsg:'fetch timeout'
             });
-            this.cancelRquest();
+            this.cancelRequest();
         }, this.requestParams.timeout);
         return timeout;
     }

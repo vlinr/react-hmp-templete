@@ -18,7 +18,7 @@ export enum TIM_EVENT_TYPE {
     IM_LOGIN_ERROR = 'im_login_error', //im登录失败
     SDK_NOT_READY = 'sdk_not_ready', //初始化成功
     WAITING_APPROVAL = 'waiting for administrator‘s approval', //等待管理员同意
-    JONIN_GROUP_SUCCESS = 'join group success', //加入群组成功,
+    JOIN_GROUP_SUCCESS = 'join group success', //加入群组成功,
     APPLICATION_IN_PROGRESS = 'application in progress'
 }
 
@@ -301,7 +301,7 @@ class TxIM{
                 break;
               case self?.TXTIM.TYPES.JOIN_STATUS_SUCCESS:
                 // 加群成功
-                callback?.({code:MESSAGE_RESULT_CODE.SUCCESS,data:TIM_EVENT_TYPE.JONIN_GROUP_SUCCESS})
+                callback?.({code:MESSAGE_RESULT_CODE.SUCCESS,data:TIM_EVENT_TYPE.JOIN_GROUP_SUCCESS})
                 break;
               case self?.TXTIM.TYPES.JOIN_STATUS_ALREADY_IN_GROUP:
                 // 已经在群中

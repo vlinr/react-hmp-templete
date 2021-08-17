@@ -115,14 +115,14 @@ let toast:(text:string,other?:OtherParams)=>any = ()=>{};
         designWidth:375,
         fontSize:14
     }):number{
-       return conputedFontSize(params);
+       return computedFontSize(params);
     }
     
     /*****
      * 
      * 计算字体大小
      * *****/
-    function conputedFontSize(params:FontType):number{
+    function computedFontSize(params:FontType):number{
         if(params.designWidth === 0)return params.fontSize;
         const width = window.innerWidth || document.body.clientWidth;
         if (width > params.maxWidth) {

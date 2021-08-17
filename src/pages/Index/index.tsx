@@ -3,7 +3,7 @@ import styles from "./index.module.less";
 import CustomLoading from "@/components/RotateLoading";
 import { useDispatch, useSelector } from "react-redux";
 import { createSelector } from "reselect";
-import getUrlParams from "utils/getUrlParems";
+import getUrlParams from "utils/getUrlParams";
 import { StateType } from "models";
 import { RootState } from "models/store";
 import useCustomTimer from "hooks/useCustomTimer";

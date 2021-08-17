@@ -1,5 +1,5 @@
 import Loadable from 'react-loadable';
-import SpinLoding from '@/components/SpinLoding';
+import SpinLoading from '@/components/SpinLoading';
 import Files from '@/importFile/importFile';
 
 /******
@@ -12,7 +12,7 @@ function AsyncImport(componentName?: string ) {
     if(!componentName)return;
     return Loadable({
         loader: Files[componentName as string],
-        loading: SpinLoding
+        loading: SpinLoading
     })
 }
 export default AsyncImport;
