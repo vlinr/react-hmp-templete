@@ -24,10 +24,12 @@
     "analyze": "source-map-explorer 'dist/static/js/*.js'"
   },
   "husky": {
+
     "hooks": {
       "pre-commit":"lint-staged",
       "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
     }
+    
   },
   "lint-staged": {
     "**/*.less": "stylelint --syntax less",
