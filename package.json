@@ -24,12 +24,10 @@
     "analyze": "source-map-explorer 'dist/static/js/*.js'"
   },
   "husky": {
-
     "hooks": {
-      "pre-commit":"lint-staged",
+      "pre-commit": "lint-staged",
       "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
     }
-    
   },
   "lint-staged": {
     "**/*.less": "stylelint --syntax less",
@@ -96,6 +94,7 @@
     "react-color": "^2.18.1",
     "react-dom": "^16.13.1",
     "react-hot-loader": "^4.12.21",
+    "react-intl": "^5.20.13",
     "react-loadable": "^5.5.0",
     "react-redux": "^7.2.0",
     "react-router-dom": "^5.2.0",

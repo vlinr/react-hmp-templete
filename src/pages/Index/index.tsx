@@ -10,6 +10,7 @@ import useCustomTimer from "hooks/useCustomTimer";
 import useErrorBoundary from "use-error-boundary";
 import toast from "@/utils/toast";
 import formatDate from "@/utils/formatDate";
+import { FormattedMessage } from "react-intl";
 const { memo, useEffect, useState } = React;
 
 let token: string | null = getUrlParams("token"); //获取url中的token
@@ -73,6 +74,8 @@ function Index(): React.ReactElement<any> {
 
   return (
     <div className={`${styles.box}`}>
+      <div onClick={()=>dispatch?.locale?.setLocale('en')}>更改语言</div>
+      <FormattedMessage id="name" values={{name:'111'}} />
       <ErrorBoundary
         render={() => (
           <CustomLoading

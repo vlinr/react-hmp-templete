@@ -2,14 +2,11 @@ import * as React from "react";
 import ReactDOM from "react-dom";
 import "@/index.less";
 import App from "@/App";
-import { ConfigProvider } from "antd";
 import { Provider } from "react-redux";
 import { store } from "@/models/store";
-import zhCN from "antd/es/locale/zh_CN";
-import "moment/locale/zh-cn";
 import setHtmlFontSize from "@/utils/setHtmlFontSize";
 import { VIEW_TO_REM_INFO } from "./config/config";
-
+import LocaleConfigProvider from './LocaleConfigProvider';
 setHtmlFontSize(VIEW_TO_REM_INFO); //初始化得时候设置一下字体大小
 // (window as any).onerror = function (e:string) {
 //   console.log("运行错误", e);
@@ -18,22 +15,10 @@ setHtmlFontSize(VIEW_TO_REM_INFO); //初始化得时候设置一下字体大小
 //   console.log("运行错误", e.message);
 // });
 ReactDOM.render(
-  <ConfigProvider locale={zhCN}>
-    <Provider store={store}>
-      <App />
-    </Provider>
-  </ConfigProvider>,
+  <Provider store={store}>
+    <LocaleConfigProvider>
+          <App />
+    </LocaleConfigProvider>
+  </Provider>,
   document.getElementById("root")
 );
-
-console.log(`  
-
-     $$$$$$     $$$$$$     $$$$$$     
-        $$          $$    $$    $$  
-        $$          $$    $$         
-        $$          $$    $$  $$$$     
-  $$$$  $$    $$$$  $$    $$    $$ 
-  $$    $$    $$    $$    $$    $$    
-   $$$$$$      $$$$$$      $$$$$$       
-
-`);
