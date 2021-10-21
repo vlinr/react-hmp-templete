@@ -31,7 +31,7 @@ const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 //打包成功有桌面提醒
 const LodashWebpackPlugin = require('lodash-webpack-plugin')
 const WebpackBuildNotifierPlugin = require('webpack-build-notifier')
-const theme = require('./theme.js');
+// const theme = require('/theme.js');
 const PROXY = require('./proxy.config.js');
 const BuildReplaceRequestConfig = require('./plugins/BuildReplaceRequestConfig');
 // SKIP_PREFLIGHT_CHECK = true
@@ -155,7 +155,7 @@ const addMiniCssExtractPlugin = () => {
 module.exports = {
     webpack: override(
         fixBabelImports('import', {
-            libraryName: 'antd-mobile',
+            libraryName: 'react-vant',
             libraryDirectory: 'es',
             style: true
         }),
@@ -174,7 +174,7 @@ module.exports = {
             lessOptions: {  //新版本写法
                 noIeCompat: true,
                 javascriptEnabled: true,
-                modifyVars: { ...theme },
+                // modifyVars: { ...theme },
                 modules: true
             }
             // localIdentName: '[local]--[hash:base64:5]', // 自定义 CSS Modules 的 localIdentName
