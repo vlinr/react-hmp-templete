@@ -10,7 +10,8 @@ import { MessageType } from ".";
  * 
  * **/
 const zhCN:MessageType={
-    name:'大家好，我叫：{name}'
+    'name':'张三',
+    'Fixed price':'大家好，我叫：{name}'
 }
 
 

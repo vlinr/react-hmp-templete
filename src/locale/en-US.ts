@@ -6,7 +6,8 @@ import { MessageType } from ".";
  * 
  * ***/
  const enUS:MessageType={
-    name:'Hello，My name is：{name}'
+    'name':'zhangsan',
+    'Fixed price':'Hello，My name is：{name}',
 }
 
 export default enUS;

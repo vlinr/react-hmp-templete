@@ -102,7 +102,7 @@ function useFixed(throtileTimeOut:number = 100){
           }
           if(!ioRef?.current?.io){
             IntersectionObserver.prototype.THROTTLE_TIMEOUT = throtileTimeOut;
-            ioRef.current.io = new IntersectionObserver(entryListener);
+            ioRef.current.io = new IntersectionObserver(entryListener) as any;
           }
       },
       [],

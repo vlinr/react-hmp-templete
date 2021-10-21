@@ -9,7 +9,7 @@ interface LoadingType {
   isFullScreen?: boolean;
 }
 
-const SpinLoding = ({
+const SpinLoading = ({
   error,
   pastDelay,
   mask,
@@ -30,4 +30,4 @@ const SpinLoding = ({
   return null;
 };
 
-export default memo(SpinLoding);
+export default memo(SpinLoading);

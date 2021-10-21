@@ -11,7 +11,7 @@ const {useEffect,useRef} = React;
  * @param executeNow:是否立即执行一次
  * 
  * *****/
-function useHreatTimer(deeps:number = 1000,jumpHeartDeeps:number = 1000,executeNow:boolean = true){
+function useHeartTimer(deeps:number = 1000,jumpHeartDeeps:number = 1000,executeNow:boolean = true){
     
     const timeRef:any = useRef();
     
@@ -85,4 +85,4 @@ function useHreatTimer(deeps:number = 1000,jumpHeartDeeps:number = 1000,executeN
 }
 
 
-export default useHreatTimer;
+export default useHeartTimer;

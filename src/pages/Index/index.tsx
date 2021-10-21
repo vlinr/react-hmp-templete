@@ -10,9 +10,9 @@ import useCustomTimer from "hooks/useCustomTimer";
 import formatTimeToHHMMSS from "utils/formatTimeToHHMMSS";
 import useErrorBoundary from "use-error-boundary";
 import toast from "@/utils/toast";
-import { Button, Field, Rate, Slider } from "react-vant";
-import { FormattedMessage } from "react-intl";
+import { Button, Field, Rate, Slider,Popup } from "react-vant";
 import useFixed from "@/hooks/useFixed";
+import useLocale from "@/hooks/useLocale";
 
 const { memo, useEffect, useState } = React;
 
@@ -34,6 +34,7 @@ function Index(): React.ReactElement<any> {
   const { startTimer, cancelTimer } = useCustomTimer(false, 99999);
   const [time, setTime] = useState(0);
   const { ErrorBoundary } = useErrorBoundary();
+  const [show, setShow] = useState(true);
 
   const {
     addElement
@@ -65,15 +66,40 @@ function Index(): React.ReactElement<any> {
   }, []);
   return (
     <div className={styles.box}>
-      
+      {/* <Popup visible={show} onClick={()=>setShow(false)} position="bottom" round={true}>
+        <div>
+          djsakdjsalk
+          djsakdjsalk
+          djsakdjsalk
+          djsakdjsalk
+          djsakdjsalk
+        </div>
+        <div>
+          djsakdjsalk
+          djsakdjsalk
+          djsakdjsalk
+          djsakdjsalk
+          djsakdjsalk
+        </div><div>
+          djsakdjsalk
+          djsakdjsalk
+          djsakdjsalk
+          djsakdjsalk
+          djsakdjsalk
+        </div>
+      </Popup> */}
       <div onClick={()=>dispatch?.locale?.setLocale('en')}>更改语言</div>
-      <FormattedMessage id="name" values={{name:'1456'}} />
-      <Field label="评分">
+      <div className=''>
+        {
+          useLocale("Fixed price",{name:useLocale('name')})
+        }
+      </div>
+      {/* <Field label="评分">
         <Rate value={5} />
       </Field>
       <Field label="滑块">
         <Slider value={90} />
-      </Field>
+      </Field> */}
         <Button block round type="primary">
           提交
         </Button>
