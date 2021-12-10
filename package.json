@@ -14,7 +14,7 @@
     "test": "react-app-rewired test --env=jsdom",
     "eject": "react-scripts eject",
     "prepare": "husky install && npm run husky",
-    "husky": "husky add .husky/pre-commit ''",
+    "husky": "husky add .husky/pre-commit '#需要执行的命令'",
     "pre-commit": ""
   },
   "husky": {
