@@ -14,7 +14,7 @@
     "test": "react-app-rewired test --env=jsdom",
     "eject": "react-scripts eject",
     "prepare": "husky install && npm run husky",
-    "husky": "husky add .husky/pre-commit 'npx commitlint && npm run build'",
+    "husky": "husky add .husky/pre-commit ''",
     "pre-commit": ""
   },
   "husky": {
