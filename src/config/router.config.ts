@@ -34,7 +34,7 @@ const ROUTER_CONFIG: Array<RouteItemType> = [
         exact: true,  //是否严格匹配
         name: '测试模板', //名称
         icon: FormOutlined,
-        component:'Index', //和pages下面的目录名称保持一致
+        component:'Index', //和pages下面的目录名称保持一致，如果是多级，需要详细写出级别，如：Index/Test/Upload
         newWindow: false,  //是否是新窗口打开
         authority: [],//权限拥有者
         isNotLogin:true,
@@ -43,14 +43,14 @@ const ROUTER_CONFIG: Array<RouteItemType> = [
         ]
     },
     {
-        path: '/404',  //访问路径
-        layout: UserLayout, //布局，最外层的必须指定
-        exact: true,  //是否严格匹配
-        name: '404', //名称
+        path: '/404', 
+        layout: UserLayout,
+        exact: true, 
+        name: '404',
         icon: FormOutlined,
         component:'NotFound',
-        newWindow: false,  //是否是新窗口打开
-        authority: [],//权限拥有者
+        newWindow: false, 
+        authority: [],
         isNotLogin:true,
         children: [
            

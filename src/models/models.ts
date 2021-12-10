@@ -1,10 +1,13 @@
 import { Models } from '@rematch/core';
+import locale from './locale';
 import index from './index';
 
-export interface RootModel extends Models {
+export interface RootModel extends Models<any> {
+    locale:typeof locale,
     index:typeof index
 }
 
 export const models: RootModel = { 
-    index
+    locale,
+    index,
 }

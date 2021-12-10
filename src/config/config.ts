@@ -23,3 +23,7 @@ export const VIEW_TO_REM_INFO:{
     designWidth:375,
     fontSize:14
 }
+
+
+//默认语言
+export const DEFAULT_LANGUAGE:string = 'zh';

@@ -1,23 +1,24 @@
-import * as React from "react";
-import styles from "./index.module.less";
-import CustomLoading from "@/components/RotateLoading";
-import { useDispatch, useSelector } from "react-redux";
-import { createSelector } from "reselect";
-import getUrlParams from "utils/getUrlParams";
-import { StateType } from "models";
-import { RootState } from "models/store";
-import useCustomTimer from "hooks/useCustomTimer";
-import useErrorBoundary from "use-error-boundary";
-import toast from "@/utils/toast";
-import formatDate from "@/utils/formatDate";
-const { memo, useEffect, useState } = React;
+import * as React from 'react'
+import styles from './index.module.less'
+import CustomLoading from '@/components/RotateLoading'
+import { useDispatch, useSelector } from 'react-redux'
+import { createSelector } from 'reselect'
+import getUrlParams from 'utils/getUrlParams'
+import { StateType } from 'models'
+import { RootState } from 'models/store'
+import useCustomTimer from 'hooks/useCustomTimer'
+import useErrorBoundary from 'use-error-boundary'
+import toast from '@/utils/toast'
+import formatDate from '@/utils/formatDate'
+import useLocale from '@/hooks/useLocale'
+const { memo, useEffect, useState } = React
 
-let token: string | null = getUrlParams("token"); //获取url中的token
+let token: string | null = getUrlParams('token') //获取url中的token
 
 const indexReducer = createSelector(
   (state: RootState) => state.index,
-  (index: StateType) => index.info
-);
+  (index: StateType) => index.info,
+)
 
 /******
  *
@@ -25,19 +26,19 @@ const indexReducer = createSelector(
  *
  * *******/
 function Index(): React.ReactElement<any> {
-  const dispatch = useDispatch();
-  const data = useSelector(indexReducer); //数据仓库
-  const { startTimer, cancelTimer } = useCustomTimer(false, 99999);
-  const [time, setTime] = useState(0);
-  const { ErrorBoundary } = useErrorBoundary();
+  const dispatch = useDispatch()
+  const data = useSelector(indexReducer) //数据仓库
+  const { startTimer, cancelTimer } = useCustomTimer(false, 99999)
+  const [time, setTime] = useState(0)
+  const { ErrorBoundary } = useErrorBoundary()
 
   //初始化数据
   useEffect(() => {
-    //获取活动详情
     dispatch?.index?.getInfo({
       token,
       callback(res: any) {},
-    });
+    })
+
     // toast("通用提示，中部", {
     //   position: "center",
     //   keepTime: 3000,
@@ -57,8 +58,9 @@ function Index(): React.ReactElement<any> {
     //   keepTime: 3000,
     // });
     // toast("通用提示,默认底部");
+    // other code
     startTimer?.(time, (num: number) => {
-      setTime(num);
+      setTime(num)
       // if (num % 5 === 0) {
       //   //取5等于0的时候暂停5秒继续执行次
       //   pauseTimer();
@@ -66,25 +68,31 @@ function Index(): React.ReactElement<any> {
       //     resumeTimer();
       //   }, 1000);
       // }
-    });
-
-    () => cancelTimer?.();
-  }, []);
+    })
+    return () => cancelTimer?.()
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <div className={`${styles.box}`}>
+      <div
+        onClick={() => dispatch?.locale?.setLocale('en')}
+        style={{ cursor: 'pointer' }}
+      >
+        更改语言
+      </div>
+      {useLocale('name')}
       <ErrorBoundary
         render={() => (
           <CustomLoading
             loading={true}
             showText={true}
-            text={data?.toString() + `${formatDate(time, "HH:mm:ss", true)}`}
+            text={data?.toString() + `${formatDate(time, 'HH:mm:ss', true)}`}
           />
         )}
-        renderError={(error: any) => toast("CustomLoading组件渲染出了问题.")}
+        renderError={(error: any) => toast('CustomLoading组件渲染出了问题.')}
       />
     </div>
-  );
+  )
 }
 
-export default memo(Index);
+export default memo(Index)

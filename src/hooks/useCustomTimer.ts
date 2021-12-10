@@ -91,7 +91,7 @@ function useCustomTimer(down:boolean = true,endNum:number = 0){
         return () => {
             cancelTimer();
         }
-    }, [])
+    }, [cancelTimer])
 
     return {
         pauseTimer,resumeTimer,startTimer,cancelTimer,time
