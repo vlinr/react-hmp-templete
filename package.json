@@ -14,13 +14,8 @@
     "test": "react-app-rewired test --env=jsdom",
     "eject": "react-scripts eject",
     "prepare": "husky install && npm run husky",
-    "husky": "husky add .husky/pre-commit '#需要执行的命令'",
+    "husky": "npx husky add .husky/commit-msg 'npx commitlint --edit $1' && npx husky add .husky/pre-commit '#需要执行的命令'",
     "pre-commit": ""
-  },
-  "husky": {
-    "hooks": {
-      "commit-msg": "commitlint -e $HUSKY_GIT_PARAMS" 
-    }
   },
   "homepage": ".",
   "eslintConfig": {
