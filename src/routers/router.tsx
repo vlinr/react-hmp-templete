@@ -1,11 +1,10 @@
-import * as React from 'react';
+import { ReactElement, memo, useEffect, } from 'react';
 import { Redirect, Route, useHistory } from 'react-router-dom';
 import { LOGIN_PATH } from '@/config/config';
 import { RouteType } from '@/config/router.config';
 import { USER_TOKEN_NAME } from '@/config/config';
 import AsyncImport from '@/utils/asyncImport';
 import serializeParams from '@/utils/serializeParams';
-const { memo, useEffect } = React;
 
 // 检查用户
 function AuthRouter({
@@ -15,7 +14,7 @@ function AuthRouter({
     name,
     isNotLogin,
     ...rest
-}: RouteType): React.ReactElement<RouteType> {
+}: RouteType): ReactElement<RouteType> {
     const history = useHistory();
 
     // 路由切换全局方法

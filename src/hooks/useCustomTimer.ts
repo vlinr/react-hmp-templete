@@ -1,6 +1,6 @@
 import * as React from 'react';
 const { useEffect, useRef, useCallback, useState } = React;
-/*
+/**
  *
  * @method 倒计时
  * @param down:是否是倒计时
@@ -11,7 +11,7 @@ function useCustomTimer(down: boolean = true, endNum: number = 0) {
     const timeRef = useRef<any>(null);
     const [time, setTime] = useState<number>();
 
-    /*
+    /**
      *
      * @method 取消计时器
      * @param cancel:{boolean}：是否是取消
@@ -24,7 +24,7 @@ function useCustomTimer(down: boolean = true, endNum: number = 0) {
         }
     }, []);
 
-    /*
+    /**
      *
      * @method 开始计时器
      * @param time:{number}时间，单位：秒
@@ -63,7 +63,7 @@ function useCustomTimer(down: boolean = true, endNum: number = 0) {
         }, deeps);
     };
 
-    /*
+    /**
      *
      * @method 恢复
      *
@@ -80,7 +80,7 @@ function useCustomTimer(down: boolean = true, endNum: number = 0) {
         );
     };
 
-    /*
+    /**
      *
      * @method 暂停
      *

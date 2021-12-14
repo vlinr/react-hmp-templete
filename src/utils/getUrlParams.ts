@@ -1,4 +1,4 @@
-/*
+/**
  *
  * @method 根据URL获取参数
  * @param name:{string}:参数名称

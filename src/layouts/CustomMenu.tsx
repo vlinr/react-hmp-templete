@@ -1,4 +1,4 @@
-import React from 'react';
+import { useCallback, useEffect, forwardRef, memo, useState } from 'react';
 import styles from './customMenu.module.less';
 import { Link, useHistory } from 'react-router-dom';
 import { cloneDeep } from 'lodash-es';
@@ -7,7 +7,6 @@ import ROUTER_CONFIG, { RouteItemType } from '@/config/router.config';
 import { routerFlatten } from '@/utils/routerToFlatten';
 import formatPath from '@/utils/formatPath';
 const { Sider } = Layout;
-const { useCallback, useEffect, forwardRef, memo, useState } = React;
 
 const USER_AUTHORITY = 'admin'; // 用户角色,在authority数组去寻找是否有这个角色，有则显示，没有则不渲染
 

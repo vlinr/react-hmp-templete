@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 
 type IrregularBorderType = {
   width: number; // 边框宽度

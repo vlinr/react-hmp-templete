@@ -1,5 +1,5 @@
-import * as React from 'react';
-import styles from './blanklayout.module.less';
+import { useState, useCallback, memo, useRef,createElement } from 'react';
+import styles from './blankLayout.module.less';
 import { Layout, Menu, Avatar, Dropdown } from 'antd';
 import {
     LogoutOutlined,
@@ -19,7 +19,6 @@ const userInfoReducer = createSelector(
     (login: any) => login.userInfo
 );
 const { Header, Content, Footer } = Layout;
-const { useState, useCallback, memo, useRef } = React;
 
 const TOP_INFO: React.ReactElement = (
     <Menu>
@@ -64,7 +63,7 @@ function BlankLayout(props: RouteItemType): React.ReactElement<RouteItemType> {
                         {/* {
                             collapsed?<MenuUnfoldOutlined onClick={toggle} />:<MenuFoldOutlined  onClick={toggle}/>
                         } */}
-                        {React.createElement(collapsed ? MenuUnfoldOutlined : MenuFoldOutlined, {
+                        {createElement(collapsed ? MenuUnfoldOutlined : MenuFoldOutlined, {
                             onClick: toggle
                         })}
                         <div className={styles.userInfo}>

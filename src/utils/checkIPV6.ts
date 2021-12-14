@@ -1,4 +1,4 @@
-/** **
+/**
  * 
  * @method 检查是否是IPV6地址
  * @param value:{string}:ipv6地址

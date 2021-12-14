@@ -1,10 +1,10 @@
-/*
- * 
- * 全局头配置文件
- * 
- * ****/
-import { USER_TOKEN_NAME } from "./config";
 
+import { USER_TOKEN_NAME } from "./config";
+/**
+ * 
+ * @function 全局头配置文件
+ * 
+ * ***/
 const HEADERS = () => {
 
     return {

@@ -1,4 +1,4 @@
-interface FontType {
+type FontType = {
     maxWidth: number;
     designWidth: number;
     fontSize: number;

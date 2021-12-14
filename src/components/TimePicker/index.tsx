@@ -1,5 +1,5 @@
 import { Dayjs } from 'dayjs';
-import * as React from 'react';
+import React from 'react';
 import DatePicker from '@/components/DatePicker';
 import { PickerTimeProps } from 'antd/es/date-picker/generatePicker';
 

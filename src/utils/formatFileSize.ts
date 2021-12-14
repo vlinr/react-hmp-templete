@@ -1,4 +1,4 @@
-/** ******
+/**
  * 
  * @method 格式化文件大小
  * @param size:{number}:文件大小

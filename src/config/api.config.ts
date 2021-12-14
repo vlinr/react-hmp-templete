@@ -1,8 +1,8 @@
-/*
+/**
  * 
- * 全局api配置文件
+ * @tips 全局api配置文件
  * 
- * ****/
+ * ***/
 
 export const DOMAIN:string = '';  // 开发环境可用
 

@@ -23,7 +23,7 @@ type PropsType = {
     children: React.ReactNode;
 };
 
-/*
+/**
  *
  * @function 获取antd的语言文件
  *
@@ -42,7 +42,7 @@ function getLanguageByAntd(type: string) {
     return result;
 }
 
-/*
+/**
  *
  * @function 获取用户自定义文件配置
  *
@@ -61,7 +61,7 @@ function getLanguageByUser(type: string) {
     return result;
 }
 
-/*
+/**
  *
  * @function 获取dayjs配置
  *
@@ -80,7 +80,7 @@ function getLanguageByDayjs(type: string) {
     return result;
 }
 
-/*
+/**
  *
  * @function 国际化配置
  *
@@ -88,19 +88,17 @@ function getLanguageByDayjs(type: string) {
 
 const LocaleConfigProvider = ({ children }: PropsType) => {
     const language: string = useSelector(localeData);
-    // 根据store里面的选项，进行设置相应的内容
+
     useEffect(() => {
         dayjs.locale(getLanguageByDayjs(language));
         intl.init({
             currentLocale: language,
-            warningHandler: () => {
-                return '';
-            },
-            locales: {
-                zh: zhCN,
-                en: enUS
-            }
+            warningHandler: () => '',
+            locales: {}
         });
+        intl.load({
+            [language]: getLanguageByUser(language)
+        })
     }, [language]);
 
     return (

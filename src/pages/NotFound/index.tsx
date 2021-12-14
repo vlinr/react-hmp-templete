@@ -1,5 +1,5 @@
-import * as React from 'react';
-/*
+import { memo } from 'react';
+/**
  *
  * @function:404
  *
@@ -16,9 +16,9 @@ function NotFound(): React.ReactElement<any> {
                 fontSize: 24
             }}
         >
-            兄弟，404了
+            404
         </div>
     );
 }
 
-export default React.memo(NotFound);
+export default memo(NotFound);

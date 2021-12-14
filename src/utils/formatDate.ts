@@ -1,4 +1,4 @@
-/*
+/**
  *
  * @method 格式化日期
  * @param time:{string | number}:需要转化的日期，可以是一个日期也可以是一个时间戳也可以是秒，但是如果是日期，则以字符串传入，并且会
@@ -10,7 +10,7 @@
  *
  * @returns string
  *
- * *****/
+ * ****/
 
 function formatDate(
     time: string | number,
@@ -42,7 +42,7 @@ function formatDate(
     return format;
 }
 
-/*
+/**
  *
  * @method 获取转换规则
  * @param seconds:{boolean}:是否使用秒
@@ -70,7 +70,7 @@ function getRules(time: number | string, seconds: boolean): { [key: string]: num
     }
 }
 
-/*
+/**
  *
  * @method 传入的是秒，则普通解析
  *
@@ -96,7 +96,7 @@ function formatDateBySeconds(time: number | string, key: string): number {
     return result;
 }
 
-/*
+/**
  *
  * @method 替换掉M
  *
@@ -114,7 +114,7 @@ function replaceStringByKey(str: string, key: string, replace: string) {
     return result;
 }
 
-/*
+/**
  *
  * @method 补0
  *
@@ -123,7 +123,7 @@ function fillZero(num: number | string): string {
     return `0${num}`;
 }
 
-/*
+/**
  *
  * @method 获取分
  * @param date:{Date}:时间
@@ -132,7 +132,7 @@ function getMinutes(date: Date) {
     return date.getMinutes();
 }
 
-/*
+/**
  *
  * @method 获取秒
  * @param date:{Date}:时间
@@ -141,7 +141,7 @@ function getSeconds(date: Date) {
     return date.getSeconds();
 }
 
-/*
+/**
  *
  * @method 获取时
  * @param date:{Date}:时间
@@ -150,7 +150,7 @@ function getHours(date: Date) {
     return date.getHours();
 }
 
-/*
+/**
  *
  * @method 获取日
  * @param date:{Date}:时间
@@ -159,7 +159,7 @@ function getDay(date: Date) {
     return date.getDate();
 }
 
-/*
+/**
  *
  * @method 获取星期
  * @param date:{Date}:时间
@@ -168,7 +168,7 @@ function getWeekDay(date: Date) {
     return date.getDay();
 }
 
-/*
+/**
  *
  * @method 获取月份
  * @param date:{Date}:时间
@@ -177,7 +177,7 @@ function getMonth(date: Date) {
     return date.getMonth();
 }
 
-/*
+/**
  *
  * @method 获取年份
  * @param date:{Date}:时间
@@ -186,7 +186,7 @@ function getYear(date: Date) {
     return date.getFullYear();
 }
 
-/*
+/**
  *
  * @method 获取时间对象
  * @param time:{number|string}:时间

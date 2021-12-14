@@ -1,7 +1,6 @@
-import * as React from 'react';
+import { memo, ReactElement  } from 'react';
 import { Spin } from 'antd';
 import styles from './index.module.less';
-const { memo } = React;
 type LoadingType = {
     error?: any; // 加载错误
     pastDelay: boolean;
@@ -14,7 +13,7 @@ const SpinLoading = ({
     pastDelay,
     mask,
     isFullScreen
-}: LoadingType): React.ReactElement | null => {
+}: LoadingType): ReactElement | null => {
     if (error) return <div>加载错误...</div>;
     if (pastDelay)
         return (

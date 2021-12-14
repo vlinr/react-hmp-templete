@@ -1,4 +1,4 @@
-/** *****
+/**
  * 
  * @method 检查密码强度是否符合标准
  * @param pwd:{string | number} 密码

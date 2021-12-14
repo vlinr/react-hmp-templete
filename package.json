@@ -13,11 +13,11 @@
     "build:release": "react-app-rewired build env=release",
     "test": "react-app-rewired test --env=jsdom",
     "eject": "react-scripts eject",
-    "prettier": "npx prettier --write \"src/**/*\"",
+    "prettier": "npx prettier --config .prettierrc --write \"src/**/*\"",
     "prepare": "node .init.js",
     "lint:fix": "npx eslint --fix --ext .js,.tsx,.ts,.tsx src",
-    "stylelint": "npx stylelint \"src/**/*.(less|scss|css)\" --fix",
-    "markdownlint": "npx markdownlint"
+    "lint:style": "npx stylelint \"src/**/*.(less|scss|css)\" --fix",
+    "lint:markdown": "npx markdownlint"
   },
   "homepage": ".",
   "browserslist": {

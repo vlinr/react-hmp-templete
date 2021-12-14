@@ -1,6 +1,6 @@
-/***
+/**
  * 
- * 国际化配置
+ * @tips 国际化配置
  * 
  * **/
 
@@ -9,18 +9,18 @@ type MessageType = {
 }
 
 
-/****
+/**
  * 
- * 中文配置
+ * @tips 中文配置
  * 
  * **/
 const zhCN:MessageType={
     name:'哈哈哈{name}'
 }
 
-/***
+/**
  * 
- * 英语的配置
+ * @tips 英语的配置
  * 
  * ***/
 const enUS:MessageType={

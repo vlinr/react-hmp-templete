@@ -8,7 +8,7 @@ import { MessageType } from '.';
 
 const enUS: MessageType = {
     name: 'English Name',
-    Redux_Tips: 'Redux reminds you that you are here:{time}',
+    Redux_Tips: 'Redux reminds you that you are here=>{time}',
 };
 
 export default enUS;

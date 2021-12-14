@@ -1,4 +1,4 @@
-/** ***
+/** 
  * 
  * @method 检查是否是手机号
  * @param value:{string | number}:需要验证的手机号

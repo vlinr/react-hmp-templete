@@ -1,4 +1,4 @@
-/*
+/**
  *
  * @method 将base64数据转为文件类型
  * @param base64:{string}：base64数据

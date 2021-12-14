@@ -1,13 +1,13 @@
 import UserLayout from '@/layouts/UserLayout';
 import { FormOutlined } from '@ant-design/icons';
 
-/*
+/**
  *
  * 全局路由配置文件
  *
  * ****/
 
-export interface RouteType {
+export type RouteType = {
     path: string;
     name: string;
     component?: string;
@@ -16,7 +16,7 @@ export interface RouteType {
     isNotLogin?: boolean;
 }
 
-export interface RouteItemType extends RouteType {
+export type RouteItemType = RouteType & {
     children?: Array<RouteItemType>;
     newWindow?: boolean;
     authority?: Array<string>;
