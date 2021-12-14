@@ -1,8 +1,8 @@
 import { MessageType } from '.';
 
-/*
+/**
  *
- * 中文配置
+ * @object 中文配置
  *
  * **/
 

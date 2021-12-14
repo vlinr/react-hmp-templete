@@ -1,8 +1,8 @@
 const pluginName = 'BuildReplaceRequestConfig';
 const ConcatSource = require('webpack-sources').ConcatSource;
-/****
+/**
  * 
- * 写入请求相关内容
+ * @class 写入请求相关内容
  * 
  * ****/
 class BuildReplaceRequestConfig {
@@ -36,12 +36,12 @@ class BuildReplaceRequestConfig {
         });
     }
 
-    /*****
+    /**
      * 
      * @method 获取使用的配置
      * @param env:{string}：运行环境
      * 
-     * *****/
+     * **/
     getConfigData(env) {
         let result = null;
         for (let key in this.options) {
@@ -53,12 +53,12 @@ class BuildReplaceRequestConfig {
         return result;
     }
 
-    /*****
+    /**
      * 
      * @method 获取出入口name
      * @param entry:{any}:入口内容
      * 
-     * *****/
+     * **/
     getEntryName(entry) {  //入口如果是对象，直接返回所有的key
         let result = [];
         if (entry && entry instanceof Array || typeof (entry) === 'string') {
@@ -71,23 +71,23 @@ class BuildReplaceRequestConfig {
         return result;
     }
 
-    /*****
+    /**
      * 
      * @method 获取出口name
      * @param filename:{string}：出口文件名
      * 
-     * *****/
+     * **/
     getOutputName(filename) {
         if (/[name]/g.test(filename)) return null; //需要使用entry
         let names = filename.split('/');
         return [names[names.length - 1].split('.')[0]];
     }
 
-    /****
+    /**
     * 
     * @method 获取启动参数
     * 
-    * *****/
+    * **/
     getEnvParams() {
         let argv = process.argv.splice(2);
         for (let i = 0; i < argv.length; ++i) {
