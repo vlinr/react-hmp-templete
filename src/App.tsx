@@ -2,6 +2,7 @@ import '@/App.less';
 // import "braft-editor/dist/index.css";
 import { hot } from 'react-hot-loader/root';
 import AppRouter from '@/routers/index';
+
 function App() {
     return AppRouter;
 }
