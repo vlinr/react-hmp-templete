@@ -4,7 +4,8 @@ module.exports = {
         'type-enum': [
             2,
             'always',
-            ['upd', 'feat', 'fix', 'refactor', 'docs', 'chore', 'style', 'revert'],
+            ['upd', 'feat', 'fix', 'refactor', 'docs', 'chore', 'style', 'revert','build','perf'],
+            
         ],
         'type-case': [0],
         'type-empty': [0],
@@ -12,6 +13,6 @@ module.exports = {
         'scope-case': [0],
         'subject-full-stop': [0, 'never'],
         'subject-case': [0, 'never'],
-        'header-max-length': [0, 'always', 72],
+        'header-max-length': [2, 'always', 72],
     },
 };
