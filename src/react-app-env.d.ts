@@ -1,4 +1,3 @@
-
 /// <reference types="react-scripts" />
 
 //解决模块化引入less报错问题
@@ -7,16 +6,15 @@
 //     export default less;
 // }
 
-declare module "*.module.less" {
+declare module '*.module.less' {
     const classes: { [key: string]: string };
     export default classes;
 }
 
-declare module "@rematch/updated" {
-    const updatedPlugin:any;
+declare module '@rematch/updated' {
+    const updatedPlugin: any;
     export default updatedPlugin;
 }
-
 
 declare module '@/*';
 
@@ -35,12 +33,9 @@ declare module 'react-loadable' {
 }
 
 declare module '@/assets/js/intersection-observer' {
-    const IntersectionObserver:any;
-    const IntersectionObserverEntry:any;
-    export {
-        IntersectionObserver,
-        IntersectionObserverEntry
-    }
+    const IntersectionObserver: any;
+    const IntersectionObserverEntry: any;
+    export { IntersectionObserver, IntersectionObserverEntry };
 }
 
 //引入不存在的这个模块

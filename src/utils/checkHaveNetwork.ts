@@ -1,7 +1,7 @@
 type NetworkType = {
     onLine: boolean; // 是否在线
     downlink: number; // 下载速度
-}
+};
 
 /**
  *
@@ -14,7 +14,7 @@ function checkHaveNetwork(): NetworkType {
     const win: any = window;
     return {
         onLine: window.navigator.onLine,
-        downlink: win.navigator?.connection?.downlink || 0
+        downlink: win.navigator?.connection?.downlink || 0,
     };
 }
 

@@ -1,4 +1,4 @@
-import { useState, useCallback, memo, useRef,createElement } from 'react';
+import { useState, useCallback, memo, useRef, createElement } from 'react';
 import styles from './blankLayout.module.less';
 import { Layout, Menu, Avatar, Dropdown } from 'antd';
 import {
@@ -6,7 +6,7 @@ import {
     DownOutlined,
     UserOutlined,
     MenuUnfoldOutlined,
-    MenuFoldOutlined
+    MenuFoldOutlined,
 } from '@ant-design/icons';
 import { RouteItemType } from '@/config/router.config';
 import CustomMenu from './CustomMenu';
@@ -16,7 +16,7 @@ import { USER_TOKEN_NAME } from '@/config/config';
 import useLocale from '@/hooks/useLocale';
 const userInfoReducer = createSelector(
     (state: any) => state.login,
-    (login: any) => login.userInfo
+    (login: any) => login.userInfo,
 );
 const { Header, Content, Footer } = Layout;
 
@@ -27,8 +27,7 @@ const TOP_INFO: React.ReactElement = (
             onClick={() => {
                 localStorage.removeItem(USER_TOKEN_NAME);
                 window.location.reload();
-            }}
-        >
+            }}>
             {useLocale('退出登录')}
         </Menu.Item>
     </Menu>
@@ -64,10 +63,10 @@ function BlankLayout(props: RouteItemType): React.ReactElement<RouteItemType> {
                             collapsed?<MenuUnfoldOutlined onClick={toggle} />:<MenuFoldOutlined  onClick={toggle}/>
                         } */}
                         {createElement(collapsed ? MenuUnfoldOutlined : MenuFoldOutlined, {
-                            onClick: toggle
+                            onClick: toggle,
                         })}
                         <div className={styles.userInfo}>
-                            <Dropdown overlay={TOP_INFO} placement="bottomCenter" arrow>
+                            <Dropdown overlay={TOP_INFO} placement='bottomCenter' arrow>
                                 <div className={styles.box}>
                                     <Avatar
                                         icon={<UserOutlined />}
@@ -79,7 +78,7 @@ function BlankLayout(props: RouteItemType): React.ReactElement<RouteItemType> {
                                             fontSize: 15,
                                             marginLeft: 5,
                                             position: 'relative',
-                                            top: 2
+                                            top: 2,
                                         }}
                                     />
                                 </div>
@@ -91,9 +90,8 @@ function BlankLayout(props: RouteItemType): React.ReactElement<RouteItemType> {
                         style={{
                             margin: '24px 16px',
                             padding: 24,
-                            minHeight: 280
-                        }}
-                    >
+                            minHeight: 280,
+                        }}>
                         {children}
                     </Content>
                     <Footer style={{ textAlign: 'center' }}>©2022 版权所有</Footer>

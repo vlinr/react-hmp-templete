@@ -26,7 +26,7 @@ async function uploadFile(params: UploadFileType): Promise<any> {
         dataType: '',
         requestType: 'file',
         data: formData,
-        useCustomHeader: false
+        useCustomHeader: false,
     }).fetch();
 }
 export default uploadFile;

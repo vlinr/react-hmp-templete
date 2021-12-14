@@ -16,7 +16,7 @@ import intl from 'react-intl-universal';
 
 const localeData = createSelector(
     (state: RootState) => state.locale,
-    (locale: LangType) => locale.language
+    (locale: LangType) => locale.language,
 );
 
 type PropsType = {
@@ -94,11 +94,11 @@ const LocaleConfigProvider = ({ children }: PropsType) => {
         intl.init({
             currentLocale: language,
             warningHandler: () => '',
-            locales: {}
+            locales: {},
         });
         intl.load({
-            [language]: getLanguageByUser(language)
-        })
+            [language]: getLanguageByUser(language),
+        });
     }, [language]);
 
     return (

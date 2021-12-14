@@ -1,8 +1,10 @@
 /**
+ * ******
  *
+ * @format
  * @method 创建emoji表情
- *
- * *******/
+ */
+
 class CreateEmoji {
     private emojiList: { [key: string]: string } = {
         '<笑脸>': '1f604',

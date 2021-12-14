@@ -59,7 +59,7 @@ const findPathListByPath = (routeList: Array<RouteItemType>, path: string) => {
 function loopRouteItem(
     result: Array<RouteItemType>,
     children: Array<RouteItemType>,
-    path: string
+    path: string,
 ): Array<RouteItemType> {
     for (let i: number = 0, len: number = children.length; i < len; ++i) {
         const item: RouteItemType = children[i];

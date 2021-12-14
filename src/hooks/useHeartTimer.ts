@@ -13,7 +13,7 @@ const { useEffect, useRef } = React;
 function useHeartTimer(
     deeps: number = 1000,
     jumpHeartDeeps: number = 1000,
-    executeNow: boolean = true
+    executeNow: boolean = true,
 ) {
     const timeRef: any = useRef();
 
@@ -83,7 +83,7 @@ function useHeartTimer(
         stopHeart,
         setJumpHeartDeeps,
         pauseHeart,
-        resumeHeart
+        resumeHeart,
     };
 }
 

@@ -3,11 +3,11 @@ import locale from './locale';
 import index from './index';
 
 export interface RootModel extends Models<any> {
-    locale:typeof locale,
-    index:typeof index
+    locale: typeof locale;
+    index: typeof index;
 }
 
-export const models: RootModel = { 
+export const models: RootModel = {
     locale,
-    index
-}
+    index,
+};

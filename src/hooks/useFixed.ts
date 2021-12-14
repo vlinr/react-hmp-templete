@@ -205,24 +205,28 @@ function useFixed(throtileTimeOut: number = 100) {
      *
      * ****/
 
-    const getIntersectionObserverEntry = useCallback((find?: string | Element):
-        | FixedHooksType.IntersectionObserverEntryType
-        | FixedHooksType.IntersectionObserverEntryType[] => {
-        const targets:
-            | FixedHooksType.IntersectionObserverEntryType[]
-            | undefined = ioRef?.current?.io?.getTargets();
-        if (targets && find) {
-            const index: number = targets.findIndex(
-                (item: FixedHooksType.IntersectionObserverEntryType) => {
-                    return typeof find === 'string'
-                        ? item?.target?.getAttribute(KEY_NAME) === find
-                        : item.target === find;
-                },
-            );
-            if (index !== -1) return targets[index];
-        }
-        return targets as FixedHooksType.IntersectionObserverEntryType[];
-    }, []);
+    const getIntersectionObserverEntry = useCallback(
+        (
+            find?: string | Element,
+        ):
+            | FixedHooksType.IntersectionObserverEntryType
+            | FixedHooksType.IntersectionObserverEntryType[] => {
+            const targets: FixedHooksType.IntersectionObserverEntryType[] | undefined =
+                ioRef?.current?.io?.getTargets();
+            if (targets && find) {
+                const index: number = targets.findIndex(
+                    (item: FixedHooksType.IntersectionObserverEntryType) => {
+                        return typeof find === 'string'
+                            ? item?.target?.getAttribute(KEY_NAME) === find
+                            : item.target === find;
+                    },
+                );
+                if (index !== -1) return targets[index];
+            }
+            return targets as FixedHooksType.IntersectionObserverEntryType[];
+        },
+        [],
+    );
 
     /**
      *

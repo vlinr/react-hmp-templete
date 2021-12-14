@@ -82,8 +82,7 @@ function Index(): React.ReactElement<any> {
         <div className={`${styles.box}`}>
             <div
                 onClick={() => dispatch?.locale?.setLocale(locale === 'en' ? 'zh' : 'en')}
-                style={{ cursor: 'pointer', color: '#fff' }}
-            >
+                style={{ cursor: 'pointer', color: '#fff' }}>
                 更改语言：
             </div>
             <div style={{ color: '#fff', marginRight: 30 }}>{useLocale('name')}</div>

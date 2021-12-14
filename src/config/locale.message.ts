@@ -1,35 +1,31 @@
 /**
- * 
+ * *
+ *
+ * @format
  * @tips 国际化配置
- * 
- * **/
+ */
 
 type MessageType = {
-    [key:string]:string
-}
-
+    [key: string]: string;
+};
 
 /**
- * 
+ *
  * @tips 中文配置
- * 
+ *
  * **/
-const zhCN:MessageType={
-    name:'哈哈哈{name}'
-}
+const zhCN: MessageType = {
+    name: '哈哈哈{name}',
+};
 
 /**
- * 
+ *
  * @tips 英语的配置
- * 
+ *
  * ***/
-const enUS:MessageType={
-    name:'hahah{name}'
-}
+const enUS: MessageType = {
+    name: 'hahah{name}',
+};
 
-export {
-    zhCN
-};
-export {
-    enUS
-};
+export { zhCN };
+export { enUS };

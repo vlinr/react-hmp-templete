@@ -1,75 +1,77 @@
+
+
 .loading {
-  text-align: center;
+    text-align: center;
 
-  .l_icon {
-    margin: 0 auto;
-    width: 140px;
-    height: 14px;
+    .l_icon {
+        margin: 0 auto;
+        width: 140px;
+        height: 14px;
 
-    span {
-      display: inline-block;
-      margin-right: 5px;
-      width: 14px;
-      height: 100%;
-      background: #FFFFFF;
-      opacity: 0;
-      transition: all .3s ease;
-      transform-origin: right bottom;
-      animation: loading 1s ease infinite;
+        span {
+            display: inline-block;
+            margin-right: 5px;
+            width: 14px;
+            height: 100%;
+            background: #ffffff;
+            opacity: 0;
+            transition: all 0.3s ease;
+            transform-origin: right bottom;
+            animation: loading 1s ease infinite;
 
-      &:last-of-type {
-        margin-right: 0;
-      }
+            &:last-of-type {
+                margin-right: 0;
+            }
 
-      @keyframes loading {
-        0% {
-          opacity: 1;
-          transform: scale(1);
+            @keyframes loading {
+                0% {
+                    opacity: 1;
+                    transform: scale(1);
+                }
+
+                100% {
+                    opacity: 0;
+                    transform: rotate(90deg) scale(0.3);
+                }
+            }
+
+            @keyframes loading {
+                0% {
+                    opacity: 1;
+                    transform: scale(1);
+                }
+
+                100% {
+                    opacity: 0;
+                    transform: rotate(90deg) scale(0.3);
+                }
+            }
+
+            &:nth-child(1) {
+                animation-delay: 0.13s;
+            }
+
+            &:nth-child(2) {
+                animation-delay: 0.26s;
+            }
+
+            &:nth-child(3) {
+                animation-delay: 0.39s;
+            }
+
+            &:nth-child(4) {
+                animation-delay: 0.52s;
+            }
+
+            &:nth-child(5) {
+                animation-delay: 0.65s;
+            }
         }
-
-        100% {
-          opacity: 0;
-          transform: rotate(90deg) scale(.3);
-        }
-      }
-
-      @keyframes loading {
-        0% {
-          opacity: 1;
-          transform: scale(1);
-        }
-
-        100% {
-          opacity: 0;
-          transform: rotate(90deg) scale(.3);
-        }
-      }
-
-      &:nth-child(1) {
-        animation-delay: .13s;
-      }
-
-      &:nth-child(2) {
-        animation-delay: .26s;
-      }
-
-      &:nth-child(3) {
-        animation-delay: .39s;
-      }
-
-      &:nth-child(4) {
-        animation-delay: .52s;
-      }
-
-      &:nth-child(5) {
-        animation-delay: .65s;
-      }
     }
-  }
 
-  .l_txt {
-    margin-top: 10px;
-    font-size: 14px;
-    color: #FFFFFF;
-  }
+    .l_txt {
+        margin-top: 10px;
+        font-size: 14px;
+        color: #ffffff;
+    }
 }

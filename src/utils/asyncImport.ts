@@ -12,7 +12,7 @@ function AsyncImport(componentName?: string) {
     if (!componentName) return '';
     return Loadable({
         loader: Files[componentName],
-        loading: SpinLoading
+        loading: SpinLoading,
     });
 }
 export default AsyncImport;

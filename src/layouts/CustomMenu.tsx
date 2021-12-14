@@ -38,7 +38,7 @@ type PrevInfoType = {
 
 const PREV_INFO: PrevInfoType = {
     key: '',
-    keyPath: []
+    keyPath: [],
 };
 
 // 更改权限
@@ -85,7 +85,7 @@ let FLATTEN_ROUTER: Array<RouteItemType> | null = null;
 const CustomMenu = forwardRef(
     (
         { collapsed, setParentCollapsed }: MenuPropsType,
-        ref: any
+        ref: any,
     ): React.ReactElement<MenuPropsType> => {
         const history = useHistory();
 
@@ -123,7 +123,7 @@ const CustomMenu = forwardRef(
             (openKeys: Array<string>) => {
                 // 默认开启下一个，自动关闭上一个
                 const latestOpenKey: string | undefined = openKeys.find(
-                    (key: string) => openItemKeys.indexOf(key) === -1
+                    (key: string) => openItemKeys.indexOf(key) === -1,
                 );
                 if (ROOT_KEYS.indexOf(`${latestOpenKey}`) === -1) {
                     // 如果最后一次的key，没有在openkeys里面
@@ -132,7 +132,7 @@ const CustomMenu = forwardRef(
                     latestOpenKey ? setOpenKeys([latestOpenKey]) : setOpenKeys([]);
                 }
             },
-            [openItemKeys, setOpenKeys]
+            [openItemKeys, setOpenKeys],
         );
 
         // 元素点击的时候,为了赋值默认值，否则会闪一闪得
@@ -141,7 +141,7 @@ const CustomMenu = forwardRef(
         }, []);
         const subMenuClick = useCallback(
             (key: string, hasComponent: boolean) => hasComponent && history.push(key),
-            [history]
+            [history],
         );
 
         // 渲染菜单栏
@@ -161,8 +161,7 @@ const CustomMenu = forwardRef(
                                     subMenuClick(key, data.component ? true : false)
                                 }
                                 title={data.name}
-                                icon={Icon ? <Icon /> : null}
-                            >
+                                icon={Icon ? <Icon /> : null}>
                                 {data?.children?.map((child: RouteItemType) => childMap(child))}
                             </Menu.SubMenu>
                         );
@@ -173,7 +172,7 @@ const CustomMenu = forwardRef(
                                     {data.name}
                                 </Link>
                                 {(data?.children || [])?.map((child: RouteItemType) =>
-                                    childMap(child)
+                                    childMap(child),
                                 )}
                             </Menu.Item>
                         );
@@ -181,27 +180,26 @@ const CustomMenu = forwardRef(
                 }
                 return null;
             },
-            [subMenuClick]
+            [subMenuClick],
         );
 
         // 如果涉及到数据变化，无法使用useCallback，使用后设置openKeys无效
         const routerToJSX: Function = (routeList: Array<RouteItemType>) => {
             return (
                 <Menu
-                    theme="dark"
-                    mode="inline"
+                    theme='dark'
+                    mode='inline'
                     onOpenChange={onOpenChange}
                     onClick={itemClickHandle}
                     openKeys={openItemKeys}
-                    selectedKeys={[formatPath(history.location.pathname)]}
-                >
+                    selectedKeys={[formatPath(history.location.pathname)]}>
                     {routerChangeAuthority(routeList)?.map(
                         (item: RouteItemType): React.ReactNode => {
                             (item.children || [])?.length !== 0 &&
                                 ROOT_KEYS.indexOf(item.path) === -1 &&
                                 ROOT_KEYS.push(item.path);
                             return childMap(item);
-                        }
+                        },
                     )}
                 </Menu>
             );
@@ -212,7 +210,7 @@ const CustomMenu = forwardRef(
                 {routerToJSX(ROUTER_CONFIG)}
             </Sider>
         );
-    }
+    },
 );
 
 export default memo(CustomMenu);

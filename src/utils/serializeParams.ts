@@ -1,8 +1,12 @@
-/*
+/**
+ * /*
  *
+ * ***
+ *
+ * @format
  * @method 参数序列化
  * @param params:{SerializeParamsType}：参数对象
- * ****/
+ */
 
 type SerializeParamsType = {
     [paramsName: string]: any;

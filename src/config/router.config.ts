@@ -14,7 +14,7 @@ export type RouteType = {
     layout?: React.ReactNode | any;
     exact?: boolean;
     isNotLogin?: boolean;
-}
+};
 
 export type RouteItemType = RouteType & {
     children?: Array<RouteItemType>;
@@ -23,7 +23,7 @@ export type RouteItemType = RouteType & {
     hideItem?: boolean;
     icon?: React.ReactNode | any;
     [moreName: string]: any; // 更多参数
-}
+};
 
 // 配置路由
 const ROUTER_CONFIG: Array<RouteItemType> = [
@@ -37,7 +37,7 @@ const ROUTER_CONFIG: Array<RouteItemType> = [
         newWindow: false, // 是否是新窗口打开
         authority: [], // 权限拥有者
         isNotLogin: true,
-        children: []
+        children: [],
     },
     {
         path: '/404',
@@ -49,8 +49,8 @@ const ROUTER_CONFIG: Array<RouteItemType> = [
         newWindow: false,
         authority: [],
         isNotLogin: true,
-        children: []
-    }
+        children: [],
+    },
 ];
 
 export default ROUTER_CONFIG;

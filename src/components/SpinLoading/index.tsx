@@ -1,4 +1,4 @@
-import { memo, ReactElement  } from 'react';
+import { memo, ReactElement } from 'react';
 import { Spin } from 'antd';
 import styles from './index.module.less';
 type LoadingType = {
@@ -12,15 +12,14 @@ const SpinLoading = ({
     error,
     pastDelay,
     mask,
-    isFullScreen
+    isFullScreen,
 }: LoadingType): ReactElement | null => {
     if (error) return <div>加载错误...</div>;
     if (pastDelay)
         return (
             <div
                 style={{ textAlign: 'center' }}
-                className={`${isFullScreen && styles.fullscreen} ${mask && styles.mask}`}
-            >
+                className={`${isFullScreen && styles.fullscreen} ${mask && styles.mask}`}>
                 <Spin />
             </div>
         );

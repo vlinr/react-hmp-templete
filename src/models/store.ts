@@ -9,8 +9,8 @@ export const store = init({
     models,
     plugins: [updated],
     redux: {
-        devtoolOptions: composeWithDevTools
-    }
+        devtoolOptions: composeWithDevTools,
+    },
 });
 // 导出类型
 export type Store = typeof store;

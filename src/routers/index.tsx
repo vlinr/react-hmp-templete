@@ -53,12 +53,11 @@ export default (
                             path={item.path}
                             isNotLogin={item.isNotLogin}
                             component={item.component}
-                            layout={item.layout}
-                        ></AuthRouter>
+                            layout={item.layout}></AuthRouter>
                     )
                 );
             })}
-            <Redirect to="/404" />
+            <Redirect to='/404' />
         </Switch>
     </Router>
 );

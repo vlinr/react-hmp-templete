@@ -1,4 +1,4 @@
-import { ReactElement, memo, useEffect, } from 'react';
+import { ReactElement, memo, useEffect } from 'react';
 import { Redirect, Route, useHistory } from 'react-router-dom';
 import { LOGIN_PATH } from '@/config/config';
 import { RouteType } from '@/config/router.config';
@@ -37,7 +37,7 @@ function AuthRouter({
                 path: string,
                 params: any,
                 push: boolean = true,
-                hash: boolean = false
+                hash: boolean = false,
             ) => {
                 if (push) {
                     if (hash) {

@@ -13,9 +13,8 @@ function NotFound(): React.ReactElement<any> {
                 alignItems: 'center',
                 justifyContent: 'center',
                 minHeight: '100vh',
-                fontSize: 24
-            }}
-        >
+                fontSize: 24,
+            }}>
             404
         </div>
     );

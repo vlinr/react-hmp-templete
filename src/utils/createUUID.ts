@@ -1,10 +1,11 @@
 /**
+ * ******
  *
+ * @format
  * @method 创建uuid
- *
  * @returns string
- *
- * *******/
+ */
+
 function createUUID(): string {
     const s: Array<string> = [];
     const hexDigits: string = '0123456789abcdef';

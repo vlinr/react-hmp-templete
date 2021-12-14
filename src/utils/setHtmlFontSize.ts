@@ -2,13 +2,13 @@ type FontType = {
     maxWidth: number;
     designWidth: number;
     fontSize: number;
-}
+};
 function setHtmlFontSize(
     params: FontType = {
         maxWidth: 750,
         designWidth: 375,
-        fontSize: 14
-    }
+        fontSize: 14,
+    },
 ) {
     setSize(params);
     window.addEventListener('resize', () => {

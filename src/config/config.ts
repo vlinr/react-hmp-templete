@@ -1,8 +1,9 @@
 /**
+ * **
  *
+ * @format
  * @tips 全局通用配置文件
- *
- * ***/
+ */
 
 export const LOGIN_PATH: string = '/login'; // 登录的路径,如果登录失效，会重定向到这个路由
 

@@ -5,7 +5,7 @@ import request from '@/request';
 function testServer(params?: any) {
     return request({
         api: API,
-        data: params
+        data: params,
     });
 }
 

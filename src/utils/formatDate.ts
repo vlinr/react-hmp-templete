@@ -1,16 +1,14 @@
 /**
+ * ***
  *
+ * @format
  * @method 格式化日期
- * @param time:{string | number}:需要转化的日期，可以是一个日期也可以是一个时间戳也可以是秒，但是如果是日期，则以字符串传入，并且会
- *                              默认把字符串当成日期格式，如果是数字会当成时间戳或者秒
+ * @param time:{string | number}:需要转化的日期，可以是一个日期也可以是一个时间戳也可以是秒，但是如果是日期，则以字符串传入，并且会 默认把字符串当成日期格式，如果是数字会当成时间戳或者秒
  * @param format:{string}:需要转化的格式：YYYYMMDD HHmmss w  年月日 时分秒 周  ===>除了MM 和 mm区分大小写，其余的均不区分大小写 周默认会转为 大写
  * @param seconds:{boolean}:是否使用秒
  * @param hideZero:{boolean}：是否隐藏自动补0
- *
- *
  * @returns string
- *
- * ****/
+ */
 
 function formatDate(
     time: string | number,

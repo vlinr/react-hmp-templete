@@ -1,14 +1,10 @@
 interface PropsType {
-    children:React.ReactNode | string | React.ReactElement
+    children: React.ReactNode | string | React.ReactElement;
 }
 
-function UserLayout(props: PropsType):React.ReactElement {
+function UserLayout(props: PropsType): React.ReactElement {
     const { children } = props;
-    return (
-        <>
-         {children}
-        </>
-    );
+    return <>{children}</>;
 }
 
 export default UserLayout;

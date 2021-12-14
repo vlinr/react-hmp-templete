@@ -1,8 +1,9 @@
 /**
+ * ***
  *
- *@method 全局toast
- *
- * ****/
+ * @format
+ * @method 全局toast
+ */
 
 import { Toast } from '@/typing';
 
