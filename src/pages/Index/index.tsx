@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { memo, useEffect, useState } from 'react';
 import styles from './index.module.less';
 import CustomLoading from '@/components/RotateLoading';
 import { useDispatch, useSelector } from 'react-redux';
@@ -12,7 +12,6 @@ import toast from '@/utils/toast';
 import formatDate from '@/utils/formatDate';
 import useLocale from '@/hooks/useLocale';
 import { LangType } from '@/models/locale';
-const { memo, useEffect, useState } = React;
 
 const token: string | null = getUrlParams('token'); // 获取url中的token
 

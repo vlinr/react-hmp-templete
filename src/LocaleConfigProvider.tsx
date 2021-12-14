@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { IntlProvider } from 'react-intl';
 import { ConfigProvider } from 'antd';
 import antdZhCN from 'antd/es/locale/zh_CN';
