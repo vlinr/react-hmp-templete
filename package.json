@@ -13,7 +13,7 @@
         "build:release": "react-app-rewired build env=release",
         "test": "react-app-rewired test --env=jsdom",
         "eject": "react-scripts eject",
-        "prettier": "npx prettier -c \"src/**/*\" -w ",
+        "prettier": "npx prettier -c \"src/**/*\" -w",
         "prepare": "node .init.js",
         "lint:fix": "npx eslint --fix --ext .js,.tsx,.ts,.tsx src",
         "lint:style": "npx stylelint --fix \"src/**/*.(less|scss|css)\"",
