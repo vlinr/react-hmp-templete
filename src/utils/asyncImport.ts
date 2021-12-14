@@ -4,7 +4,7 @@ import Files from '@/importFile/importFile';
 
 /**
  *
- * @method 使用Loadble插件进行异步导入组件
+ * @method 使用Loadable插件进行异步导入组件
  * @param componentName:{string}:组件名称
  *
  * ***/
