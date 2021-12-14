@@ -2,8 +2,8 @@ const login = {
     'POST /api/login': (request, response) => {
         let { password, username } = request.body;
         if (!password || !username)
-            for (let key in request.body) {
-                let userInfo = JSON.parse(key);
+            for (const key in request.body) {
+                const userInfo = JSON.parse(key);
                 password = userInfo.password;
                 username = userInfo.username;
             }

@@ -9,5 +9,5 @@ export interface RootModel extends Models<any> {
 
 export const models: RootModel = { 
     locale,
-    index,
+    index
 }

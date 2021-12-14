@@ -5,15 +5,16 @@ const {
     addWebpackAlias,
     addBabelPlugins,
     addWebpackPlugin,
-    useBabelRc,
+    // useBabelRc,
     disableChunk,
     adjustWorkbox,
     setWebpackPublicPath,
     addBundleVisualizer,
-    disableEsLint,
+    // disableEsLint,
     addWebpackExternals,
     // addWebpackModuleRule,
     addWebpackResolve,
+    // useEslintRc,
     addPostcssPlugins,
     // addTslintLoader
     // addBundleVisualizer
@@ -28,7 +29,6 @@ const rewireUglifyjs = require('react-app-rewire-uglifyjs');
 const FilterWarningsPlugin = require('webpack-filter-warnings-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const ProgressBarPlugin = require('progress-bar-webpack-plugin');
-//打包成功有桌面提醒
 const LodashWebpackPlugin = require('lodash-webpack-plugin');
 const WebpackBuildNotifierPlugin = require('webpack-build-notifier');
 const theme = require('./theme.js');
@@ -44,12 +44,11 @@ process.env.GENERATE_SOURCEMAP !== 'false';
 
 // path
 const resolveAlias = dir => path.join(__dirname, '.', dir);
-// 热更新
 const hotLoader = () => (config, env) => {
     config = rewireReactHotLoader(config, env);
     return config;
 };
-// build--->prod --->文件设置
+// build--->prod
 const appBuildPathFile = () => config => {
     if (config.mode === 'development') {
     } else if (config.mode === 'production') {
@@ -202,6 +201,7 @@ module.exports = {
             ['router']: resolveAlias('src/router'),
             ['locale']: resolveAlias('src/locale'),
             ['layouts']: resolveAlias('src/layouts'),
+            ['typing']: resolveAlias('src/typing'),
             // 处理警告  React-Hot-Loader: react-🔥-dom patch is not detected. React 16.6+ features may not work.
             ['react-dom']: '@hot-loader/react-dom',
             // 解决antd 的icon图标打包体积大
@@ -209,6 +209,7 @@ module.exports = {
         }),
         //禁用eslint
         // disableEsLint(),
+        // useEslintRc(path.resolve(__dirname, './.eslintrc')),
         appBuildPathFile(),
         disableChunk(),
         dropConsole(),
@@ -249,7 +250,7 @@ module.exports = {
         rewireUglifyjs,
         // rewireCompressionPlugin,
         // 允许使用.babelrc文件进行Babel配置。
-        useBabelRc(),
+        // useBabelRc(require('./babel.config.js')),
         // add webpack bundle visualizer if BUNDLE_VISUALIZE flag is enabled
         process.env.BUNDLE_VISUALIZE == 1 && addBundleVisualizer(),
         adjustWorkbox(wb =>

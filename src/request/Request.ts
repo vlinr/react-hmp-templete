@@ -1,25 +1,25 @@
-import qs from 'qs';
 import HEADERS from '@/config/header.config';
 import { DOMAIN } from '@/config/api.config';
 import checkHaveNetwork from '@/utils/checkHaveNetwork';
+import qs from 'qs';
 
-export interface RequestParams {
-    url?: string; //请求的前缀，也就是域名，如果使用通用域名则可以不传
-    api: string; //请求的api
-    method?: string; //请求的方式
-    cors?: boolean; //是否跨域共享资源
-    headers?: any; //设置请求头，一个对象
-    data?: any; //请求数据，一个对象
-    dataType?: string; //数据类型
-    useCustomHeader?: boolean; //使用自定义header
-    requestType?: string; //请求类型,文件
-    timeout?: number; //超时时间
-}
+export type RequestParams = {
+    url?: string; // 请求的前缀，也就是域名，如果使用通用域名则可以不传
+    api: string; // 请求的api
+    method?: string; // 请求的方式
+    cors?: boolean; // 是否跨域共享资源
+    headers?: any; // 设置请求头，一个对象
+    data?: any; // 请求数据，一个对象
+    dataType?: string; // 数据类型
+    useCustomHeader?: boolean; // 使用自定义header
+    requestType?: string; // 请求类型,文件
+    timeout?: number; // 超时时间
+};
 
-export interface Headers {
+export type Headers = {
     'user-agent'?: string;
     'content-type'?: string;
-}
+};
 
 const DEFAULT_PARAMS: RequestParams = {
     url: DOMAIN,
@@ -67,7 +67,6 @@ type ReplaceInfoType = {
 };
 
 class Request {
-    //请求参数
     private requestParams: RequestParams = DEFAULT_PARAMS;
     private controller: AbortController = new AbortController();
     constructor(params: RequestParams, callback?: Function) {
@@ -77,9 +76,9 @@ class Request {
         };
         params = { ...params, ...this.splitRequestMethod(params) };
         this.requestParams = { ...this.requestParams, ...this.mergeRequestConfig(params) };
-        let replaceInfo: ReplaceInfoType = this.replacePath(
+        const replaceInfo: ReplaceInfoType = this.replacePath(
             this.requestParams.api,
-            this.requestParams.data
+            this.requestParams.data,
         );
         this.requestParams.api = replaceInfo.api;
         this.requestParams.data = replaceInfo.params;
@@ -94,18 +93,18 @@ class Request {
         }
     }
 
-    /*****
+    /**
      *
      * @method 匹配路径传惨
      *
      * ****/
     private replacePath(path: string, params: any): ReplaceInfoType {
         if (typeof params === 'object') {
-            let newParams: { [key: string]: any } = {};
-            for (let key in params) {
-                let newPath: string = path.replace(
+            const newParams: { [key: string]: any } = {};
+            for (const key in params) {
+                const newPath: string = path.replace(
                     new RegExp('\\{' + key + '\\}', 'g'),
-                    params[key]
+                    params[key],
                 );
                 if (newPath === path) {
                     newParams[key] = params[key];
@@ -118,11 +117,11 @@ class Request {
                 params: newParams,
             };
         } else {
-            let newParams: any[] = [];
+            const newParams: any[] = [];
             for (let i = 0; i < arguments.length; i++) {
-                let newPath: string = path.replace(
+                const newPath: string = path.replace(
                     new RegExp('\\{' + i + '\\}', 'g'),
-                    arguments[i]
+                    arguments[i],
                 );
                 if (newPath === path) {
                     newParams.push(arguments[i]);
@@ -137,32 +136,33 @@ class Request {
         }
     }
 
-    /*****
+    /*
      *
      * @method 获取是否有请求方式
      *
      * ****/
     private splitRequestMethod(params: RequestParams): { api?: string; method?: string } {
-        let v: Array<string> | undefined = params?.api?.split('|');
+        const v: Array<string> | undefined = params?.api?.split('|');
         return {
             api: v?.[0] || params.method,
             method: v?.[1] || params.method,
         };
     }
 
-    /*****
+    /*
      *
      * @method 合并请求头
      *
      *
      * *****/
     private mergeRequestConfig(params: RequestParams): RequestParams {
-        let RequestConfig: [] = (window as any)?.RequestConfig; //取得参数
+        const win: any = window;
+        const RequestConfig: [] = win?.RequestConfig;
         if (RequestConfig) {
             let findItem: ConfigType | null = null,
                 key: string = '';
             for (let i: number = 0; i < RequestConfig?.length; ++i) {
-                let item: ConfigType = RequestConfig[i];
+                const item: ConfigType = RequestConfig[i];
                 key = this.getMatchPermissions(item?.context, params.api || '');
                 if (key) {
                     findItem = item;
@@ -174,7 +174,7 @@ class Request {
                     findItem.target = findItem.target.substring(0, findItem.target.length - 1);
                 if (key?.slice(0, 1) !== '/') key = `/${key}`;
                 if (params?.api?.slice(0, 1) !== '/') params.api = `/${params.api}`;
-                let rex: RegExp = new RegExp(`${key}`);
+                const rex: RegExp = new RegExp(`${key}`);
                 params.api = params.api?.replace(rex, findItem?.target);
                 params.cors = findItem?.cors || params.cors || DEFAULT_PARAMS.cors;
                 params.headers = {
@@ -190,7 +190,7 @@ class Request {
         return params;
     }
 
-    /*****
+    /**
      *
      * @method 获取代理路径匹配度
      *
@@ -213,7 +213,7 @@ class Request {
         return result;
     }
 
-    /****
+    /**
      *
      * @method 匹配
      *
@@ -236,7 +236,7 @@ class Request {
         return result;
     }
 
-    /****
+    /*
      *
      * @method 请求数据
      *
@@ -248,42 +248,43 @@ class Request {
                 this.requestParams.requestType !== ''
                     ? `${this.requestParams.api}?${qs.stringify(this.requestParams.data)}`
                     : `${this.requestParams.url}${this.requestParams.api}?${qs.stringify(
-                          this.requestParams.data
+                          this.requestParams.data,
                       )}`,
-                this.getFetchParams()
+                this.getFetchParams(),
             );
         }
         return this.fetchData(
             this.requestParams.requestType !== ''
                 ? `${this.requestParams.api}`
                 : `${this.requestParams.url}${this.requestParams.api}`,
-            this.getFetchParams(true)
+            this.getFetchParams(true),
         );
     }
 
-    /****
+    /**
      * @method 检查是否有网络
      *
      * ******/
     private checkHaveNetwork<ResultType>(): Promise<ResultType> {
         return new Promise<ResultType>((resolve) => {
-            resolve({
+            const result: any = {
                 code: '-99999999',
                 data: [],
                 tipmsg: 'network error！',
-            } as any);
+            };
+            resolve(result);
         });
     }
 
-    /*****
+    /**
      *
      * @method 获取请求参数
      * @param haveBody:{boolean} 是否又body体，对于get是url传参
      *
      * ****/
     private getFetchParams(haveBody: boolean = false): RequestParams {
-        let obj: any = {};
-        for (let key in this.requestParams.headers) {
+        const obj: any = {};
+        for (const key in this.requestParams.headers) {
             if (
                 key.toLocaleLowerCase() === 'content-type' &&
                 this.requestParams.headers[key] === null
@@ -300,8 +301,8 @@ class Request {
             if (this.requestParams.dataType === 'json') {
                 obj.body = JSON.stringify(this.requestParams.data);
             } else if (this.requestParams.dataType === 'form-data') {
-                let formData: FormData = new FormData();
-                for (let key in this.requestParams.data) {
+                const formData: FormData = new FormData();
+                for (const key in this.requestParams.data) {
                     formData.append(key, this.requestParams.data[key]);
                 }
                 obj.body = formData;
@@ -312,7 +313,7 @@ class Request {
         return obj;
     }
 
-    /*****
+    /**
      * @method 获取数据
      * @param api:{string}：请求api
      * @param params:{RequestParams} 请求的参数信息
@@ -320,7 +321,7 @@ class Request {
     private fetchData<T>(api: string, params: RequestParams): Promise<T> {
         return new Promise((resolve: Function, reject: Function) => {
             try {
-                let timeout: number = this.requestTimeout(resolve);
+                const timeout: number = this.requestTimeout(resolve);
                 fetch(api, { ...params, signal: this.controller.signal })
                     .then((res) => {
                         clearTimeout(timeout);
@@ -340,7 +341,6 @@ class Request {
                         };
                     })
                     .then(async (response) => {
-                        
                         resolve(response);
                     })
                     .catch((error) => {
@@ -353,7 +353,7 @@ class Request {
         });
     }
 
-    /******
+    /**
      *
      * @method 取消请求
      *
@@ -368,8 +368,7 @@ class Request {
      * @param callback:{Function} 请求超时回调
      * ***/
     private requestTimeout(callback: Function) {
-        let timeout: any = setTimeout(() => {
-            //超时
+        const timeout: any = setTimeout(() => {
             callback({
                 code: '504',
                 data: '',
@@ -380,19 +379,23 @@ class Request {
         return timeout;
     }
 
-    /******
+    /**
      *
      * @method 登录失效，需要从新登录
      *
      * ****/
-    public tokenOverdue() {}
+    public tokenOverdue() {
+        return this;
+    }
 
-    /****
+    /**
      *
      * @method 刷新token
      *
      * *****/
-    public refreshToken() {}
+    public refreshToken() {
+        return this;
+    }
 }
 
 export default Request;

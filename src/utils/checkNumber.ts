@@ -1,4 +1,4 @@
-/*****
+/** ***
  * 
  * @method 检查是否是数字
  * @param value:{string|number}：需要检查的内容

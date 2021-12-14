@@ -118,7 +118,7 @@ function IntersectionObserver(callback, opt_options) {
     if (!checkRunBrowser()) return;
     var options = opt_options || {};
 
-    if (typeof callback != 'function') {
+    if (typeof callback !== 'function') {
         throw new Error('callback must be a function');
     }
 
@@ -129,7 +129,7 @@ function IntersectionObserver(callback, opt_options) {
     // Binds and throttles `this._checkForIntersections`.
     this._checkForIntersections = throttle(
         this._checkForIntersections.bind(this),
-        this.THROTTLE_TIMEOUT
+        this.THROTTLE_TIMEOUT,
     );
 
     // Private properties.
@@ -289,7 +289,7 @@ IntersectionObserver.prototype._initThresholds = function (opt_threshold) {
     if (!Array.isArray(threshold)) threshold = [threshold];
 
     return threshold.sort().filter(function (t, i, a) {
-        if (typeof t != 'number' || isNaN(t) || t < 0 || t > 1) {
+        if (typeof t !== 'number' || isNaN(t) || t < 0 || t > 1) {
             throw new Error('threshold must be a number between 0 and 1 inclusively');
         }
         return t !== a[i - 1];
@@ -536,7 +536,7 @@ IntersectionObserver.prototype._checkForIntersections = function () {
 IntersectionObserver.prototype._computeTargetAndRootIntersection = function (
     target,
     targetRect,
-    rootRect
+    rootRect,
 ) {
     // If the element isn't displayed, an intersection can't happen.
     if (window.getComputedStyle(target).display == 'none') return;
@@ -772,9 +772,9 @@ function throttle(fn, timeout) {
  *     phase. Note: this only works in modern browsers.
  */
 function addEvent(node, event, fn, opt_useCapture) {
-    if (typeof node.addEventListener == 'function') {
+    if (typeof node.addEventListener === 'function') {
         node.addEventListener(event, fn, opt_useCapture || false);
-    } else if (typeof node.attachEvent == 'function') {
+    } else if (typeof node.attachEvent === 'function') {
         node.attachEvent('on' + event, fn);
     }
 }
@@ -788,9 +788,9 @@ function addEvent(node, event, fn, opt_useCapture) {
  *     flag set to true, it should be set to true here in order to remove it.
  */
 function removeEvent(node, event, fn, opt_useCapture) {
-    if (typeof node.removeEventListener == 'function') {
+    if (typeof node.removeEventListener === 'function') {
         node.removeEventListener(event, fn, opt_useCapture || false);
-    } else if (typeof node.detatchEvent == 'function') {
+    } else if (typeof node.detatchEvent === 'function') {
         node.detatchEvent('on' + event, fn);
     }
 }

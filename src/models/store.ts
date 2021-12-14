@@ -8,11 +8,11 @@ const updated = updatedPlugin();
 export const store = init({
     models,
     plugins: [updated],
-    redux:{
-        devtoolOptions: composeWithDevTools,
+    redux: {
+        devtoolOptions: composeWithDevTools
     }
-})
-//导出类型
-export type Store = typeof store
-export type Dispatch = RematchDispatch<RootModel>
-export type RootState = RematchRootState<RootModel>
+});
+// 导出类型
+export type Store = typeof store;
+export type Dispatch = RematchDispatch<RootModel>;
+export type RootState = RematchRootState<RootModel>;
