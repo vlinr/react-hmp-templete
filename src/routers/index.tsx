@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Switch, Redirect, Route } from 'react-router-dom';
 // 路由配置文件
 import ROUTER_CONFIG, { RouteItemType } from '@/config/router.config';
+import React from 'react';
 // 重写路由，对布局进行更改
 import AuthRouter from './router';
 import { USER_AUTHORITY } from '@/config/config';
@@ -53,7 +54,8 @@ export default (
                             path={item.path}
                             isNotLogin={item.isNotLogin}
                             component={item.component}
-                            layout={item.layout}></AuthRouter>
+                            layout={item.layout}
+                        />
                     )
                 );
             })}

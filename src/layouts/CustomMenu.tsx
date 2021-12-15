@@ -1,4 +1,4 @@
-import { useCallback, useEffect, forwardRef, memo, useState } from 'react';
+import React, { useCallback, useEffect, memo, useState } from 'react';
 import styles from './customMenu.module.less';
 import { Link, useHistory } from 'react-router-dom';
 import { cloneDeep } from 'lodash-es';
@@ -82,7 +82,7 @@ DEFAULT_OPEN_KEYS && setSelectItem(JSON.parse(DEFAULT_OPEN_KEYS));
 
 let FLATTEN_ROUTER: Array<RouteItemType> | null = null;
 
-const CustomMenu = forwardRef(
+const CustomMenu = React.forwardRef(
     (
         { collapsed, setParentCollapsed }: MenuPropsType,
         ref: any,

@@ -40,7 +40,7 @@
       "Promise": true
   },
   "rules": {
-      "prettier/prettier": 2,
+      "prettier/prettier": [1,{}],
       "no-console": [0, { "allow": ["error"] }],
       "consistent-return": 2,
       "curly": [0, "multi-or-nest"],

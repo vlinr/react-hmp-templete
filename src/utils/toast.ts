@@ -24,24 +24,86 @@ let toast: Toast.ToastFuncType;
         const style: any = document.createElement('style');
         style.type = 'text/css';
         style.id = 'toast_style';
-        style.innerHTML =
-            '.global_toast {position: fixed;background-color: rgba(231, 235, 246, .95);border-radius:' +
-            4 * fontSize +
-            'px;z-index:99999;white-space:nowrap;padding: ' +
-            fontSize * 0.7 +
-            'px ' +
-            2 * fontSize +
-            'px;font-size: ' +
-            fontSize +
-            'px;color: #09153C;opacity: 0;visibility: hidden;transition: all .2s ease;-webkit-transition: all .2s ease;-moz-transition: all .2s ease;-ms-transition: all .2s ease;-o-transition: all .2s ease;-webkit-border-radius: ' +
-            4 * fontSize +
-            'px;-moz-border-radius: ' +
-            4 * fontSize +
-            'px;-ms-border-radius: ' +
-            4 * fontSize +
-            'px;-o-border-radius: ' +
-            4 * fontSize +
-            'px;}.global_toast.bottom_default{bottom: -30vh;top:auto;left: 50%;transform: translateX(-50%);-webkit-transform: translateX(-50%);-moz-transform: translateX(-50%);-ms-transform: translateX(-50%);-o-transform: translateX(-50%);    }.global_toast.center_default{top: 50%;bottom:auto;left: 50%;transform: translate(-50%,-50%);-webkit-transform: translate(-50%,-50%);-moz-transform: translate(-50%,-50%);-ms-transform: translate(-50%,-50%);-o-transform: translate(-50%,-50%);    }.global_toast.top_default{top: -30vh;bottom:auto;left: 50%;transform: translateX(-50%);-webkit-transform: translateX(-50%);-moz-transform: translateX(-50%);-ms-transform: translateX(-50%);-o-transform: translateX(-50%);    }.global_toast.bottom_active {opacity: 1;visibility: visible;bottom: 5%;top:auto;}    .global_toast.center_active {opacity: 1;visibility: visible;top: 50%;bottom:auto;}    .global_toast.top_active {opacity: 1;visibility: visible;top: 5%;bottom:auto;}.global_toast.bottom_out{bottom: -30vh;top:auto;    }    .global_toast.center_out{top: 50%;bottom:auto;    }    .global_toast.top_out{top: -30vh;bottom:auto;    }';
+        style.innerHTML = `
+            .global_toast {
+                position: fixed;
+                background-color: rgba(231, 235, 246, .95);
+                border-radius:${4 * fontSize}px;
+                z-index:99999;
+                white-space:nowrap;
+                padding:${fontSize * 0.7}px ${2 * fontSize} px;
+                font-size: ${fontSize} px;
+                color: #09153C;
+                opacity: 0;
+                visibility: hidden;
+                transition: all .2s ease;
+                -webkit-transition: all .2s ease;
+                -moz-transition: all .2s ease;
+                -ms-transition: all .2s ease;
+                -o-transition: all .2s ease;
+                -webkit-border-radius: ${4 * fontSize}px;
+                -moz-border-radius:${4 * fontSize}px;
+                -ms-border-radius:${4 * fontSize}px;
+                -o-border-radius:${4 * fontSize}px;
+            }
+            .global_toast.bottom_default{
+                bottom: -30vh;
+                top:auto;
+                left:50%;
+                transform: translateX(-50%);
+                -webkit-transform: translateX(-50%);
+                -moz-transform: translateX(-50%);
+                -ms-transform: translateX(-50%);
+                -o-transform: translateX(-50%);
+            }
+            .global_toast.center_default{
+                top: 50%;
+                bottom:auto;
+                left: 50%;
+                transform: translate(-50%,-50%);
+                -webkit-transform: translate(-50%,-50%);
+                -moz-transform: translate(-50%,-50%);
+                -ms-transform: translate(-50%,-50%);
+                -o-transform: translate(-50%,-50%);
+            }
+            .global_toast.top_default{
+                top: -30vh;
+                bottom:auto;
+                left: 50%;
+                transform: translateX(-50%);
+                -webkit-transform: translateX(-50%);
+                -moz-transform: translateX(-50%);
+                -ms-transform: translateX(-50%);
+                -o-transform: translateX(-50%);
+            }
+            .global_toast.bottom_active {
+                opacity: 1;
+                visibility: visible;
+                bottom: 5%;top:auto;
+            }
+            .global_toast.center_active {
+                opacity: 1;
+                visibility: visible;
+                top: 50%;
+                bottom:auto;
+            }
+            .global_toast.top_active {
+                opacity: 1;
+                visibility: visible;
+                top: 5%;bottom:auto;
+            }
+            .global_toast.bottom_out{
+                bottom: -30vh;
+                top:auto;
+            }
+            .global_toast.center_out{
+                top: 50%;
+                bottom:auto;
+            }    
+            .global_toast.top_out{
+                top: -30vh;
+                bottom:auto;
+            }`;
         document.head.appendChild(style);
     }
 
@@ -53,7 +115,11 @@ let toast: Toast.ToastFuncType;
      *
      * *****/
     function showToast(text: string, other?: Toast.OtherParams) {
-        const otherParams: Toast.OtherParams = { position: 'bottom', keepTime: 1500, ...other };
+        const otherParams: Toast.OtherParams = {
+            position: 'bottom',
+            keepTime: 1500,
+            ...other,
+        };
         otherParams.fontSizeType && createStyle(getFontSize(otherParams.fontSizeType));
         let toast: any = document.querySelector('#' + otherParams.position + '_toast');
         if (!toast) {

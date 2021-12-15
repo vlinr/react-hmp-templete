@@ -1,18 +1,38 @@
-const pluginName = 'BuildReplaceRequestConfig';
+const pluginName = 'BuildCustomPlugin';
 const ConcatSource = require('webpack-sources').ConcatSource;
+const AutoUpdateVersion = require('./AutoUpdateVersion.js');
+const MergeRequest = require('./MergeRequest.js');
 /**
  * 
  * @class 写入请求相关内容
  * 
+ * @params options:{
+ *      requestConfig:string | object,
+ *      updateFilePath:string
+ * }
+ * 
  * ****/
-class BuildReplaceRequestConfig {
+
+class BuildCustomPlugin {
+
     constructor(options) {
         this.options = options;
     }
+    
     apply(compiler) {
-        let env = this.getEnvParams(), filenames = this.getOutputName(compiler.options.output.filename) || this.getEntryName(compiler.options.entry);
-        let config = this.getConfigData(env);
-        if (!config) return;
+        if(!this.options.updateFilePath && !this.options.requestConfig){
+            return false;
+        }
+
+        let filenames = this.getOutputName(compiler.options.output.filename) || this.getEntryName(compiler.options.entry),
+            version = null, request = null;
+        if(this.options.updateFilePath){
+            version = new AutoUpdateVersion(this.options.updateFilePath);
+        }
+        if(this.options.requestConfig){
+            request = new MergeRequest(this.options.requestConfig);
+        }
+        
         compiler.hooks.compilation.tap(pluginName, (compilation) => {
             compilation.hooks.optimizeChunkAssets.tap(pluginName, (chunks) => {
                 chunks.forEach(chunk => {
@@ -22,9 +42,8 @@ class BuildReplaceRequestConfig {
                             let item = filenames[i];
                             let rex = new RegExp(`\(${item}|bundle\).*?\.js`);
                             if (rex.test(fileName)) {
-                                let configJs = `var RequestConfig = ${JSON.stringify(config)};`;
                                 compilation.assets[fileName] = new ConcatSource(
-                                    configJs, asset
+                                    this.mergeJs(request,version), asset
                                 );
                                 break;
                             }
@@ -38,19 +57,22 @@ class BuildReplaceRequestConfig {
 
     /**
      * 
-     * @method 获取使用的配置
-     * @param env:{string}：运行环境
+     * @method 合并代码
      * 
      * **/
-    getConfigData(env) {
-        let result = null;
-        for (let key in this.options) {
-            if (key === env || (env === null && key === "")) {
-                result = this.options[key];
-                break;
+    mergeJs(request,version){
+        let requestStr = '',
+            versionStr = '';
+        if(request){
+            requestStr = request.init();
+            if(!requestStr)requestStr = '';
+        }
+        if(version){
+            if(version.existsFile()){
+                versionStr = version.init();
             }
         }
-        return result;
+        return `${requestStr}${versionStr}`;
     }
 
     /**
@@ -82,22 +104,6 @@ class BuildReplaceRequestConfig {
         let names = filename.split('/');
         return [names[names.length - 1].split('.')[0]];
     }
-
-    /**
-    * 
-    * @method 获取启动参数
-    * 
-    * **/
-    getEnvParams() {
-        let argv = process.argv.splice(2);
-        for (let i = 0; i < argv.length; ++i) {
-            let item = argv[i];
-            if (new RegExp('env=').test(item)) {
-                return item.slice(4);
-            }
-        }
-        return null;
-    }
 }
 
-module.exports = BuildReplaceRequestConfig;
+module.exports = BuildCustomPlugin;

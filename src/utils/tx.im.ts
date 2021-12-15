@@ -35,7 +35,10 @@ class TxIM {
         if (self?.tim === null) {
             self.tim = self?.TXTIM.create({ SDKAppID: self?.appId });
             self?.eventListener();
-            const promise: any = self?.tim.login({ userID: self?.userId, userSig: self?.userSig });
+            const promise: any = self?.tim.login({
+                userID: self?.userId,
+                userSig: self?.userSig,
+            });
             promise
                 .then(function (imResponse: any) {
                     self?.callback?.({

@@ -1,4 +1,4 @@
-import { useState, useCallback, memo, useRef, createElement } from 'react';
+import React, { useState, useCallback, memo, useRef } from 'react';
 import styles from './blankLayout.module.less';
 import { Layout, Menu, Avatar, Dropdown } from 'antd';
 import {
@@ -62,7 +62,7 @@ function BlankLayout(props: RouteItemType): React.ReactElement<RouteItemType> {
                         {/* {
                             collapsed?<MenuUnfoldOutlined onClick={toggle} />:<MenuFoldOutlined  onClick={toggle}/>
                         } */}
-                        {createElement(collapsed ? MenuUnfoldOutlined : MenuFoldOutlined, {
+                        {React.createElement(collapsed ? MenuUnfoldOutlined : MenuFoldOutlined, {
                             onClick: toggle,
                         })}
                         <div className={styles.userInfo}>

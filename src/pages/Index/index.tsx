@@ -1,4 +1,4 @@
-import { memo, useEffect, useState } from 'react';
+import React, { memo, useEffect, useState } from 'react';
 import styles from './index.module.less';
 import CustomLoading from '@/components/RotateLoading';
 import { useDispatch, useSelector } from 'react-redux';
@@ -24,7 +24,7 @@ const localeReducer = createSelector(
     (state: RootState) => state.locale,
     (locale: LangType) => locale.language,
 );
-/*
+/**
  *
  * @function:首页
  *

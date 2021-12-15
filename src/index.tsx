@@ -1,6 +1,7 @@
 import ReactDOM from 'react-dom';
 import '@/index.less';
 import App from '@/App';
+import React from 'react';
 import { Provider } from 'react-redux';
 import { store } from '@/models/store';
 import setHtmlFontSize from '@/utils/setHtmlFontSize';

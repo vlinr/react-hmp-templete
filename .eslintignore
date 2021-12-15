@@ -6,3 +6,9 @@
 .env.development.local
 .env.test.local
 .env.production.local
+.init.js
+config-overrides.js
+/plugin/**/*
+/dist/**/*
+.husky/**/*
+/node_modules/**/*

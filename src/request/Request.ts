@@ -75,7 +75,10 @@ class Request {
             ...HEADERS(),
         };
         params = { ...params, ...this.splitRequestMethod(params) };
-        this.requestParams = { ...this.requestParams, ...this.mergeRequestConfig(params) };
+        this.requestParams = {
+            ...this.requestParams,
+            ...this.mergeRequestConfig(params),
+        };
         const replaceInfo: ReplaceInfoType = this.replacePath(
             this.requestParams.api,
             this.requestParams.data,
@@ -141,7 +144,10 @@ class Request {
      * @method 获取是否有请求方式
      *
      * ****/
-    private splitRequestMethod(params: RequestParams): { api?: string; method?: string } {
+    private splitRequestMethod(params: RequestParams): {
+        api?: string;
+        method?: string;
+    } {
         const v: Array<string> | undefined = params?.api?.split('|');
         return {
             api: v?.[0] || params.method,

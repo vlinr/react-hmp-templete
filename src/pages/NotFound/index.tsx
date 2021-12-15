@@ -1,10 +1,10 @@
-import { memo } from 'react';
+import { memo, ReactElement } from 'react';
 /**
  *
  * @function:404
  *
  * *******/
-function NotFound(): React.ReactElement<any> {
+function NotFound(): ReactElement<any> {
     return (
         <div
             style={{

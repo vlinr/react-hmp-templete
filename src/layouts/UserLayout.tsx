@@ -1,3 +1,5 @@
+import React from 'react';
+
 interface PropsType {
     children: React.ReactNode | string | React.ReactElement;
 }
