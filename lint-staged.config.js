@@ -6,7 +6,7 @@ module.exports = {
         'git add',
     ],
     '*.{less,scss,css}': [
-        // 'npm run lint:style',
+        'npm run lint:style',
         'npx prettier -w "src/**/*.(less|scss|css)"',
         'git add',
     ],

@@ -13,11 +13,11 @@ class AutoUpdateVersion {
 
     init() {
         
-        if(!this.existsFile()){
+        if(!this.existsFile()) {
             return false;
         }
 
-        let packageJson = require(this.options);
+        const packageJson = require(this.options);
 
         packageJson.version = this.computedVersion(packageJson.version);
 
@@ -25,7 +25,7 @@ class AutoUpdateVersion {
 
         this.formatFile();
         
-        return this.echo(packageJson.version)
+        return this.echo(packageJson.version);
     }
 
     /**
@@ -33,9 +33,9 @@ class AutoUpdateVersion {
      * @method 计算版本号
      * 
      */
-    computedVersion(version){
-        if(version){
-            let versionList = version.split('.');
+    computedVersion(version) {
+        if(version) {
+            const versionList = version.split('.');
             versionList[versionList.length - 1] = Number(versionList[versionList.length - 1]) + 1;
             return versionList.join('.');
         }else{
@@ -50,7 +50,7 @@ class AutoUpdateVersion {
      */
 
      writeFile(data) {
-        let result = fs.writeFileSync(this.options, data, 'utf-8');
+        const result = fs.writeFileSync(this.options, data, 'utf-8');
         if (result) {
             return true;
         } else {
@@ -64,7 +64,7 @@ class AutoUpdateVersion {
      * 
      */
      existsFile() {
-        let result = fs.existsSync(this.options);
+        const result = fs.existsSync(this.options);
         if (result) {
             return true;
         } else {
@@ -84,7 +84,7 @@ class AutoUpdateVersion {
             if (err) {
                 console.error(err);
             } else {
-                console.log(`%cThe version file was updated successfully, by ${stdout}`,'color:green');
+                console.log(`%cThe version file was updated successfully, by ${stdout}`, 'color:green');
             }
         });
     }
