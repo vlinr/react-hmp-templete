@@ -17,7 +17,7 @@
         "prettier": "npx prettier -c \"src/**/*\" -w",
         "prepare": "node .init.js",
         "lint:fix": "npx eslint --fix --ext .js,.tsx,.ts,.tsx src",
-        "lint:style": "npx stylelint --fix \"src/**/*.(less|scss|css)\"",
+        "lint:style": "npx stylelint --fix \"src/**/*.(less|css)\"",
         "lint:markdown": "npx markdownlint"
     },
     "homepage": ".",
@@ -112,6 +112,7 @@
         "react-app-rewired": "^2.1.8",
         "react-hot-loader": "^4.13.0",
         "stylelint": "^14.1.0",
+        "stylelint-config-css-modules": "^2.3.0",
         "stylelint-config-standard": "^24.0.0",
         "stylelint-order": "^5.0.0",
         "wait-on": "^6.0.0",
