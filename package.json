@@ -18,6 +18,8 @@
         "prepare": "node .init.js",
         "lint:fix": "npx eslint --fix --ext .js,.tsx,.ts,.tsx src",
         "lint:style": "npx stylelint --fix \"src/**/*.(less|css)\"",
+        "prettier:style": "npx prettier -c \"src/**/*.(less|css)\" -w",
+        "prettier:script": "npx prettier -c \"src/**/*.(ts|js|tsx|jsx)\" -w",
         "lint:markdown": "npx markdownlint"
     },
     "homepage": ".",
