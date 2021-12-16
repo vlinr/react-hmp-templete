@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import { memo, ReactElement } from 'react';
 import { Spin } from 'antd';
 import styles from './index.module.less';
 import useLocale from '@/hooks/useLocale';
@@ -14,7 +14,7 @@ const SpinLoading = ({
     pastDelay,
     mask,
     isFullScreen,
-}: LoadingType): React.ReactElement | null => {
+}: LoadingType): ReactElement | null => {
     if (error) return <div>{useLocale('Loading_Error')}</div>;
     return (
         (pastDelay && (

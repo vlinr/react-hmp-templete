@@ -1,4 +1,4 @@
-import React, { memo, useEffect } from 'react';
+import { memo, useEffect, ReactElement } from 'react';
 import { Redirect, Route, useHistory } from 'react-router-dom';
 import { LOGIN_PATH } from '@/config/config';
 import { RouteType } from '@/config/router.config';
@@ -14,7 +14,7 @@ function AuthRouter({
     name,
     isNotLogin,
     ...rest
-}: RouteType): React.ReactElement<RouteType> {
+}: RouteType): ReactElement<RouteType> {
     const history = useHistory();
 
     // 路由切换全局方法

@@ -1,4 +1,4 @@
-import React, { memo, useEffect, useState } from 'react';
+import { memo, useEffect, useState, ReactElement } from 'react';
 import styles from './index.module.less';
 import CustomLoading from '@/components/RotateLoading';
 import { useDispatch, useSelector } from 'react-redux';
@@ -29,7 +29,7 @@ const localeReducer = createSelector(
  * @function:首页
  *
  * *******/
-function Index(): React.ReactElement<any> {
+function Index(): ReactElement<any> {
     const dispatch = useDispatch();
     const data = useSelector(indexReducer); // 数据仓库
     const { startTimer, cancelTimer } = useCustomTimer(false, 99999);

@@ -1,4 +1,4 @@
-import React, { useState, useCallback, memo, useRef } from 'react';
+import { useState, useCallback, memo, useRef, ReactElement, createElement } from 'react';
 import styles from './blankLayout.module.less';
 import { Layout, Menu, Avatar, Dropdown } from 'antd';
 import {
@@ -20,7 +20,7 @@ const userInfoReducer = createSelector(
 );
 const { Header, Content, Footer } = Layout;
 
-const TOP_INFO: React.ReactElement = (
+const TOP_INFO: ReactElement = (
     <Menu>
         <Menu.Item
             icon={<LogoutOutlined />}
@@ -37,7 +37,7 @@ interface MenuCurrentType {
     toggle?: Function;
 }
 
-function BlankLayout(props: RouteItemType): React.ReactElement<RouteItemType> {
+function BlankLayout(props: RouteItemType): ReactElement<RouteItemType> {
     const { children } = props; // 获得子元素，渲染到对应的地方即可
     const userInfo = useSelector(userInfoReducer); // 用户信息
     const [collapsed, setCollapsed] = useState(false);
@@ -62,7 +62,7 @@ function BlankLayout(props: RouteItemType): React.ReactElement<RouteItemType> {
                         {/* {
                             collapsed?<MenuUnfoldOutlined onClick={toggle} />:<MenuFoldOutlined  onClick={toggle}/>
                         } */}
-                        {React.createElement(collapsed ? MenuUnfoldOutlined : MenuFoldOutlined, {
+                        {createElement(collapsed ? MenuUnfoldOutlined : MenuFoldOutlined, {
                             onClick: toggle,
                         })}
                         <div className={styles.userInfo}>

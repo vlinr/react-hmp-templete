@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import { memo, ReactElement } from 'react';
 import styles from './index.module.less';
 type LoadingType = {
     loading: boolean;
@@ -13,7 +13,7 @@ const RotateLoading = ({
     showText,
     text,
     color = '#fff',
-}: LoadingType): React.ReactElement | null => {
+}: LoadingType): ReactElement | null => {
     if (loading) {
         return (
             <div className={styles.loading}>
