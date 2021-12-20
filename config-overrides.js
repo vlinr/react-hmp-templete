@@ -39,6 +39,7 @@ const rewiredMap = () => (config) => {
     config.devtool = config.mode === 'development' ? 'cheap-module-source-map' : false;
     return config;
 };
+
 process.env.PORT = 8888;
 process.env.GENERATE_SOURCEMAP !== 'false';
 
