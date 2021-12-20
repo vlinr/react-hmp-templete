@@ -22,7 +22,7 @@ const {
 const path = require('path');
 const apiMocker = require('mocker-api');
 const paths = require('react-scripts/config/paths');
-const rewireReactHotLoader = require('react-app-rewire-hot-loader');
+// const rewireReactHotLoader = require('react-app-rewire-hot-loader');
 const CompressionWebpackPlugin = require('compression-webpack-plugin');
 // const rewireCompressionPlugin = require('react-app-rewire-compression-plugin')
 const rewireUglifyjs = require('react-app-rewire-uglifyjs');
@@ -223,7 +223,7 @@ module.exports = {
         // 关闭mapSource
         rewiredMap(),
         // 热更新
-        hotLoader(), //需要安装和修改index.js
+        // hotLoader(), //需要安装和修改index.js
         // 配置babel解析器
         addBabelPlugins(
             ['@babel/plugin-proposal-decorators', { legacy: true }],
