@@ -19,10 +19,10 @@ const RotateLoading = ({
             <div className={styles.loading}>
                 <div className={styles.l_icon}>
                     <span style={{ background: color }}></span>
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                    <span></span>
+                    <span style={{ background: color }}></span>
+                    <span style={{ background: color }}></span>
+                    <span style={{ background: color }}></span>
+                    <span style={{ background: color }}></span>
                 </div>
                 {showText && (
                     <div className={styles.l_txt} style={{ color: color }}>
