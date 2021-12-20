@@ -7,5 +7,5 @@ function App() {
     return AppRouter;
 }
 // 热更新
-const AppHot = process.env.NODE_ENV === 'development' ? hot(App) : App;
+const AppHot = process?.env?.NODE_ENV === 'development' ? hot(App) : App;
 export default AppHot;

@@ -12,6 +12,7 @@
       "selector-type-no-unknown": [true, {
         "ignoreTypes": []
       }],
+      "color-function-notation":"legacy",
       "selector-pseudo-element-no-unknown": [true, {
         "ignorePseudoElements": ["v-deep"]
       }],

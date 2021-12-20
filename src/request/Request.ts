@@ -14,6 +14,8 @@ export type RequestParams = {
     useCustomHeader?: boolean; // 使用自定义header
     requestType?: string; // 请求类型,文件
     timeout?: number; // 超时时间
+    filterHeader?: FilterType<any>;
+    responseType?: 'json' | 'text' | 'blob';
 };
 
 export type Headers = {
@@ -35,6 +37,10 @@ const DEFAULT_PARAMS: RequestParams = {
     cors: true,
     timeout: 30000,
     useCustomHeader: true,
+    filterHeader: {
+        'content-type': '',
+    },
+    responseType: 'json',
 };
 
 // type ResultType = {
@@ -66,10 +72,22 @@ type ReplaceInfoType = {
     params: { [key: string]: any } | any[];
 };
 
+type FilterType<T> = {
+    [key: string]: T;
+};
+
 class Request {
     private requestParams: RequestParams = DEFAULT_PARAMS;
     private controller: AbortController = new AbortController();
     constructor(params: RequestParams, callback?: Function) {
+        this.init(params, callback);
+    }
+    /**
+     *
+     * @method 初始化
+     *
+     * ****/
+    private init(params: RequestParams, callback?: Function) {
         this.requestParams.headers = {
             ...DEFAULT_PARAMS.headers,
             ...HEADERS(),
@@ -78,6 +96,15 @@ class Request {
         this.requestParams = {
             ...this.requestParams,
             ...this.mergeRequestConfig(params),
+        };
+        this.requestParams.headers = {
+            ...this.filterHeaders(
+                {
+                    ...DEFAULT_PARAMS.filterHeader,
+                    ...params.filterHeader,
+                },
+                this.requestParams.headers,
+            ),
         };
         const replaceInfo: ReplaceInfoType = this.replacePath(
             this.requestParams.api,
@@ -94,6 +121,33 @@ class Request {
                     callback(err);
                 });
         }
+    }
+
+    /**
+     *
+     * @method 过滤相应header
+     *
+     * @params filter:FilterType<any> | FilterType<any>[]  需要过滤的key，value
+     * @params header:{[key:string]:any}
+     *
+     * ****/
+
+    private filterHeaders(filter: FilterType<any>, headers: { [key: string]: any }) {
+        const keys: string[] = Object.keys(headers);
+        const filterKeys: string[] = Object.keys(filter);
+        keys.forEach((item: string) => {
+            for (let i: number = 0; i < filterKeys.length; i++) {
+                const fItem: string = filterKeys[i];
+                if (
+                    fItem?.toLowerCase() === item.toLowerCase() &&
+                    headers?.[`${item}`] === filter[fItem]
+                ) {
+                    delete headers?.[`${item}`];
+                    break;
+                }
+            }
+        });
+        return headers || {};
     }
 
     /**
@@ -339,6 +393,9 @@ class Request {
                             };
                         }
                         if (res.ok) {
+                            if (this.requestParams.responseType === 'text') return res?.text?.();
+                            else if (this.requestParams.responseType === 'blob')
+                                return res?.blob?.();
                             return res?.json?.();
                         }
                         return {

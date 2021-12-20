@@ -1,4 +1,3 @@
-
 // interface ProxyConfigType {
 //     [name:string]:ProxyConfigItemType
 // }
@@ -23,9 +22,15 @@ const PROXY_CONFIG = {
         secure: false,
         xfwd: false,
         pathRewrite: {
-            '^/api': '/'
-        }
-    }
-}
+            '^/api': '/',
+        },
+    },
+    // bypass: (req) => {
+    //     // 代理请求是html文件时，并且请求路径不包含test的路径，就不使用代理
+    //     if (req.headers.accept.indexOf('html') !== -1 && req.url.indexOf('test') === -1) {
+    //         return '/';
+    //     }
+    // },
+};
 
 module.exports = PROXY_CONFIG;
