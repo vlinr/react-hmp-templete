@@ -33,6 +33,7 @@ const LodashWebpackPlugin = require('lodash-webpack-plugin');
 const WebpackBuildNotifierPlugin = require('webpack-build-notifier');
 const theme = require('./theme.js');
 const PROXY = require('./proxy.config.js');
+// const chalk = require('chalk');
 const BuildCustomPlugin = require('./plugins/BuildCustomPlugin');
 // SKIP_PREFLIGHT_CHECK = true
 const rewiredMap = () => (config) => {
@@ -226,32 +227,41 @@ module.exports = {
         // 热更新
         // hotLoader(), //需要安装和修改index.js
         // 配置babel解析器
-        addBabelPlugins(
-            ['@babel/plugin-proposal-decorators', { legacy: true }],
-            ['@babel/plugin-proposal-nullish-coalescing-operator'],
-            ['@babel/plugin-proposal-class-properties', { loose: true }],
-            ['@babel/plugin-proposal-optional-chaining'],
-        ),
+        addBabelPlugins(['@babel/plugin-proposal-decorators', { legacy: true }]),
+        addBabelPlugins(['@babel/plugin-proposal-nullish-coalescing-operator']),
+        addBabelPlugins(['@babel/plugin-proposal-class-properties', { loose: true }]),
+        addBabelPlugins(['@babel/plugin-proposal-optional-chaining']),
         // 打包编译完成提醒
+        addWebpackPlugin(
+            // 进度条,写在最前面，后main无效
+            new ProgressBarPlugin({
+                format: '  build [:bar] ' + ':percent' + ' (:elapsed seconds)',
+                clear: false,
+            }),
+        ),
         addWebpackPlugin(
             new WebpackBuildNotifierPlugin({
                 title: '模板项目',
                 logo: path.resolve('./public/logo.png'),
                 suppressSuccess: true,
             }),
-            // new MiniCssExtractPlugin({
-            //     filename: 'static/css/[name].[contenthash].css',
-            //     chunkFilename: 'static/css/[id].[contenthash].css',
-            //     ignoreOrder: false,
-            //     // moduleFilename: ({ name }) => `${name.replace('/js/', '/css/')}.css`
-            // }),
-            new LodashWebpackPlugin({ collections: true, paths: true }), // 美化控制台
-            // 进度条
-            new ProgressBarPlugin(),
-            new CompressionWebpackPlugin(),
-            // delConflictingOrder(),
-            addMiniCssExtractPlugin(),
         ),
+        // addWebpackPlugin(
+        //     new MiniCssExtractPlugin({
+        //         filename: 'static/css/[name].[contenthash].css',
+        //         chunkFilename: 'static/css/[id].[contenthash].css',
+        //         ignoreOrder: false,
+        //         // moduleFilename: ({ name }) => `${name.replace('/js/', '/css/')}.css`
+        //     }),
+        // ),
+        // addWebpackPlugin(
+        //     delConflictingOrder(),
+        // ),
+        addWebpackPlugin(
+            new LodashWebpackPlugin({ collections: true, paths: true }), // 美化控制台
+        ),
+        // addWebpackPlugin(new CompressionWebpackPlugin()),
+        // addWebpackPlugin(addMiniCssExtractPlugin()),
         rewireUglifyjs,
         // useBabelRc(require('./babel.config.js')),
         // add webpack bundle visualizer if BUNDLE_VISUALIZE flag is enabled
