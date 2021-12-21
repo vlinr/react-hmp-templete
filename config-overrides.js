@@ -23,7 +23,7 @@ const path = require('path');
 const apiMocker = require('mocker-api');
 const paths = require('react-scripts/config/paths');
 // const rewireReactHotLoader = require('react-app-rewire-hot-loader');
-const CompressionWebpackPlugin = require('compression-webpack-plugin');
+// const CompressionWebpackPlugin = require('compression-webpack-plugin');
 // const rewireCompressionPlugin = require('react-app-rewire-compression-plugin')
 const rewireUglifyjs = require('react-app-rewire-uglifyjs');
 const FilterWarningsPlugin = require('webpack-filter-warnings-plugin');
@@ -35,6 +35,7 @@ const theme = require('./theme.js');
 const PROXY = require('./proxy.config.js');
 // const chalk = require('chalk');
 const BuildCustomPlugin = require('./plugins/BuildCustomPlugin');
+const chalk = require('chalk');
 // SKIP_PREFLIGHT_CHECK = true
 const rewiredMap = () => (config) => {
     config.devtool = config.mode === 'development' ? 'cheap-module-source-map' : false;
@@ -235,8 +236,11 @@ module.exports = {
         addWebpackPlugin(
             // 进度条,写在最前面，后main无效
             new ProgressBarPlugin({
-                format: '  build [:bar] ' + ':percent' + ' (:elapsed seconds)',
+                format: `build [:bar] ${chalk.green(':percent')} (:elapsed seconds)`,
                 clear: false,
+                callback: (v) => {
+                    console.log(v);
+                },
             }),
         ),
         addWebpackPlugin(

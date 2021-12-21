@@ -60,6 +60,7 @@
         "braft-editor": "^2.3.9",
         "braft-extensions": "^0.1.1",
         "braft-utils": "^3.0.12",
+        "chalk": "4.1.2",
         "color-picker": "^0.0.1",
         "compression-webpack-plugin": "^9.2.0",
         "draft-js-prism": "^1.0.6",
