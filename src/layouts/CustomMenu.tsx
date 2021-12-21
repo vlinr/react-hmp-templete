@@ -6,6 +6,7 @@ import { Layout, Menu } from 'antd';
 import ROUTER_CONFIG, { RouteItemType } from '@/config/router.config';
 import { routerFlatten } from '@/utils/routerToFlatten';
 import formatPath from '@/utils/formatPath';
+import { pathToRegexp } from 'path-to-regexp';
 const { Sider } = Layout;
 
 const USER_AUTHORITY = 'admin'; // 用户角色,在authority数组去寻找是否有这个角色，有则显示，没有则不渲染
@@ -18,7 +19,7 @@ const findRouter = (findList: Array<RouteItemType>, path: string): Array<string>
     for (let i: number = 0, len = findList.length; i < len; ++i) {
         const item: RouteItemType = findList[i];
         if (item.parent) start = i;
-        if (item.path === path) {
+        if (pathToRegexp(item.path, []).test(path)) {
             end = i;
             break;
         }
@@ -83,15 +84,18 @@ DEFAULT_OPEN_KEYS && setSelectItem(JSON.parse(DEFAULT_OPEN_KEYS));
 let FLATTEN_ROUTER: Array<RouteItemType> | null = null;
 
 const CustomMenu = forwardRef(
-    ({ collapsed, setParentCollapsed }: MenuPropsType, ref: any): ReactElement<MenuPropsType> => {
+    (
+        { collapsed, setParentCollapsed, exact = true }: MenuPropsType,
+        ref: any,
+    ): ReactElement<MenuPropsType> => {
         const history = useHistory();
 
         // 子元素设置父元素选中得key
         const setOpenKeys: Function = useCallback((openKeys: Array<string>) => {
             setOpenItemKeys(openKeys);
         }, []);
-        // 选中得key
-        const [openItemKeys, setOpenItemKeys] = useState(prevOpenKeys);
+        const [openItemKeys, setOpenItemKeys] = useState<string[]>(prevOpenKeys);
+        const [selectKeys, setSelectKeys] = useState<string[]>([]);
         // 切换，控制菜单栏显示全部和摘要
         const toggle = useCallback(() => {
             setParentCollapsed(!collapsed);
@@ -111,9 +115,26 @@ const CustomMenu = forwardRef(
         // ROOT_KEYS变化得时候执行
         useEffect(() => {
             if (!FLATTEN_ROUTER) FLATTEN_ROUTER = routerFlatten(ROUTER_CONFIG);
-            const historyPath: string = formatPath(history.location.pathname);
-            setOpenKeys(findRouter(FLATTEN_ROUTER, historyPath));
+            const pathname: string = history.location.pathname;
+            const historyPath: string = formatPath(pathname);
+            const routes: string[] = findRouter(FLATTEN_ROUTER, historyPath);
+            setOpenKeys(routes);
+            setSelectKeys(exact ? findSelectKeys(routes, pathname) : [pathname]);
         }, [setOpenKeys, history]);
+
+        const findSelectKeys = (routes: string[], path: string): string[] => {
+            for (let i: number = 0; i < routes.length; i++) {
+                const item: string = routes[i];
+                if (path.indexOf(item) === -1) {
+                    if (i > 0) {
+                        return [routes[i - 1]];
+                    } else {
+                        return [];
+                    }
+                }
+            }
+            return [path];
+        };
 
         // 设置打开的列表
         const onOpenChange: any = useCallback(
@@ -189,7 +210,7 @@ const CustomMenu = forwardRef(
                     onOpenChange={onOpenChange}
                     onClick={itemClickHandle}
                     openKeys={openItemKeys}
-                    selectedKeys={[formatPath(history.location.pathname)]}>
+                    selectedKeys={selectKeys}>
                     {routerChangeAuthority(routeList)?.map(
                         (item: RouteItemType): React.ReactNode => {
                             (item.children || [])?.length !== 0 &&

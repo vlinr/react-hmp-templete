@@ -238,9 +238,6 @@ module.exports = {
             new ProgressBarPlugin({
                 format: `build [:bar] ${chalk.green(':percent')} (:elapsed seconds)`,
                 clear: false,
-                callback: (v) => {
-                    console.log(v);
-                },
             }),
         ),
         addWebpackPlugin(
