@@ -34,7 +34,7 @@ function useCustomTimer(down: boolean = true, endNum: number = 0) {
      * ****/
     const startTimer = (
         time: number,
-        callback?: Function,
+        callback?: (time: number) => void,
         deeps: number = 1000,
         resume: boolean = false,
     ) => {

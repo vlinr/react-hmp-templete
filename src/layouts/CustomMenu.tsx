@@ -4,31 +4,48 @@ import { Link, useHistory } from 'react-router-dom';
 import { cloneDeep } from 'lodash-es';
 import { Layout, Menu } from 'antd';
 import ROUTER_CONFIG, { RouteItemType } from '@/config/router.config';
-import { routerFlatten } from '@/utils/routerToFlatten';
 import formatPath from '@/utils/formatPath';
 import { pathToRegexp } from 'path-to-regexp';
 const { Sider } = Layout;
 
 const USER_AUTHORITY = 'admin'; // 用户角色,在authority数组去寻找是否有这个角色，有则显示，没有则不渲染
 
-// 根据深度优先推算出导航得层级
-const findRouter = (findList: Array<RouteItemType>, path: string): Array<string> => {
-    const result: Array<string> = [];
-    let end: number = -1,
-        start = -1;
-    for (let i: number = 0, len = findList.length; i < len; ++i) {
-        const item: RouteItemType = findList[i];
-        if (item.parent) start = i;
-        if (pathToRegexp(item.path, []).test(path)) {
-            end = i;
+const findRouter = (routers: RouteItemType[], path: string, exact: boolean = false): string[] => {
+    const result: string[] = [];
+    const findHaveRouter = (routers: RouteItemType[], path: string) => {
+        return routers.some((item: RouteItemType) => pathToRegexp(item.path, []).test(path));
+    };
+    const have: boolean = findHaveRouter(routers, path);
+    for (let i: number = 0; i < routers.length; i++) {
+        const item: RouteItemType = routers[i];
+        if (have && pathToRegexp(item.path, []).test(path)) {
+            result.push(item.path);
             break;
+        } else {
+            if (path.indexOf(item.path) !== -1) {
+                // 没找到，匹配父级
+                result.push(item.path);
+                const childMap: (data: RouteItemType) => void = (data: RouteItemType) => {
+                    const have: boolean = findHaveRouter(data?.children || [], path);
+                    // 循环内部
+                    for (let j: number = 0; j < (data?.children || [])?.length; j++) {
+                        const item: RouteItemType | undefined = data?.children?.[j];
+                        if (item) {
+                            if (have && pathToRegexp(item.path, []).test(path)) {
+                                result.push(item.path);
+                                break;
+                            } else if (path.indexOf(item.path) !== -1) {
+                                !exact && result.push(item.path);
+                                childMap(item);
+                            }
+                        }
+                    }
+                };
+                childMap(item);
+            }
         }
     }
-    if (start !== -1 && end !== -1)
-        for (let i: number = start; i <= end; ++i) {
-            const item: RouteItemType = findList[i];
-            result.push(item.path);
-        }
+
     return result;
 };
 
@@ -81,11 +98,9 @@ const setSelectItem = (item: any): void => {
 // 用户刷新当前浏览器，设置默认选中
 DEFAULT_OPEN_KEYS && setSelectItem(JSON.parse(DEFAULT_OPEN_KEYS));
 
-let FLATTEN_ROUTER: Array<RouteItemType> | null = null;
-
 const CustomMenu = forwardRef(
     (
-        { collapsed, setParentCollapsed, exact = true }: MenuPropsType,
+        { collapsed, setParentCollapsed, exact = false }: MenuPropsType,
         ref: any,
     ): ReactElement<MenuPropsType> => {
         const history = useHistory();
@@ -101,7 +116,7 @@ const CustomMenu = forwardRef(
             setParentCollapsed(!collapsed);
             if (collapsed) {
                 const historyPath: string = formatPath(history.location.pathname); // 去掉最后得斜杠
-                FLATTEN_ROUTER && setOpenKeys(findRouter(FLATTEN_ROUTER, historyPath));
+                setOpenKeys(findRouter(ROUTER_CONFIG, historyPath, exact));
             } else {
                 // 收起来得时候，关掉，否则会闪烁
                 setOpenKeys([]);
@@ -114,27 +129,12 @@ const CustomMenu = forwardRef(
 
         // ROOT_KEYS变化得时候执行
         useEffect(() => {
-            if (!FLATTEN_ROUTER) FLATTEN_ROUTER = routerFlatten(ROUTER_CONFIG);
             const pathname: string = history.location.pathname;
             const historyPath: string = formatPath(pathname);
-            const routes: string[] = findRouter(FLATTEN_ROUTER, historyPath);
+            const routes: string[] = findRouter(ROUTER_CONFIG, historyPath, exact);
             setOpenKeys(routes);
-            setSelectKeys(exact ? findSelectKeys(routes, pathname) : [pathname]);
+            setSelectKeys(routes);
         }, [setOpenKeys, history]);
-
-        const findSelectKeys = (routes: string[], path: string): string[] => {
-            for (let i: number = 0; i < routes.length; i++) {
-                const item: string = routes[i];
-                if (path.indexOf(item) === -1) {
-                    if (i > 0) {
-                        return [routes[i - 1]];
-                    } else {
-                        return [];
-                    }
-                }
-            }
-            return [path];
-        };
 
         // 设置打开的列表
         const onOpenChange: any = useCallback(

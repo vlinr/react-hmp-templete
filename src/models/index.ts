@@ -7,7 +7,7 @@ export interface StateType {
 }
 export interface IAction {
     token: string | null;
-    callback?: Function;
+    callback?: (params: any) => void;
 }
 export interface SelectResultAction extends IAction {
     mobile: string | number;

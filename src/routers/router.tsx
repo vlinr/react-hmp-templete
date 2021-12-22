@@ -5,7 +5,9 @@ import { RouteType } from '@/config/router.config';
 import { USER_TOKEN_NAME } from '@/config/config';
 import AsyncImport from '@/utils/asyncImport';
 import serializeParams from '@/utils/serializeParams';
-
+const enum Test {
+    DEMO = 'demo',
+}
 // 检查用户
 function AuthRouter({
     component,
@@ -16,9 +18,9 @@ function AuthRouter({
     ...rest
 }: RouteType): ReactElement<RouteType> {
     const history = useHistory();
-
     // 路由切换全局方法
     useEffect(() => {
+        console.log('demo' === Test.DEMO);
         const win: any = window;
         if (!win.routerChange) {
             /**

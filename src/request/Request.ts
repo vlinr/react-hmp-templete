@@ -79,7 +79,7 @@ type FilterType<T> = {
 class Request {
     private requestParams: RequestParams = DEFAULT_PARAMS;
     private controller: AbortController = new AbortController();
-    constructor(params: RequestParams, callback?: Function) {
+    constructor(params: RequestParams, callback?: (params: any) => void) {
         this.init(params, callback);
     }
     /**
@@ -87,7 +87,7 @@ class Request {
      * @method 初始化
      *
      * ****/
-    private init(params: RequestParams, callback?: Function) {
+    private init(params: RequestParams, callback?: (params: any) => void) {
         this.requestParams.headers = {
             ...DEFAULT_PARAMS.headers,
             ...HEADERS(),
@@ -379,7 +379,7 @@ class Request {
      * @param params:{RequestParams} 请求的参数信息
      * ***/
     private fetchData<T>(api: string, params: RequestParams): Promise<T> {
-        return new Promise((resolve: Function, reject: Function) => {
+        return new Promise((resolve: (res: any) => void, reject: (err: any) => void) => {
             try {
                 const timeout: number = this.requestTimeout(resolve);
                 fetch(api, { ...params, signal: this.controller.signal })
@@ -430,7 +430,7 @@ class Request {
      * @method 请求超时
      * @param callback:{Function} 请求超时回调
      * ***/
-    private requestTimeout(callback: Function) {
+    private requestTimeout(callback: (res: any) => void) {
         const timeout: any = setTimeout(() => {
             callback({
                 code: '504',

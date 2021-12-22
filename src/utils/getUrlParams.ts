@@ -7,8 +7,8 @@
  */
 
 function getUrlParams(name: string) {
-    var reg: RegExp = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');
-    var r: any = window.location.search.substr(1).match(reg);
+    const reg: RegExp = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');
+    const r: any = window.location.search.substr(1).match(reg);
     if (r !== null) return decodeURIComponent(r[2]);
     return null;
 }
