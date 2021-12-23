@@ -166,12 +166,15 @@ const CustomMenu = forwardRef(
         const childMap: Function = useCallback(
             (data: RouteItemType) => {
                 if (
-                    !data?.hideItem &&
+                    !data?.hideInMenu &&
                     ((data?.authority || [])?.indexOf(USER_AUTHORITY) > -1 ||
                         (data?.authority || []).length === 0)
                 ) {
                     const Icon: any = data?.icon || null;
-                    if ((data?.children || [])?.length !== 0) {
+                    const allHide: boolean = !data?.children?.some(
+                        (item: RouteItemType) => !item?.hideInMenu,
+                    );
+                    if ((data?.children || [])?.length !== 0 && !allHide) {
                         return (
                             <Menu.SubMenu
                                 key={`${data.path}`}

@@ -20,7 +20,7 @@ export type RouteItemType = RouteType & {
     children?: Array<RouteItemType>;
     newWindow?: boolean;
     authority?: Array<string>;
-    hideItem?: boolean;
+    hideInMenu?: boolean;
     icon?: React.ReactNode | any;
     [moreName: string]: any; // 更多参数
 };
