@@ -7,7 +7,7 @@ import useErrorBoundary from 'use-error-boundary';
 import toast from '@/utils/toast';
 import formatDate from '@/utils/formatDate';
 import useLocale from '@/hooks/useLocale';
-import { useDispatched, useStore } from '@/hooks/useRedux';
+import { useSend, useContent } from '@/hooks/useSimpleRedux';
 
 const token: string | null = getUrlParams('token'); // 获取url中的token
 /**
@@ -16,10 +16,10 @@ const token: string | null = getUrlParams('token'); // 获取url中的token
  *
  * *******/
 function Index(): ReactElement<any> {
-    const dispatch = useDispatched();
+    const dispatch = useSend();
 
-    const data = useStore('index/info'); // 数据仓库
-    const locale = useStore('locale/language'); // 数据仓库
+    const data = useContent('index/info'); // 数据仓库
+    const locale = useContent('locale/language'); // 数据仓库
     const { startTimer, cancelTimer } = useCustomTimer(false, 99999);
     const [time, setTime] = useState(0);
     const { ErrorBoundary } = useErrorBoundary();

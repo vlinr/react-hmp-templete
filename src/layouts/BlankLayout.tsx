@@ -12,7 +12,7 @@ import { RouteItemType } from '@/config/router.config';
 import CustomMenu from './CustomMenu';
 import { USER_TOKEN_NAME } from '@/config/config';
 import useLocale from '@/hooks/useLocale';
-import { useStore } from '@/hooks/useRedux';
+import { useContent } from '@/hooks/useSimpleRedux';
 
 const { Header, Content, Footer } = Layout;
 
@@ -36,7 +36,7 @@ interface MenuCurrentType {
 function BlankLayout(props: RouteItemType): ReactElement<RouteItemType> {
     const { children } = props; // 获得子元素，渲染到对应的地方即可
 
-    const userInfo = useStore('login/userInfo'); // 用户信息
+    const userInfo = useContent('login/userInfo'); // 用户信息
 
     const [collapsed, setCollapsed] = useState(false);
     const menuRef = useRef<MenuCurrentType | undefined>(undefined);

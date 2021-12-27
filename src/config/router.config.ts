@@ -1,4 +1,3 @@
-import BlankLayout from '@/layouts/BlankLayout';
 import UserLayout from '@/layouts/UserLayout';
 import { FormOutlined } from '@ant-design/icons';
 
@@ -30,7 +29,7 @@ export type RouteItemType = RouteType & {
 const ROUTER_CONFIG: Array<RouteItemType> = [
     {
         path: '/', // 访问路径
-        layout: BlankLayout, // 布局，最外层的必须指定
+        layout: UserLayout, // 布局，最外层的必须指定
         exact: true, // 是否严格匹配
         name: '测试模板', // 名称
         icon: FormOutlined,
