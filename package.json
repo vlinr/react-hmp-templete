@@ -20,11 +20,17 @@
         "lint:style": "npx stylelint --fix \"src/**/*.(less|css)\"",
         "prettier:style": "npx prettier -c \"src/**/*.(less|css)\" -w",
         "prettier:script": "npx prettier -c \"src/**/*.(ts|js|tsx|jsx)\" -w",
-        "lint:markdown": "npx markdownlint"
+        "lint:markdown": "npx markdownlint",
+        "commit": "git-cz"
     },
     "homepage": ".",
     "resolutions": {
         "react-error-overlay": "6.0.9"
+    },
+    "config": {
+        "commitizen": {
+            "path": "@commitlint/cz-commitlint"
+        }
     },
     "browserslist": {
         "production": [
@@ -98,7 +104,9 @@
         "@hot-loader/react-dom": "^17.0.1",
         "@typescript-eslint/parser": "^5.6.0",
         "babel-plugin-import": "^1.13.3",
+        "commitizen": "^4.2.4",
         "conventional-changelog-gitmoji-config": "^1.4.3",
+        "cosmiconfig-typescript-loader": "^1.0.2",
         "customize-cra": "^1.0.0",
         "eslint-config-prettier": "^8.3.0",
         "eslint-plugin-import": "^2.25.3",
