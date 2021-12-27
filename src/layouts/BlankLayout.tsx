@@ -10,14 +10,10 @@ import {
 } from '@ant-design/icons';
 import { RouteItemType } from '@/config/router.config';
 import CustomMenu from './CustomMenu';
-import { useSelector } from 'react-redux';
-import { createSelector } from 'reselect';
 import { USER_TOKEN_NAME } from '@/config/config';
 import useLocale from '@/hooks/useLocale';
-const userInfoReducer = createSelector(
-    (state: any) => state.login,
-    (login: any) => login.userInfo,
-);
+import { useStore } from '@/hooks/useRedux';
+
 const { Header, Content, Footer } = Layout;
 
 const TOP_INFO: ReactElement = (
@@ -39,7 +35,9 @@ interface MenuCurrentType {
 
 function BlankLayout(props: RouteItemType): ReactElement<RouteItemType> {
     const { children } = props; // 获得子元素，渲染到对应的地方即可
-    const userInfo = useSelector(userInfoReducer); // 用户信息
+
+    const userInfo = useStore('login/userInfo'); // 用户信息
+
     const [collapsed, setCollapsed] = useState(false);
     const menuRef = useRef<MenuCurrentType | undefined>(undefined);
     const setParentCollapsed: Function = useCallback((value: boolean) => {

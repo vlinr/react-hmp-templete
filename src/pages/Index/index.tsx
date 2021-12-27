@@ -1,44 +1,32 @@
 import { memo, useEffect, useState, ReactElement } from 'react';
 import styles from './index.module.less';
 import CustomLoading from '@/components/RotateLoading';
-import { useDispatch, useSelector } from 'react-redux';
-import { createSelector } from 'reselect';
 import getUrlParams from 'utils/getUrlParams';
-import { StateType } from 'models';
-import { RootState } from 'models/store';
 import useCustomTimer from 'hooks/useCustomTimer';
 import useErrorBoundary from 'use-error-boundary';
 import toast from '@/utils/toast';
 import formatDate from '@/utils/formatDate';
 import useLocale from '@/hooks/useLocale';
-import { LangType } from '@/models/locale';
+import { useDispatched, useStore } from '@/hooks/useRedux';
 
 const token: string | null = getUrlParams('token'); // 获取url中的token
-
-const indexReducer = createSelector(
-    (state: RootState) => state.index,
-    (index: StateType) => index.info,
-);
-
-const localeReducer = createSelector(
-    (state: RootState) => state.locale,
-    (locale: LangType) => locale.language,
-);
 /**
  *
  * @function:首页
  *
  * *******/
 function Index(): ReactElement<any> {
-    const dispatch = useDispatch();
-    const data = useSelector(indexReducer); // 数据仓库
+    const dispatch = useDispatched();
+
+    const data = useStore('index/info'); // 数据仓库
+    const locale = useStore('locale/language'); // 数据仓库
     const { startTimer, cancelTimer } = useCustomTimer(false, 99999);
     const [time, setTime] = useState(0);
     const { ErrorBoundary } = useErrorBoundary();
-    const locale = useSelector(localeReducer);
+
     // 初始化数据
     useEffect(() => {
-        dispatch?.index?.getInfo({
+        dispatch('login/getInfo', {
             token,
             callback(res: any) {
                 console.log(res);
@@ -81,7 +69,7 @@ function Index(): ReactElement<any> {
     return (
         <div className={`${styles.box}`}>
             <div
-                onClick={() => dispatch?.locale?.setLocale(locale === 'en' ? 'zh' : 'en')}
+                onClick={() => dispatch('locale/setLocale', locale + '' === 'en' ? 'zh' : 'en')}
                 style={{ cursor: 'pointer', color: '#fff' }}>
                 更改语言：
             </div>

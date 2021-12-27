@@ -1,6 +1,6 @@
 {
     "name": "react-hmp-template",
-    "version": "1.0.3",
+    "version": "1.0.81",
     "private": true,
     "author": "",
     "description": "",
@@ -20,8 +20,7 @@
         "lint:style": "npx stylelint --fix \"src/**/*.(less|css)\"",
         "prettier:style": "npx prettier -c \"src/**/*.(less|css)\" -w",
         "prettier:script": "npx prettier -c \"src/**/*.(ts|js|tsx|jsx)\" -w",
-        "lint:markdown": "npx markdownlint",
-        "release": "standard-version --preset gitmoji-config"
+        "lint:markdown": "npx markdownlint"
     },
     "homepage": ".",
     "resolutions": {
