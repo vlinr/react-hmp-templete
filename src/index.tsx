@@ -1,4 +1,5 @@
 import ReactDOM from 'react-dom';
+// import 'core-js';
 import '@/index.less';
 import App from '@/App';
 import { Provider } from 'react-redux';

@@ -84,7 +84,7 @@ class AutoUpdateVersion {
             if (err) {
                 console.error(err);
             } else {
-                console.log(`%cThe version file was updated successfully, by ${stdout}`, 'color:green');
+                console.log(`\n%cThe version file was updated successfully, by ${stdout}`, 'color:green');
             }
         });
     }
