@@ -1,6 +1,6 @@
 {
     "name": "react-hmp-template",
-    "version": "1.0.7",
+    "version": "1.0.12",
     "private": true,
     "author": "",
     "description": "",
@@ -32,18 +32,7 @@
             "path": "@commitlint/cz-commitlint"
         }
     },
-    "browserslist": {
-        "production": [
-            ">0.2%",
-            "not dead",
-            "not op_mini all"
-        ],
-        "development": [
-            "last 1 chrome version",
-            "last 1 firefox version",
-            "last 1 safari version"
-        ]
-    },
+    "browserslist": "> 0.25%, not dead",
     "dependencies": {
         "@ant-design/icons": "^4.7.0",
         "@babel/plugin-proposal-decorators": "^7.16.4",
@@ -66,6 +55,7 @@
         "chalk": "4.x",
         "color-picker": "^0.0.1",
         "compression-webpack-plugin": "^9.2.0",
+        "core-js": "2",
         "draft-js-prism": "^1.0.6",
         "draftjs-utils": "^0.10.2",
         "lodash-es": "^4.17.21",
@@ -92,6 +82,7 @@
     "devDependencies": {
         "@babel/plugin-proposal-nullish-coalescing-operator": "^7.16.0",
         "@babel/plugin-proposal-optional-chaining": "^7.16.0",
+        "@babel/preset-env": "^7.16.5",
         "@commitlint/cli": "^15.0.0",
         "@commitlint/config-conventional": "^15.0.0",
         "@commitlint/cz-commitlint": "^16.0.0",

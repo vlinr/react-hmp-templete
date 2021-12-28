@@ -17,7 +17,6 @@ const token: string | null = getUrlParams('token'); // 获取url中的token
  * *******/
 function Index(): ReactElement<any> {
     const dispatch = useSend();
-
     const data = useContent('index/info'); // 数据仓库
     const locale = useContent('locale/language'); // 数据仓库
     const { startTimer, cancelTimer } = useCustomTimer(false, 99999);
@@ -26,7 +25,7 @@ function Index(): ReactElement<any> {
 
     // 初始化数据
     useEffect(() => {
-        dispatch('login/getInfo', {
+        dispatch('index/getInfo', {
             token,
             callback(res: any) {
                 console.log(res);

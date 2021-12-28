@@ -16,6 +16,7 @@ const {
     addWebpackResolve,
     // useEslintRc,
     addPostcssPlugins,
+    addBabelPreset,
     // addTslintLoader
     // addBundleVisualizer
 } = require('customize-cra');
@@ -264,7 +265,21 @@ module.exports = {
         // addWebpackPlugin(new CompressionWebpackPlugin()),
         // addWebpackPlugin(addMiniCssExtractPlugin()),
         rewireUglifyjs,
-        // useBabelRc(require('./babel.config.js')),
+        addBabelPreset({
+            presets: [
+                [
+                    '@babel/preset-env',
+                    {
+                        targets: {
+                            ie: '10',
+                        },
+                        useBuiltIns: 'usage',
+                        corejs: 3,
+                    },
+                ],
+            ],
+        }),
+        // useBabelRc(),
         // add webpack bundle visualizer if BUNDLE_VISUALIZE flag is enabled
         process.env.BUNDLE_VISUALIZE == 1 && addBundleVisualizer(),
         adjustWorkbox((wb) =>
