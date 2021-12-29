@@ -1,5 +1,7 @@
-import ReactDOM from 'react-dom';
-// import 'core-js';
+import 'core-js/stable';
+import 'whatwg-fetch';
+import 'abortcontroller-polyfill';
+import { render } from 'react-dom';
 import '@/index.less';
 import App from '@/App';
 import { Provider } from 'react-redux';
@@ -7,8 +9,8 @@ import { store } from '@/models/store';
 import setHtmlFontSize from '@/utils/setHtmlFontSize';
 import { VIEW_TO_REM_INFO } from './config/config';
 import LocaleConfigProvider from './LocaleConfigProvider';
-setHtmlFontSize(VIEW_TO_REM_INFO); // 初始化得时候设置一下字体大小
-ReactDOM.render(
+setHtmlFontSize(VIEW_TO_REM_INFO);
+render(
     <Provider store={store}>
         <LocaleConfigProvider>
             <App />

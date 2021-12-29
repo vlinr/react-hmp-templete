@@ -16,7 +16,7 @@ const {
     addWebpackResolve,
     // useEslintRc,
     addPostcssPlugins,
-    addBabelPreset,
+    // addBabelPreset,
     // addTslintLoader
     // addBundleVisualizer
 } = require('customize-cra');
@@ -186,7 +186,6 @@ module.exports = {
             // localIdentName: '[local]--[hash:base64:5]', // 自定义 CSS Modules 的 localIdentName
         }),
         addPostcssPlugins([require('postcss-px2rem')({ remUnit: 14 })]), //rem适配
-
         // addPostcssPlugins([require("postcss-px-to-viewport")({ viewportWidth: 375 })]), //vw适配
         setWebpackPublicPath(require('./package.json').homepage || ''), // 修改 publicPath
         addWebpackExternals({
@@ -231,9 +230,6 @@ module.exports = {
         // hotLoader(), //需要安装和修改index.js
         // 配置babel解析器
         addBabelPlugins(['@babel/plugin-proposal-decorators', { legacy: true }]),
-        // addBabelPlugins(['@babel/plugin-proposal-nullish-coalescing-operator']),
-        // addBabelPlugins(['@babel/plugin-proposal-class-properties', { loose: true }]),
-        // addBabelPlugins(['@babel/plugin-proposal-optional-chaining']),
         // 打包编译完成提醒
         addWebpackPlugin(
             // 进度条,写在最前面，后main无效
@@ -266,21 +262,7 @@ module.exports = {
         // addWebpackPlugin(new CompressionWebpackPlugin()),
         // addWebpackPlugin(addMiniCssExtractPlugin()),
         rewireUglifyjs,
-        addBabelPreset([
-            '@babel/preset-env',
-            {
-                targets: {
-                    ie: 9,
-                },
-                useBuiltIns: 'entry',
-                loose: true,
-                corejs: {
-                    version: '3.20.1',
-                    proposals: true,
-                },
-            },
-        ]),
-        useBabelRc(),
+        // useBabelRc(),
         // add webpack bundle visualizer if BUNDLE_VISUALIZE flag is enabled
         process.env.BUNDLE_VISUALIZE == 1 && addBundleVisualizer(),
         adjustWorkbox((wb) =>

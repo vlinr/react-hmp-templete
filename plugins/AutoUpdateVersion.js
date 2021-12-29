@@ -19,15 +19,32 @@ class AutoUpdateVersion {
 
         const packageJson = require(this.options);
 
-        packageJson.version = this.computedVersion(packageJson.version);
+        const envVersion = `${this.getEnvParams()}Version`;
+
+        packageJson[envVersion] = this.computedVersion(packageJson?.[envVersion]);
 
         this.writeFile(JSON.stringify(packageJson));
 
         this.formatFile();
         
-        return this.echo(packageJson.version);
+        return this.echo(packageJson?.[envVersion]);
     }
 
+    /**
+    * 
+    * @method 获取启动参数
+    * 
+    * **/
+    getEnvParams() {
+        const argv = process.argv.splice(2);
+        for (let i = 0; i < argv.length; ++i) {
+            const item = argv[i];
+            if (new RegExp('env=').test(item)) {
+                return item.slice(4);
+            }
+        }
+        return 'default';
+    }
     /**
      * 
      * @method 计算版本号

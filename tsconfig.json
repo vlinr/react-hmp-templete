@@ -2,7 +2,7 @@
   "extends": "./tsconfig.paths.json",
   "compilerOptions": {
     "outDir": "./dist/",
-    "sourceMap": true,
+    "sourceMap": false,
     "noImplicitAny": true,
     "module": "esnext",
     "target": "es5",
@@ -27,6 +27,11 @@
     "noFallthroughCasesInSwitch": true
   },
   "include": [
-    "./src/"
+    "src/**/*"
+  ],
+  "exclude": [
+    "node_modules",
+    ".git",
+    ".husky"
   ]
 }

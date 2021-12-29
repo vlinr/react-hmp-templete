@@ -54,6 +54,7 @@ function Index(): ReactElement<any> {
         // other code
         startTimer?.(time, (num: number) => {
             setTime(num);
+
             // if (num % 5 === 0) {
             //   //取5等于0的时候暂停5秒继续执行次
             //   pauseTimer();

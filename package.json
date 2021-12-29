@@ -1,6 +1,9 @@
 {
     "name": "react-hmp-template",
-    "version": "1.0.39",
+    "version": "1.0.82",
+    "defaultVersion": "1.0.0",
+    "testVersion": "1.0.0",
+    "releaseVersion": "1.0.0",
     "private": true,
     "author": "",
     "description": "",
@@ -34,9 +37,12 @@
     },
     "browserslist": {
         "production": [
-            "> 0.2%",
-            "not dead",
-            "not op_mini all"
+            "edge >= 16",
+            "safari >= 9",
+            "firefox >= 50",
+            "ie >= 10",
+            "ios >= 9",
+            "chrome >= 49"
         ],
         "development": [
             "last 1 chrome version",
@@ -58,6 +64,7 @@
         "@types/react-loadable": "^5.5.6",
         "@types/react-redux": "^7.1.20",
         "@types/react-router-dom": "^5.3.2",
+        "abortcontroller-polyfill": "^1.7.3",
         "antd": "^4.17.3",
         "awesome-typescript-loader": "^5.2.1",
         "bizcharts": "^4.1.15",
@@ -67,7 +74,6 @@
         "chalk": "4.x",
         "color-picker": "^0.0.1",
         "compression-webpack-plugin": "^9.2.0",
-        "core-js": "^3.20.1",
         "draft-js-prism": "^1.0.6",
         "draftjs-utils": "^0.10.2",
         "lodash-es": "^4.17.21",
@@ -89,7 +95,8 @@
         "redux-devtools-extension": "^2.13.9",
         "reselect": "^4.1.5",
         "typescript": "4.4.4",
-        "use-error-boundary": "^2.0.6"
+        "use-error-boundary": "^2.0.6",
+        "whatwg-fetch": "^3.6.2"
     },
     "devDependencies": {
         "@commitlint/cli": "^15.0.0",

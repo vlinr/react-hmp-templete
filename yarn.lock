@@ -3077,6 +3077,11 @@ abbrev@~1.0.4:
   resolved "http://10.0.10.202:4873/abbrev/-/abbrev-1.0.9.tgz#91b4792588a7738c25f35dd6f63752a2f8776135"
   integrity sha1-kbR5JYinc4wl813W9jdSovh3YTU=
 
+abortcontroller-polyfill@^1.7.3:
+  version "1.7.3"
+  resolved "http://10.0.10.202:4873/abortcontroller-polyfill/-/abortcontroller-polyfill-1.7.3.tgz#1b5b487bd6436b5b764fd52a612509702c3144b5"
+  integrity sha1-G1tIe9ZDa1t2T9UqYSUJcCwxRLU=
+
 accepts@~1.3.4, accepts@~1.3.5, accepts@~1.3.7:
   version "1.3.7"
   resolved "http://10.0.10.202:4873/accepts/-/accepts-1.3.7.tgz#531bc726517a3b2b41f850021c6cc15eaab507cd"
@@ -5533,7 +5538,7 @@ core-js@^2.4.0:
   resolved "http://10.0.10.202:4873/core-js/-/core-js-2.6.12.tgz#d9333dfa7b065e347cc5682219d6f690859cc2ec"
   integrity sha1-2TM9+nsGXjR8xWgiGdb2kIWcwuw=
 
-core-js@^3.20.1, core-js@^3.6.5:
+core-js@^3.6.5:
   version "3.20.1"
   resolved "http://10.0.10.202:4873/core-js/-/core-js-3.20.1.tgz#eb1598047b7813572f1dc24b7c6a95528c99eef3"
   integrity sha512-btdpStYFQScnNVQ5slVcr858KP0YWYjV16eGJQw8Gg7CWtu/2qNvIM3qVRIR3n1pK2R9NNOrTevbvAYxajwEjg==
@@ -16978,7 +16983,7 @@ whatwg-encoding@^1.0.5:
   dependencies:
     iconv-lite "0.4.24"
 
-whatwg-fetch@>=0.10.0, whatwg-fetch@^3.4.1:
+whatwg-fetch@>=0.10.0, whatwg-fetch@^3.4.1, whatwg-fetch@^3.6.2:
   version "3.6.2"
   resolved "http://10.0.10.202:4873/whatwg-fetch/-/whatwg-fetch-3.6.2.tgz#dced24f37f2624ed0281725d51d0e2e3fe677f8c"
   integrity sha1-3O0k838mJO0CgXJdUdDi4/5nf4w=

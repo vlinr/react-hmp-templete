@@ -2,7 +2,7 @@ import HEADERS from '@/config/header.config';
 import { DOMAIN } from '@/config/api.config';
 import checkHaveNetwork from '@/utils/checkHaveNetwork';
 import qs from 'qs';
-
+const AbortController = window.AbortController;
 export type RequestParams = {
     url?: string; // 请求的前缀，也就是域名，如果使用通用域名则可以不传
     api: string; // 请求的api
@@ -403,7 +403,7 @@ class Request {
                             errMsg: res?.statusText,
                         };
                     })
-                    .then(async (response) => {
+                    .then((response) => {
                         resolve(response);
                     })
                     .catch((error) => {
