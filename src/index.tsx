@@ -1,6 +1,11 @@
+// ie
 import 'core-js/stable';
 import 'whatwg-fetch';
 import 'abortcontroller-polyfill';
+// ie 10
+import 'intl';
+import 'intl/locale-data/jsonp/en';
+
 import { render } from 'react-dom';
 import '@/index.less';
 import App from '@/App';

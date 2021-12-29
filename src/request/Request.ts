@@ -1,7 +1,8 @@
 import HEADERS from '@/config/header.config';
 import { DOMAIN } from '@/config/api.config';
 import checkHaveNetwork from '@/utils/checkHaveNetwork';
-import qs from 'qs';
+import serializeParams from '@/utils/serializeParams';
+// import qs from 'qs';
 const AbortController = window.AbortController;
 export type RequestParams = {
     url?: string; // 请求的前缀，也就是域名，如果使用通用域名则可以不传
@@ -155,16 +156,16 @@ class Request {
      * @method 匹配路径传惨
      *
      * ****/
-    private replacePath(path: string, params: any): ReplaceInfoType {
-        if (typeof params === 'object') {
+    private replacePath(path: string, ...params: any): ReplaceInfoType {
+        if (params?.length === 1 && typeof params[0] === 'object') {
             const newParams: { [key: string]: any } = {};
-            for (const key in params) {
+            for (const key in params[0]) {
                 const newPath: string = path.replace(
                     new RegExp('\\{' + key + '\\}', 'g'),
-                    params[key],
+                    params[0][key],
                 );
                 if (newPath === path) {
-                    newParams[key] = params[key];
+                    newParams[key] = params[0][key];
                 } else {
                     path = newPath;
                 }
@@ -173,15 +174,17 @@ class Request {
                 api: path,
                 params: newParams,
             };
+        } else if (params?.length === 1 && params?.[0] === undefined) {
+            return {
+                api: path,
+                params: {},
+            };
         } else {
             const newParams: any[] = [];
-            for (let i = 0; i < arguments.length; i++) {
-                const newPath: string = path.replace(
-                    new RegExp('\\{' + i + '\\}', 'g'),
-                    arguments[i],
-                );
+            for (let i = 0; i < params.length; i++) {
+                const newPath: string = path.replace(new RegExp('\\{' + i + '\\}', 'g'), params[i]);
                 if (newPath === path) {
-                    newParams.push(arguments[i]);
+                    newParams.push(params[i]);
                 } else {
                     path = newPath;
                 }
@@ -304,12 +307,12 @@ class Request {
     public fetch(): Promise<any> {
         if (!checkHaveNetwork()) return this.checkHaveNetwork();
         if (this.requestParams.method?.toLocaleLowerCase() === 'get') {
+            let data: string = serializeParams(this.requestParams.data);
+            data = data ? '?' + data : '';
             return this.fetchData(
                 this.requestParams.requestType !== ''
-                    ? `${this.requestParams.api}?${qs.stringify(this.requestParams.data)}`
-                    : `${this.requestParams.url}${this.requestParams.api}?${qs.stringify(
-                          this.requestParams.data,
-                      )}`,
+                    ? `${this.requestParams.api}${data}`
+                    : `${this.requestParams.url}${this.requestParams.api}${data}`,
                 this.getFetchParams(),
             );
         }
