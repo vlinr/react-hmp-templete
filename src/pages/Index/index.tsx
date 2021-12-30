@@ -19,6 +19,7 @@ function Index(): ReactElement<any> {
     const dispatch = useSend();
     const data = useContent('index/info'); // 数据仓库
     const locale = useContent('locale/language'); // 数据仓库
+
     const { startTimer, cancelTimer } = useCustomTimer(false, 99999);
     const [time, setTime] = useState(0);
     const { ErrorBoundary } = useErrorBoundary();

@@ -28,14 +28,18 @@ const index = createModel<any>()({
         // 获取奖品列表
         async getInfo(payload: IAction) {
             this.setInfo('Redux_Tips');
-            const response = await testServer();
-            if (response.code === REQUEST_SUCCESS) {
-                this.setInfo(response.data);
-                response.toJSON();
-            } else {
-                message.error(response.tipmsg);
+            try {
+                const response = await testServer();
+                if (response?.code === REQUEST_SUCCESS) {
+                    this.setInfo(response.data);
+                    response.toJSON();
+                } else {
+                    message.error(response?.message);
+                }
+                payload?.callback?.(response);
+            } catch (err) {
+                message.error((err as any)?.message);
             }
-            payload?.callback?.(response);
         },
     }),
 });

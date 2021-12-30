@@ -386,29 +386,42 @@ class Request {
             try {
                 const timeout: number = this.requestTimeout(resolve);
                 fetch(api, { ...params, signal: this.controller.signal })
-                    .then((res) => {
-                        clearTimeout(timeout);
-                        if (this.requestParams.requestType !== '') {
+                    .then(
+                        (res) => {
+                            clearTimeout(timeout);
+                            if (this.requestParams.requestType !== '') {
+                                return {
+                                    code: res?.status?.toString(),
+                                    data: [],
+                                    message: '',
+                                };
+                            }
+                            if (res.ok) {
+                                if (this.requestParams.responseType === 'text')
+                                    return res?.text?.();
+                                else if (this.requestParams.responseType === 'blob')
+                                    return res?.blob?.();
+                                return res?.json?.();
+                            }
                             return {
-                                errno: res?.status?.toString(),
-                                data: [],
-                                errMsg: '',
+                                code: res?.status?.toString(),
+                                message: res?.statusText,
                             };
-                        }
-                        if (res.ok) {
-                            if (this.requestParams.responseType === 'text') return res?.text?.();
-                            else if (this.requestParams.responseType === 'blob')
-                                return res?.blob?.();
-                            return res?.json?.();
-                        }
-                        return {
-                            errno: res?.status?.toString(),
-                            errMsg: res?.statusText,
-                        };
-                    })
-                    .then((response) => {
-                        resolve(response);
-                    })
+                        },
+                        (error) => {
+                            clearTimeout(timeout);
+                            reject(error);
+                        },
+                    )
+                    .then(
+                        (response) => {
+                            resolve(response);
+                        },
+                        (error) => {
+                            clearTimeout(timeout);
+                            reject(error);
+                        },
+                    )
                     .catch((error) => {
                         clearTimeout(timeout);
                         reject(error);
