@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.0.88](https://github.com/vlinr/react-hmp-templete/compare/v1.0.87...v1.0.88) (2021-12-30)
+
+
+
 ## [1.0.87](https://github.com/vlinr/react-hmp-templete/compare/v1.0.86...v1.0.87) (2021-12-29)
 
 
