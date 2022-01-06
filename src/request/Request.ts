@@ -333,7 +333,7 @@ class Request {
             const result: any = {
                 code: '-99999999',
                 data: [],
-                tipmsg: 'network error！',
+                message: 'Network error！',
             };
             resolve(result);
         });
@@ -451,7 +451,7 @@ class Request {
             callback({
                 code: '504',
                 data: '',
-                tipmsg: 'fetch timeout',
+                message: 'Fetch timeout',
             });
             this.cancelRequest();
         }, this.requestParams.timeout);

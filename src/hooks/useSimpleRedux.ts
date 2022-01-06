@@ -23,3 +23,28 @@ export const useSend = (): ((type: string, params: any) => any) => {
         return dispatch?.[n?.[0]]?.[n?.[1]]?.(params);
     };
 };
+
+export type StoreLoadingType = {
+    type?: 'effects' | 'models';
+    action?: string;
+    global?: boolean;
+};
+
+export const useLoading = ({
+    type = 'effects',
+    action,
+    global = false,
+}: StoreLoadingType): boolean =>
+    useSelector((state: RootState) => {
+        if (global) return state.loading.global;
+        if (!global && !action) throw new Error('global is false,action is not empty');
+        if (type === 'effects') {
+            const arr: string[] | undefined = action?.split('/');
+            if (!arr || arr?.length < 2)
+                throw new Error('Type format is incorrect,must be `store/effect`');
+            return state.loading?.['effects']?.[arr[0]]?.[arr[1]];
+        } else {
+            if (!action) throw new Error('Place input store name');
+            return state.loading?.['models']?.[action];
+        }
+    });

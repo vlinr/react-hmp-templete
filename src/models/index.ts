@@ -2,6 +2,7 @@ import { createModel } from '@rematch/core';
 import { message } from 'antd';
 import { REQUEST_SUCCESS } from '@/config/config';
 import { testServer } from '@/service';
+import sleep from '@/utils/sleep';
 export interface StateType {
     info: string | null;
 }
@@ -27,6 +28,7 @@ const index = createModel<any>()({
     effects: () => ({
         // 获取奖品列表
         async getInfo(payload: IAction) {
+            await sleep(3000);
             this.setInfo('Redux_Tips');
             try {
                 const response = await testServer();

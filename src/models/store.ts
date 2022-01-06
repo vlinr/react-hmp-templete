@@ -1,13 +1,14 @@
 import { init, RematchDispatch, RematchRootState } from '@rematch/core';
 import { models, RootModel } from './models';
 import { composeWithDevTools } from 'redux-devtools-extension';
-// import createLoadingPlugin from '@rematch/loading';
 import updatedPlugin from '@rematch/updated';
-const updated = updatedPlugin();
-// const loading = createLoadingPlugin({ asNumber:false });
-export const store = init({
+import loadingPlugin, { ExtraModelsFromLoading } from '@rematch/loading';
+
+type FullModel = ExtraModelsFromLoading<RootModel>;
+
+export const store = init<RootModel, FullModel>({
     models,
-    plugins: [updated],
+    plugins: [loadingPlugin({ type: 'boolean' }), updatedPlugin()],
     redux: {
         devtoolOptions: composeWithDevTools,
     },
@@ -15,4 +16,4 @@ export const store = init({
 // 导出类型
 export type Store = typeof store;
 export type Dispatch = RematchDispatch<RootModel>;
-export type RootState = RematchRootState<RootModel>;
+export type RootState = RematchRootState<RootModel, FullModel>;

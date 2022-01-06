@@ -183,6 +183,8 @@ module.exports = {
                 modifyVars: { ...theme },
                 modules: true,
             },
+            sourceMap: false,
+            prependData: `@import "${path.resolve('./src/less/variable.less')}";`,
             // localIdentName: '[local]--[hash:base64:5]', // 自定义 CSS Modules 的 localIdentName
         }),
         addPostcssPlugins([require('postcss-px2rem')({ remUnit: 14 })]), //rem适配

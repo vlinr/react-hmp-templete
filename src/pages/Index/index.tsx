@@ -7,7 +7,7 @@ import useErrorBoundary from 'use-error-boundary';
 import toast from '@/utils/toast';
 import formatDate from '@/utils/formatDate';
 import useLocale from '@/hooks/useLocale';
-import { useSend, useContent } from '@/hooks/useSimpleRedux';
+import { useSend, useContent, useLoading } from '@/hooks/useSimpleRedux';
 
 const token: string | null = getUrlParams('token'); // 获取url中的token
 /**
@@ -24,6 +24,7 @@ function Index(): ReactElement<any> {
     const [time, setTime] = useState(0);
     const { ErrorBoundary } = useErrorBoundary();
 
+    const loading = useLoading({ action: 'index/getInfo' });
     // 初始化数据
     useEffect(() => {
         dispatch('index/getInfo', {
@@ -69,6 +70,7 @@ function Index(): ReactElement<any> {
 
     return (
         <div className={`${styles.box}`}>
+            <div style={{ color: '#fff', marginRight: 10 }}>{`request:${loading}`}</div>
             <div
                 onClick={() => dispatch('locale/setLocale', locale + '' === 'en' ? 'zh' : 'en')}
                 style={{ cursor: 'pointer', color: '#fff' }}>
