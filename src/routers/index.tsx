@@ -1,11 +1,11 @@
 import { BrowserRouter as Router, Switch, Redirect, Route } from 'react-router-dom';
 // 路由配置文件
-import ROUTER_CONFIG, { RouteItemType } from '@/config/router.config';
+import ROUTER_CONFIG, { RouteItemType } from '../config/router.config';
 import React from 'react';
 // 重写路由，对布局进行更改
 import AuthRouter from './router';
-import { USER_AUTHORITY } from '@/config/config';
-import { routerFlattenAndChangeInfo } from '@/utils/routerToFlatten';
+import { USER_AUTHORITY } from '../config/config';
+import { routerFlattenAndChangeInfo } from '.';
 
 import { homepage } from '../../package.json';
 

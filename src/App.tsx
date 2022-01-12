@@ -1,6 +1,6 @@
 import '@/App.less';
 // import "braft-editor/dist/index.css";
-import AppRouter from '@/routers/index';
+import AppRouter from '@/routers/index.tsx';
 
 const App = () => {
     return AppRouter;

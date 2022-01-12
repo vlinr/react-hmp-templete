@@ -70,7 +70,7 @@ function BlankLayout(props: RouteItemType): ReactElement<RouteItemType> {
                                         icon={<UserOutlined />}
                                         src={userInfo?.headUrl || <UserOutlined />}
                                     />
-                                    <b>{userInfo?.name}</b>
+                                    <b>{userInfo?.username}</b>
                                     <DownOutlined
                                         style={{
                                             fontSize: 15,

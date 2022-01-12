@@ -1,4 +1,4 @@
-import { routerFlatten } from '@/utils/routerToFlatten';
+import { routerFlatten } from '@/routers';
 import ROUTER_CONFIG, { RouteItemType } from '@/config/router.config';
 
 interface FilesType {
